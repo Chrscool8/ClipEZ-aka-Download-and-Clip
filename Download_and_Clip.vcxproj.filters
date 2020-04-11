@@ -47,4 +47,12 @@
       <Filter>Resource Files</Filter>
     </QtRcc>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="C:\Users\Chrsc\Downloads\64878472.374999955_gleam cover.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>
