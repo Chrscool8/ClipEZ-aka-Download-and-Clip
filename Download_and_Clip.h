@@ -16,6 +16,8 @@ public:
 	int download_file(std::string _url, std::string _file);
 	void check_for_ytdl();
 	void check_for_ffmpeg();
+	void prep_files(std::string directory);
+	void WildDeleteFiles(const std::string& direcc);
 	void download_ffmpeg();
 
 private slots:
@@ -23,7 +25,7 @@ private slots:
 	void run_ytdl();
 	void processStarted_ytdl();
 	void readyReadStandardOutput_ytdl();
-	void encodingFinished_ytdl();
+	void downloadFinished_ytdl();
 
 	void run_ffmpeg();
 	void processStarted_ffmpeg();
@@ -31,6 +33,8 @@ private slots:
 	void encodingFinished_ffmpeg();
 
 	void darkmode_toggle(bool state);
+
+	void clear_download(bool state);
 
 private:
 	Ui::Download_and_ClipClass ui;

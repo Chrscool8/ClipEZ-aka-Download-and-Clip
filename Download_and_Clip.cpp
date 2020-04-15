@@ -4,8 +4,19 @@
 #include <fstream>
 #include "zlib.h"
 
-std::string status = "";
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <direct.h>
 
+#include <atlbase.h>
+#include <atlconv.h>
+#include <iostream>
+
+#include <filesystem>  
+namespace fs = std::filesystem;
+fs::path working_dir("working_directory");
+
+std::string status = "";
 void Download_and_Clip::update_status(std::string str)
 {
 	status += str;
@@ -19,12 +30,6 @@ static size_t write_data(void* ptr, size_t size, size_t nmemb, void* stream)
 	size_t written = fwrite(ptr, size, nmemb, (FILE*)stream);
 	return written;
 
-}
-
-bool Download_and_Clip::is_file_exist(const char* fileName)
-{
-	std::ifstream infile(fileName);
-	return infile.good();
 }
 
 int Download_and_Clip::download_file(std::string _url, std::string _file) {
@@ -42,7 +47,8 @@ int Download_and_Clip::download_file(std::string _url, std::string _file) {
 		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1);
 		update_status("Started downloading from: ");
 		update_status(_url);
-		CURLcode res = curl_easy_perform(curl);
+		//CURLcode res = 
+		curl_easy_perform(curl);
 		update_status("Done.");
 		curl_easy_cleanup(curl);
 		fclose(fp);
@@ -52,7 +58,7 @@ int Download_and_Clip::download_file(std::string _url, std::string _file) {
 
 void Download_and_Clip::check_for_ytdl()
 {
-	if (is_file_exist("youtube-dl.exe"))
+	if (fs::exists(fs::path("youtube-dl.exe")))
 	{
 		update_status("youtube-dl.exe found.");
 		ui.textedit_videoid->setEnabled(true);
@@ -72,7 +78,7 @@ void Download_and_Clip::check_for_ytdl()
 
 void Download_and_Clip::check_for_ffmpeg()
 {
-	if (is_file_exist("ffmpeg.exe"))
+	if (fs::exists(fs::path("ffmpeg.exe")))
 	{
 		update_status("ffmpeg.exe found.");
 		ui.button_downloadffmpeg->setEnabled(false);
@@ -101,38 +107,6 @@ void Download_and_Clip::check_for_ffmpeg()
 QProcess* process_ytdl;
 QProcess* process_ffmpeg;
 
-Download_and_Clip::Download_and_Clip(QWidget* parent) :QMainWindow(parent)
-{
-	ui.setupUi(this);
-
-	connect(ui.button_downloadytdl, SIGNAL(clicked()), this, SLOT(download_ytdl()));
-	connect(ui.button_downloadffmpeg, SIGNAL(clicked()), this, SLOT(download_ffmpeg()));
-	connect(ui.button_download, SIGNAL(clicked()), this, SLOT(run_ytdl()));
-	connect(ui.button_clip, SIGNAL(clicked()), this, SLOT(run_ffmpeg()));
-
-	connect(ui.slider_quality, SIGNAL(valueChanged(int)), ui.spinbox_quality, SLOT(setValue(int)));
-	connect(ui.spinbox_quality, SIGNAL(valueChanged(int)), ui.slider_quality, SLOT(setValue(int)));
-
-	connect(ui.checkbox_dark, SIGNAL(clicked(bool)), this, SLOT(darkmode_toggle(bool)));
-
-	check_for_ytdl();
-
-
-	process_ytdl = new QProcess(this);
-	process_ffmpeg = new QProcess(this);
-
-	connect(process_ytdl, SIGNAL(started()), this, SLOT(processStarted_ytdl()));
-	connect(process_ytdl, SIGNAL(readyReadStandardOutput()), this, SLOT(readyReadStandardOutput_ytdl()));
-	connect(process_ytdl, SIGNAL(finished(int)), this, SLOT(encodingFinished_ytdl()));
-
-	connect(process_ffmpeg, SIGNAL(started()), this, SLOT(processStarted_ffmpeg()));
-	connect(process_ffmpeg, SIGNAL(readyReadStandardOutput()), this, SLOT(readyReadStandardOutput_ffmpeg()));
-	connect(process_ffmpeg, SIGNAL(finished(int)), this, SLOT(encodingFinished_ffmpeg()));
-
-	//connect(mTranscodingProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),[=](int exitCode, QProcess::ExitStatus exitStatus) {		update_status("finished or fucking whatever"); });
-
-}
-
 void Download_and_Clip::download_ytdl()
 {
 	ui.button_downloadytdl->setEnabled(false);
@@ -150,9 +124,9 @@ void Download_and_Clip::download_ffmpeg()
 void Download_and_Clip::run_ytdl()
 {
 	update_status("Run YT-DL");
-	remove("downloaded_video.mkv");
+	remove("downloaded_video.*");
 	std::string program = "youtube-dl.exe";
-	QStringList args = { ui.textedit_videoid->toPlainText(), "-o", "downloaded_video" };
+	QStringList args = { ui.textedit_videoid->toPlainText(), "-o", "working_directory/downloaded_video", "--write-thumbnail", "-f", "bestvideo+bestaudio/best" };
 	//mTranscodingProcess = new QProcess;
 	process_ytdl->setProgram(program.c_str());
 	process_ytdl->setStandardErrorFile("stderr.txt");
@@ -176,10 +150,14 @@ void Download_and_Clip::readyReadStandardOutput_ytdl()
 {
 	update_status("Output.");
 }
-void Download_and_Clip::encodingFinished_ytdl()
+
+void Download_and_Clip::downloadFinished_ytdl()
 {
 	update_status("Done.");
 	ui.button_download->setEnabled(true);
+
+	QPixmap image("working_directory/downloaded_video.jpg");
+	ui.label_thumb->setPixmap(image);
 
 	check_for_ffmpeg();
 }
@@ -491,10 +469,58 @@ void Download_and_Clip::darkmode_toggle(bool state)
 			"			QMenu::separator{"
 			"				background: #353535;"
 			"		}";
-			QString qs = QString::fromStdString(ss);
+		QString qs = QString::fromStdString(ss);
 		this->setStyleSheet(qs);
-		
+
 	}
 	else
 		this->setStyleSheet("");
+}
+
+void Download_and_Clip::clear_download(bool state)
+{
+	fs::remove_all(working_dir);
+}
+
+//Init
+Download_and_Clip::Download_and_Clip(QWidget* parent) :QMainWindow(parent)
+{
+	ui.setupUi(this);
+
+	connect(ui.button_downloadytdl, SIGNAL(clicked()), this, SLOT(download_ytdl()));
+	connect(ui.button_downloadffmpeg, SIGNAL(clicked()), this, SLOT(download_ffmpeg()));
+	connect(ui.button_download, SIGNAL(clicked()), this, SLOT(run_ytdl()));
+	connect(ui.button_clip, SIGNAL(clicked()), this, SLOT(run_ffmpeg()));
+
+	connect(ui.slider_quality, SIGNAL(valueChanged(int)), ui.spinbox_quality, SLOT(setValue(int)));
+	connect(ui.spinbox_quality, SIGNAL(valueChanged(int)), ui.slider_quality, SLOT(setValue(int)));
+
+	connect(ui.checkbox_dark, SIGNAL(clicked(bool)), this, SLOT(darkmode_toggle(bool)));
+
+	check_for_ytdl();
+
+	process_ytdl = new QProcess(this);
+	process_ffmpeg = new QProcess(this);
+
+	connect(process_ytdl, SIGNAL(started()), this, SLOT(processStarted_ytdl()));
+	connect(process_ytdl, SIGNAL(readyReadStandardOutput()), this, SLOT(readyReadStandardOutput_ytdl()));
+	connect(process_ytdl, SIGNAL(finished(int)), this, SLOT(downloadFinished_ytdl()));
+
+	connect(process_ffmpeg, SIGNAL(started()), this, SLOT(processStarted_ffmpeg()));
+	connect(process_ffmpeg, SIGNAL(readyReadStandardOutput()), this, SLOT(readyReadStandardOutput_ffmpeg()));
+	connect(process_ffmpeg, SIGNAL(finished(int)), this, SLOT(encodingFinished_ffmpeg()));
+
+	connect(ui.button_cleardownload, SIGNAL(clicked()), this, SLOT(clear_download()));
+
+	
+
+	if (!(fs::exists(working_dir)))
+	{
+		fs::create_directory(working_dir);
+	}
+
+	ui.label_thumb->setText("");
+
+
+
 }

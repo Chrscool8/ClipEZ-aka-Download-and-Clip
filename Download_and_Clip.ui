@@ -67,14 +67,49 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>180</x>
-       <y>290</y>
+       <x>190</x>
+       <y>270</y>
        <width>111</width>
        <height>23</height>
       </rect>
      </property>
      <property name="text">
       <string>Download</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="button_cleardownload">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>300</y>
+       <width>111</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Clear Downloaded</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_thumb">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>110</y>
+       <width>251</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </widget>
@@ -406,6 +441,19 @@ p, li { white-space: pre-wrap; }
     </property>
     <property name="text">
      <string>Dark Mode</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button_showfolder">
+    <property name="geometry">
+     <rect>
+      <x>954</x>
+      <y>610</y>
+      <width>81</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Show Folder</string>
     </property>
    </widget>
   </widget>
