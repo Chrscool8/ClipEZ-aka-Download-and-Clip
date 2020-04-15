@@ -12,13 +12,13 @@ class Download_and_Clip : public QMainWindow
 public:
 	Download_and_Clip(QWidget* parent = Q_NULLPTR);
 	void update_status(std::string str);
-	bool is_file_exist(const char* fileName);
 	int download_file(std::string _url, std::string _file);
 	void check_for_ytdl();
 	void check_for_ffmpeg();
-	void prep_files(std::string directory);
-	void WildDeleteFiles(const std::string& direcc);
 	void download_ffmpeg();
+	void darkmode(bool on);
+
+	
 
 private slots:
 	void download_ytdl();
@@ -34,7 +34,9 @@ private slots:
 
 	void darkmode_toggle(bool state);
 
-	void clear_download(bool state);
+	void clear_download();
+	void typing_clip_name();
+	
 
 private:
 	Ui::Download_and_ClipClass ui;
