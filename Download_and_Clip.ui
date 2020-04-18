@@ -2,28 +2,135 @@
 <ui version="4.0">
  <class>Download_and_ClipClass</class>
  <widget class="QMainWindow" name="Download_and_ClipClass">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1068</width>
-    <height>677</height>
+    <width>1071</width>
+    <height>652</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Download and Clip</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget
+{
+	background-color: rgba(40, 40, 40, 100%); 
+	color: rgb(200, 200, 200);
+	border: 1px solid rgb(70, 70, 70); 
+}
+
+QWidget:disabled
+{	
+	background-color: rgba(40, 40, 40, 25%); 
+	color: rgba(80, 80, 80, 50%);
+}
+
+QLabel, QGroupBox
+{
+	background-color: rgb(42,42,42);
+	color: rgb(180, 180, 180);
+}
+
+QLabel
+{
+border: 0px;
+}
+
+QGroupBox
+{
+	color: rgb(200, 200, 200);
+}
+
+QLabel:disabled, QGroupBox:disabled
+{
+color: rgb(180, 180, 180);
+}
+
+QTextEdit, QPlainTextEdit
+{
+	background-color:  rgb(59,59,59);
+}
+
+QTextEdit:disabled, QPlainTextEdit:disabled
+{
+	background-color:  rgba(59,59,59,25%);
+}
+
+QSlider::groove:horizontal:disabled 
+{ 
+	background-color: rgb(59,59,59);
+	border: 0px solid #424242; 
+	height: 10px; 
+	border-radius: 0px;
+}
+
+QSlider::handle:horizontal:disabled 
+{ 
+	background-color:  rgb(59,59,59); 
+	border: 2px solid  rgb(59,59,59); 
+	width: 16px; 
+	height: 20px; 
+	line-height: 20px; 
+	margin-top: -5px; 
+	margin-bottom: -5px; 
+	border-radius: 10px; 
+}
+
+QSlider::handle:horizontal:hover:disabled 
+{ 
+	border-radius: 6px;
+}
+
+QSlider::groove:horizontal 
+{ 
+	background-color: rgb(80, 80, 80);
+	border: 0px solid #424242; 
+	height: 10px; 
+	border-radius: 0px;
+}
+
+QSlider::handle:horizontal 
+{ 
+	background-color:  rgb(110, 110, 110);
+	border: 2px solid rgb(110, 110, 110);
+	width: 16px; 
+	height: 20px; 
+	line-height: 20px; 
+	margin-top: -5px; 
+	margin-bottom: -5px; 
+	border-radius: 10px; 
+}
+
+QSlider::handle:horizontal:hover 
+{ 
+	border-radius: 6px;
+}</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="enabled">
     <bool>true</bool>
    </property>
    <widget class="QGroupBox" name="groupBox">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>70</y>
-      <width>501</width>
-      <height>331</height>
+      <y>90</y>
+      <width>511</width>
+      <height>311</height>
      </rect>
     </property>
     <property name="title">
@@ -33,7 +140,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>30</y>
+       <y>20</y>
        <width>120</width>
        <height>16</height>
       </rect>
@@ -49,8 +156,8 @@
      <property name="geometry">
       <rect>
        <x>25</x>
-       <y>50</y>
-       <width>441</width>
+       <y>40</y>
+       <width>451</width>
        <height>31</height>
       </rect>
      </property>
@@ -67,8 +174,8 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>270</y>
+       <x>120</x>
+       <y>280</y>
        <width>111</width>
        <height>23</height>
       </rect>
@@ -83,8 +190,8 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>300</y>
+       <x>250</x>
+       <y>280</y>
        <width>111</width>
        <height>23</height>
       </rect>
@@ -96,10 +203,10 @@
     <widget class="QLabel" name="label_thumb">
      <property name="geometry">
       <rect>
-       <x>120</x>
-       <y>110</y>
-       <width>251</width>
-       <height>131</height>
+       <x>80</x>
+       <y>90</y>
+       <width>320</width>
+       <height>180</height>
       </rect>
      </property>
      <property name="text">
@@ -116,10 +223,10 @@
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>70</y>
-      <width>501</width>
-      <height>331</height>
+      <x>540</x>
+      <y>90</y>
+      <width>511</width>
+      <height>311</height>
      </rect>
     </property>
     <property name="title">
@@ -131,9 +238,9 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>210</x>
-       <y>290</y>
-       <width>75</width>
+       <x>160</x>
+       <y>280</y>
+       <width>81</width>
        <height>23</height>
       </rect>
      </property>
@@ -141,198 +248,217 @@
       <string>Clip</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_4">
+    <widget class="QGroupBox" name="groupBox_5">
      <property name="geometry">
       <rect>
-       <x>175</x>
-       <y>220</y>
-       <width>120</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Output Name</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_5">
-     <property name="geometry">
-      <rect>
-       <x>50</x>
+       <x>20</x>
        <y>30</y>
-       <width>120</width>
-       <height>16</height>
+       <width>461</width>
+       <height>91</height>
       </rect>
      </property>
-     <property name="text">
+     <property name="title">
       <string>Quality</string>
      </property>
+     <widget class="QSpinBox" name="spinbox_quality">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>30</y>
+        <width>42</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>64</number>
+      </property>
+      <property name="value">
+       <number>15</number>
+      </property>
+     </widget>
+     <widget class="QSlider" name="slider_quality">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>361</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::RightToLeft</enum>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>64</number>
+      </property>
+      <property name="value">
+       <number>15</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_quality_smallest">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Smallest</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>60</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Biggest</string>
+      </property>
+     </widget>
     </widget>
-    <widget class="QPlainTextEdit" name="textedit_outputname">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
+    <widget class="QGroupBox" name="groupBox_6">
      <property name="geometry">
       <rect>
-       <x>170</x>
-       <y>240</y>
-       <width>171</width>
-       <height>31</height>
+       <x>20</x>
+       <y>120</y>
+       <width>231</width>
+       <height>71</height>
       </rect>
      </property>
-     <property name="inputMethodHints">
-      <set>Qt::ImhNone</set>
-     </property>
-     <property name="placeholderText">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QSlider" name="slider_quality">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>40</x>
-       <y>50</y>
-       <width>361</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <property name="layoutDirection">
-      <enum>Qt::RightToLeft</enum>
-     </property>
-     <property name="minimum">
-      <number>1</number>
-     </property>
-     <property name="maximum">
-      <number>64</number>
-     </property>
-     <property name="value">
-      <number>15</number>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-    <widget class="QSpinBox" name="spinbox_quality">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>410</x>
-       <y>50</y>
-       <width>42</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <property name="minimum">
-      <number>1</number>
-     </property>
-     <property name="maximum">
-      <number>64</number>
-     </property>
-     <property name="value">
-      <number>15</number>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_6">
-     <property name="geometry">
-      <rect>
-       <x>50</x>
-       <y>80</y>
-       <width>47</width>
-       <height>13</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Smallest</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_7">
-     <property name="geometry">
-      <rect>
-       <x>370</x>
-       <y>80</y>
-       <width>47</width>
-       <height>13</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Biggest</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_3">
-     <property name="geometry">
-      <rect>
-       <x>300</x>
-       <y>130</y>
-       <width>120</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>End Time</string>
-     </property>
-    </widget>
-    <widget class="QPlainTextEdit" name="textedit_starttime">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>40</x>
-       <y>150</y>
-       <width>171</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="toolTip">
-      <string extracomment="00:00:00:00.0"/>
-     </property>
-     <property name="inputMethodHints">
-      <set>Qt::ImhNone</set>
-     </property>
-     <property name="lineWrapMode">
-      <enum>QPlainTextEdit::NoWrap</enum>
-     </property>
-     <property name="plainText">
-      <string extracomment="00:00:00:00.0"/>
-     </property>
-     <property name="placeholderText">
-      <string extracomment="00:00:00:00.0"/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_2">
-     <property name="geometry">
-      <rect>
-       <x>45</x>
-       <y>130</y>
-       <width>120</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
+     <property name="title">
       <string>Start Time</string>
      </property>
+     <widget class="QPlainTextEdit" name="textedit_starttime">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>201</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string extracomment="00:00:00:00.0"/>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhNone</set>
+      </property>
+      <property name="lineWrapMode">
+       <enum>QPlainTextEdit::NoWrap</enum>
+      </property>
+      <property name="plainText">
+       <string extracomment="00:00:00:00.0">00:00:00.0</string>
+      </property>
+      <property name="placeholderText">
+       <string extracomment="00:00:00:00.0"/>
+      </property>
+     </widget>
     </widget>
-    <widget class="QPlainTextEdit" name="textedit_endtime">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
+    <widget class="QGroupBox" name="groupBox_7">
      <property name="geometry">
       <rect>
-       <x>295</x>
-       <y>150</y>
-       <width>171</width>
-       <height>31</height>
+       <x>250</x>
+       <y>120</y>
+       <width>231</width>
+       <height>71</height>
       </rect>
      </property>
-     <property name="inputMethodHints">
-      <set>Qt::ImhNone</set>
+     <property name="title">
+      <string>End Time</string>
      </property>
-     <property name="placeholderText">
-      <string/>
+     <widget class="QPlainTextEdit" name="textedit_endtime">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>201</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhNone</set>
+      </property>
+      <property name="plainText">
+       <string>00:00:05.0</string>
+      </property>
+      <property name="placeholderText">
+       <string/>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_8">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>190</y>
+       <width>461</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Output Name</string>
+     </property>
+     <widget class="QPlainTextEdit" name="textedit_outputname">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>421</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhNone</set>
+      </property>
+      <property name="plainText">
+       <string>export_clip</string>
+      </property>
+      <property name="placeholderText">
+       <string/>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QPushButton" name="button_showfolder">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>280</y>
+       <width>81</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Show Folder</string>
      </property>
     </widget>
    </widget>
@@ -386,9 +512,9 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>10</y>
+      <y>20</y>
       <width>1031</width>
-      <height>51</height>
+      <height>61</height>
      </rect>
     </property>
     <property name="title">
@@ -433,7 +559,7 @@ p, li { white-space: pre-wrap; }
    <widget class="QCheckBox" name="checkbox_dark">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>980</x>
       <y>610</y>
       <width>70</width>
       <height>17</height>
@@ -442,30 +568,10 @@ p, li { white-space: pre-wrap; }
     <property name="text">
      <string>Dark Mode</string>
     </property>
-   </widget>
-   <widget class="QPushButton" name="button_showfolder">
-    <property name="geometry">
-     <rect>
-      <x>954</x>
-      <y>610</y>
-      <width>81</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Show Folder</string>
+    <property name="checked">
+     <bool>true</bool>
     </property>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1068</width>
-     <height>21</height>
-    </rect>
-   </property>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

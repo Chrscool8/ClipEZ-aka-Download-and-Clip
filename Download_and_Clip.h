@@ -36,6 +36,8 @@ private slots:
 
 	void clear_download();
 	void typing_clip_name();
+
+	void show_folder();
 	
 
 private:

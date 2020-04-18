@@ -1,0 +1,53 @@
+ffmpeg version git-2020-04-03-52523b6 Copyright (c) 2000-2020 the FFmpeg developers
+  built with gcc 9.3.1 (GCC) 20200328
+  configuration: --enable-gpl --enable-version3 --enable-sdl2 --enable-fontconfig --enable-gnutls --enable-iconv --enable-libass --enable-libdav1d --enable-libbluray --enable-libfreetype --enable-libmp3lame --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libopus --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libsrt --enable-libtheora --enable-libtwolame --enable-libvpx --enable-libwavpack --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libzimg --enable-lzma --enable-zlib --enable-gmp --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvo-amrwbenc --enable-libmysofa --enable-libspeex --enable-libxvid --enable-libaom --enable-libmfx --enable-ffnvcodec --enable-cuda-llvm --enable-cuvid --enable-d3d11va --enable-nvenc --enable-nvdec --enable-dxva2 --enable-avisynth --enable-libopenmpt --enable-amf
+  libavutil      56. 42.102 / 56. 42.102
+  libavcodec     58. 77.101 / 58. 77.101
+  libavformat    58. 42.100 / 58. 42.100
+  libavdevice    58.  9.103 / 58.  9.103
+  libavfilter     7. 77.101 /  7. 77.101
+  libswscale      5.  6.101 /  5.  6.101
+  libswresample   3.  6.100 /  3.  6.100
+  libpostproc    55.  6.100 / 55.  6.100
+Input #0, matroska,webm, from 'working_directory/downloaded_video.webm':
+  Metadata:
+    ENCODER         : Lavf58.42.100
+  Duration: 00:08:22.98, start: -0.007000, bitrate: 378 kb/s
+    Stream #0:0(eng): Video: vp9 (Profile 0), yuv420p(tv, bt709), 1280x720, SAR 1:1 DAR 16:9, 25 fps, 25 tbr, 1k tbn, 1k tbc (default)
+    Metadata:
+      DURATION        : 00:08:22.880000000
+    Stream #0:1(eng): Audio: opus, 48000 Hz, stereo, fltp (default)
+    Metadata:
+      DURATION        : 00:08:22.981000000
+Stream mapping:
+  Stream #0:0 -> #0:0 (vp9 (native) -> h264 (libx264))
+  Stream #0:1 -> #0:1 (opus (native) -> aac (native))
+Press [q] to stop, [?] for help
+[libx264 @ 0000014e207fc380] using SAR=1/1
+[libx264 @ 0000014e207fc380] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+[libx264 @ 0000014e207fc380] profile Constrained Baseline, level 3.1, 4:2:0, 8-bit
+[libx264 @ 0000014e207fc380] 264 - core 159 - H.264/MPEG-4 AVC codec - Copyleft 2003-2019 - http://www.videolan.org/x264.html - options: cabac=0 ref=1 deblock=0:0:0 analyse=0:0 me=dia subme=0 psy=1 psy_rd=1.00:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=0 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=22 lookahead_threads=3 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=0 weightp=0 keyint=250 keyint_min=25 scenecut=0 intra_refresh=0 rc=crf mbtree=0 crf=15.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=0
+Output #0, mp4, to 'working_directory/export_clipf.mp4':
+  Metadata:
+    encoder         : Lavf58.42.100
+    Stream #0:0(eng): Video: h264 (libx264) (avc1 / 0x31637661), yuv420p, 1280x720 [SAR 1:1 DAR 16:9], q=-1--1, 25 fps, 12800 tbn, 25 tbc (default)
+    Metadata:
+      DURATION        : 00:08:22.880000000
+      encoder         : Lavc58.77.101 libx264
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+    Stream #0:1(eng): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 192 kb/s (default)
+    Metadata:
+      DURATION        : 00:08:22.981000000
+      encoder         : Lavc58.77.101 aac
+frame=  125 fps=0.0 q=-1.0 Lsize=    1090kB time=00:00:05.02 bitrate=1778.6kbits/s speed=  28x    
+video:966kB audio:120kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.377179%
+[libx264 @ 0000014e207fc380] frame I:1     Avg QP:12.00  size:188464
+[libx264 @ 0000014e207fc380] frame P:124   Avg QP: 4.52  size:  6453
+[libx264 @ 0000014e207fc380] mb I  I16..4: 100.0%  0.0%  0.0%
+[libx264 @ 0000014e207fc380] mb P  I16..4:  0.1%  0.0%  0.0%  P16..4: 22.8%  0.0%  0.0%  0.0%  0.0%    skip:77.1%
+[libx264 @ 0000014e207fc380] coded y,uvDC,uvAC intra: 36.1% 45.1% 42.7% inter: 8.7% 1.7% 1.7%
+[libx264 @ 0000014e207fc380] i16 v,h,dc,p: 73% 12%  8%  7%
+[libx264 @ 0000014e207fc380] i8c dc,h,v,p: 62% 14% 18%  5%
+[libx264 @ 0000014e207fc380] kb/s:1581.79
+[aac @ 0000014e205b4740] Qavg: 1191.751

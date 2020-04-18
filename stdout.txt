@@ -1,4 +1,0 @@
-[youtube] dSZiXPtv13g: Downloading webpage
-[youtube] dSZiXPtv13g: Downloading thumbnail ...
-[youtube] dSZiXPtv13g: Writing thumbnail to: working_directory\downloaded_video.jpg
-[download] working_directory\downloaded_video.webm has already been downloaded and merged
