@@ -11,6 +11,7 @@ class Download_and_Clip : public QMainWindow
 
 public:
 	Download_and_Clip(QWidget* parent = Q_NULLPTR);
+	std::string check_for_downloaded_files();
 	void update_status(std::string str);
 	int download_file(std::string _url, std::string _file);
 	void check_for_ytdl();

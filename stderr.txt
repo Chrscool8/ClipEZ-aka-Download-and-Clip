@@ -12,42 +12,42 @@ ffmpeg version git-2020-04-03-52523b6 Copyright (c) 2000-2020 the FFmpeg develop
 Input #0, matroska,webm, from 'working_directory/downloaded_video.webm':
   Metadata:
     ENCODER         : Lavf58.42.100
-  Duration: 00:08:22.98, start: -0.007000, bitrate: 378 kb/s
-    Stream #0:0(eng): Video: vp9 (Profile 0), yuv420p(tv, bt709), 1280x720, SAR 1:1 DAR 16:9, 25 fps, 25 tbr, 1k tbn, 1k tbc (default)
+  Duration: 00:15:43.94, start: -0.007000, bitrate: 3024 kb/s
+    Stream #0:0(eng): Video: vp9 (Profile 0), yuv420p(tv, bt709), 1920x1080, SAR 1:1 DAR 16:9, 60 fps, 60 tbr, 1k tbn, 1k tbc (default)
     Metadata:
-      DURATION        : 00:08:22.880000000
+      DURATION        : 00:15:43.900000000
     Stream #0:1(eng): Audio: opus, 48000 Hz, stereo, fltp (default)
     Metadata:
-      DURATION        : 00:08:22.981000000
+      DURATION        : 00:15:43.941000000
 Stream mapping:
   Stream #0:0 -> #0:0 (vp9 (native) -> h264 (libx264))
   Stream #0:1 -> #0:1 (opus (native) -> aac (native))
 Press [q] to stop, [?] for help
-[libx264 @ 0000014e207fc380] using SAR=1/1
-[libx264 @ 0000014e207fc380] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
-[libx264 @ 0000014e207fc380] profile Constrained Baseline, level 3.1, 4:2:0, 8-bit
-[libx264 @ 0000014e207fc380] 264 - core 159 - H.264/MPEG-4 AVC codec - Copyleft 2003-2019 - http://www.videolan.org/x264.html - options: cabac=0 ref=1 deblock=0:0:0 analyse=0:0 me=dia subme=0 psy=1 psy_rd=1.00:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=0 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=22 lookahead_threads=3 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=0 weightp=0 keyint=250 keyint_min=25 scenecut=0 intra_refresh=0 rc=crf mbtree=0 crf=15.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=0
-Output #0, mp4, to 'working_directory/export_clipf.mp4':
+[libx264 @ 0000023d07690f40] using SAR=1/1
+[libx264 @ 0000023d07690f40] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+[libx264 @ 0000023d07690f40] profile Constrained Baseline, level 4.2, 4:2:0, 8-bit
+[libx264 @ 0000023d07690f40] 264 - core 159 - H.264/MPEG-4 AVC codec - Copyleft 2003-2019 - http://www.videolan.org/x264.html - options: cabac=0 ref=1 deblock=0:0:0 analyse=0:0 me=dia subme=0 psy=1 psy_rd=1.00:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=0 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=24 lookahead_threads=4 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=0 weightp=0 keyint=250 keyint_min=25 scenecut=0 intra_refresh=0 rc=crf mbtree=0 crf=15.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=0
+Output #0, mp4, to 'working_directory/export clip.mp4':
   Metadata:
     encoder         : Lavf58.42.100
-    Stream #0:0(eng): Video: h264 (libx264) (avc1 / 0x31637661), yuv420p, 1280x720 [SAR 1:1 DAR 16:9], q=-1--1, 25 fps, 12800 tbn, 25 tbc (default)
+    Stream #0:0(eng): Video: h264 (libx264) (avc1 / 0x31637661), yuv420p, 1920x1080 [SAR 1:1 DAR 16:9], q=-1--1, 60 fps, 15360 tbn, 60 tbc (default)
     Metadata:
-      DURATION        : 00:08:22.880000000
+      DURATION        : 00:15:43.900000000
       encoder         : Lavc58.77.101 libx264
     Side data:
       cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
     Stream #0:1(eng): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 192 kb/s (default)
     Metadata:
-      DURATION        : 00:08:22.981000000
+      DURATION        : 00:15:43.941000000
       encoder         : Lavc58.77.101 aac
-frame=  125 fps=0.0 q=-1.0 Lsize=    1090kB time=00:00:05.02 bitrate=1778.6kbits/s speed=  28x    
-video:966kB audio:120kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.377179%
-[libx264 @ 0000014e207fc380] frame I:1     Avg QP:12.00  size:188464
-[libx264 @ 0000014e207fc380] frame P:124   Avg QP: 4.52  size:  6453
-[libx264 @ 0000014e207fc380] mb I  I16..4: 100.0%  0.0%  0.0%
-[libx264 @ 0000014e207fc380] mb P  I16..4:  0.1%  0.0%  0.0%  P16..4: 22.8%  0.0%  0.0%  0.0%  0.0%    skip:77.1%
-[libx264 @ 0000014e207fc380] coded y,uvDC,uvAC intra: 36.1% 45.1% 42.7% inter: 8.7% 1.7% 1.7%
-[libx264 @ 0000014e207fc380] i16 v,h,dc,p: 73% 12%  8%  7%
-[libx264 @ 0000014e207fc380] i8c dc,h,v,p: 62% 14% 18%  5%
-[libx264 @ 0000014e207fc380] kb/s:1581.79
-[aac @ 0000014e205b4740] Qavg: 1191.751
+frame=  265 fps=0.0 q=18.0 size=    9472kB time=00:00:04.59 bitrate=16891.7kbits/s speed=9.17x    frame=  300 fps=0.0 q=-1.0 Lsize=   12637kB time=00:00:05.02 bitrate=20620.6kbits/s speed= 8.8x    
+video:12517kB audio:113kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.053869%
+[libx264 @ 0000023d07690f40] frame I:2     Avg QP:12.50  size:136026
+[libx264 @ 0000023d07690f40] frame P:298   Avg QP:14.97  size: 42097
+[libx264 @ 0000023d07690f40] mb I  I16..4: 100.0%  0.0%  0.0%
+[libx264 @ 0000023d07690f40] mb P  I16..4:  6.2%  0.0%  0.0%  P16..4: 36.3%  0.0%  0.0%  0.0%  0.0%    skip:57.5%
+[libx264 @ 0000023d07690f40] coded y,uvDC,uvAC intra: 41.4% 52.3% 19.5% inter: 20.9% 17.9% 1.0%
+[libx264 @ 0000023d07690f40] i16 v,h,dc,p: 43% 22% 14% 21%
+[libx264 @ 0000023d07690f40] i8c dc,h,v,p: 38% 19% 28% 15%
+[libx264 @ 0000023d07690f40] kb/s:20507.06
+[aac @ 0000023d07685380] Qavg: 7363.790

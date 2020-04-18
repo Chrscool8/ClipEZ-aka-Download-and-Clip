@@ -19,6 +19,36 @@ fs::path working_dir("working_directory/");
 std::string status = "";
 QString dark_stylesheet;
 
+std::string downloaded_video;
+std::string downloaded_thumb;
+
+std::string Download_and_Clip::check_for_downloaded_files()
+{
+	downloaded_thumb = "";
+	downloaded_video = "";
+
+	for (auto& p : fs::directory_iterator("working_directory/"))
+	{
+		std::string file = p.path().string();
+		if (file.find("downloaded_thumb") != std::string::npos)
+		{
+			downloaded_thumb = file;
+		}
+
+		if (file.find("downloaded_video") != std::string::npos)
+		{
+			downloaded_video = file;
+		}
+	}
+
+	if (!downloaded_thumb.empty())
+	{
+		QPixmap image(downloaded_thumb.c_str());
+		ui.label_thumb->setPixmap(image);
+	}
+
+	return "";
+}
 
 void Download_and_Clip::update_status(std::string str)
 {
@@ -125,9 +155,25 @@ void Download_and_Clip::download_ffmpeg()
 void Download_and_Clip::run_ytdl()
 {
 	update_status("Run YT-DL");
-	remove("downloaded_video.*");
+	remove(downloaded_video.c_str());
+	remove(downloaded_thumb.c_str());
+
+	//////////
+
+	QProcess* thumb = new QProcess(this);
+	std::string program2 = "youtube-dl.exe";
+	QStringList args2 = { ui.textedit_videoid->toPlainText(), "-o", "working_directory/downloaded_thumb", "--write-thumbnail", "--skip-download" };
+	//mTranscodingProcess = new QProcess;
+	thumb->setProgram(program2.c_str());
+	thumb->setStandardErrorFile("stderr.txt");
+	thumb->setStandardOutputFile("stdout.txt");
+	thumb->setArguments(args2);
+	thumb->start();
+
+	//////////
+
 	std::string program = "youtube-dl.exe";
-	QStringList args = { ui.textedit_videoid->toPlainText(), "-o", "working_directory/downloaded_video", "--write-thumbnail", "-f", "bestvideo+bestaudio/best" };
+	QStringList args = { ui.textedit_videoid->toPlainText(), "-o", "working_directory/downloaded_video", "-f", "bestvideo+bestaudio/best" };
 	//mTranscodingProcess = new QProcess;
 	process_ytdl->setProgram(program.c_str());
 	process_ytdl->setStandardErrorFile("stderr.txt");
@@ -136,6 +182,8 @@ void Download_and_Clip::run_ytdl()
 	process_ytdl->start();
 
 	ui.button_download->setEnabled(false);
+
+	ui.progressBar->setValue(0);
 
 	//myProcess->start(program.c_str());
 	//mTranscodingProcess->start(program, args, om);
@@ -157,21 +205,22 @@ void Download_and_Clip::downloadFinished_ytdl()
 	update_status("Done.");
 	ui.button_download->setEnabled(true);
 
-	QPixmap image("working_directory/downloaded_video.jpg");
-	ui.label_thumb->setPixmap(image);
+	check_for_downloaded_files();
 
 	check_for_ffmpeg();
+
+	ui.progressBar->setValue(100);
 }
 
 
 void Download_and_Clip::run_ffmpeg()
 {
 	if (ui.textedit_outputname->toPlainText().length() > 0)
-		remove((((std::string)ui.textedit_outputname->toPlainText().toStdString()) + ".mp4").c_str());
+		remove(("working_directory/"+((std::string)ui.textedit_outputname->toPlainText().toStdString()) + ".mp4").c_str());
 
 	update_status("Run FFMPEG");
 	std::string program = "ffmpeg.exe";
-	QStringList args = { "-i", "working_directory/downloaded_video.webm", "-c:v", "libx264", "-crf", std::to_string(ui.slider_quality->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
+	QStringList args = { "-i", downloaded_video.c_str(), "-c:v", "libx264", "-crf", std::to_string(ui.slider_quality->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
 		"-b:a", "192k", "-ss", ui.textedit_starttime->toPlainText(), "-to", ui.textedit_endtime->toPlainText(), "-ac", "2", "working_directory/" + ui.textedit_outputname->toPlainText() + ".mp4" };
 
 	process_ffmpeg->setProgram(program.c_str());
@@ -182,6 +231,8 @@ void Download_and_Clip::run_ffmpeg()
 
 	ui.button_download->setEnabled(false);
 	ui.button_clip->setEnabled(false);
+
+	ui.progressBar->setValue(0);
 }
 
 void Download_and_Clip::processStarted_ffmpeg()
@@ -193,6 +244,7 @@ void Download_and_Clip::readyReadStandardOutput_ffmpeg()
 {
 	update_status("Output.");
 }
+
 void Download_and_Clip::encodingFinished_ffmpeg()
 {
 	update_status("Done.");
@@ -201,6 +253,7 @@ void Download_and_Clip::encodingFinished_ffmpeg()
 	update_status("Your clip was saved to: ");
 	std::string s = ui.textedit_outputname->toPlainText().toStdString();
 	update_status(s);
+	ui.progressBar->setValue(100);
 }
 
 void Download_and_Clip::darkmode_toggle(bool state)
@@ -211,7 +264,16 @@ void Download_and_Clip::darkmode_toggle(bool state)
 void Download_and_Clip::clear_download()
 {
 	update_status("Clear");
-	fs::remove_all(working_dir);
+	//fs::remove_all(working_dir);
+	remove(downloaded_thumb.c_str());
+	remove(downloaded_video.c_str());
+
+	ui.button_downloadffmpeg->setEnabled(false);
+	ui.button_downloadffmpeg->setText("Download ffmpeg");
+	ui.slider_quality->setEnabled(false);
+	ui.spinbox_quality->setEnabled(false);
+	ui.textedit_outputname->setEnabled(false);
+	ui.button_clip->setEnabled(false);
 }
 
 void Download_and_Clip::darkmode(bool on)
@@ -276,4 +338,12 @@ Download_and_Clip::Download_and_Clip(QWidget* parent) :QMainWindow(parent)
 	}
 
 	ui.label_thumb->setText("");
+
+	check_for_downloaded_files();
+
+	if (!downloaded_video.empty())
+	{
+		check_for_ffmpeg();
+
+	}
 }
