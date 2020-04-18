@@ -22,7 +22,7 @@ QString dark_stylesheet;
 std::string downloaded_video;
 std::string downloaded_thumb;
 
-std::string Download_and_Clip::check_for_downloaded_files()
+void Download_and_Clip::check_for_downloaded_files()
 {
 	downloaded_thumb = "";
 	downloaded_video = "";
@@ -46,8 +46,6 @@ std::string Download_and_Clip::check_for_downloaded_files()
 		QPixmap image(downloaded_thumb.c_str());
 		ui.label_thumb->setPixmap(image);
 	}
-
-	return "";
 }
 
 void Download_and_Clip::update_status(std::string str)
