@@ -46,6 +46,11 @@ void Download_and_Clip::check_for_downloaded_files()
 		QPixmap image(downloaded_thumb.c_str());
 		ui.label_thumb->setPixmap(image);
 	}
+
+
+
+
+
 }
 
 void Download_and_Clip::update_status(std::string str)
@@ -214,7 +219,7 @@ void Download_and_Clip::downloadFinished_ytdl()
 void Download_and_Clip::run_ffmpeg()
 {
 	if (ui.textedit_outputname->toPlainText().length() > 0)
-		remove(("working_directory/"+((std::string)ui.textedit_outputname->toPlainText().toStdString()) + ".mp4").c_str());
+		remove(("working_directory/" + ((std::string)ui.textedit_outputname->toPlainText().toStdString()) + ".mp4").c_str());
 
 	update_status("Run FFMPEG");
 	std::string program = "ffmpeg.exe";
@@ -249,9 +254,24 @@ void Download_and_Clip::encodingFinished_ffmpeg()
 	ui.button_download->setEnabled(true);
 	ui.button_clip->setEnabled(true);
 	update_status("Your clip was saved to: ");
-	std::string s = ui.textedit_outputname->toPlainText().toStdString();
+	std::string s = ui.textedit_outputname->toPlainText().toStdString() + ".mp4";
 	update_status(s);
 	ui.progressBar->setValue(100);
+
+	//
+
+	if (fs::exists("working_directory/" + s))
+	{
+		QLocale locale = this->locale();
+		QString valueText = locale.formattedDataSize(fs::file_size(("working_directory/" + s).c_str()));
+		update_status(valueText.toStdString());
+
+		ui.table_clipinfo->setItem(0, 0, new QTableWidgetItem(s.c_str()));
+		ui.table_clipinfo->setItem(0, 1, new QTableWidgetItem(valueText));
+
+
+
+	}
 }
 
 void Download_and_Clip::darkmode_toggle(bool state)
@@ -284,7 +304,7 @@ void Download_and_Clip::darkmode(bool on)
 
 void Download_and_Clip::typing_clip_name()
 {
-	std::string s = ui.textedit_outputname->toPlainText().toStdString();
+	//std::string s = ui.textedit_outputname->toPlainText().toStdString();
 	//std::replace(s.begin(), s.end(), ' ', '_');
 	//ui.textedit_outputname->setPlainText("Bleh");
 }
@@ -342,6 +362,9 @@ Download_and_Clip::Download_and_Clip(QWidget* parent) :QMainWindow(parent)
 	if (!downloaded_video.empty())
 	{
 		check_for_ffmpeg();
-
 	}
+
+	ui.table_clipinfo->resizeRowsToContents();
+	//ui.table_clipinfo->resizeColumnsToContents();
+
 }

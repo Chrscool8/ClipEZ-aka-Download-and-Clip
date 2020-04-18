@@ -13,6 +13,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPlainTextEdit>
@@ -21,7 +22,9 @@
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTableWidget>
 #include <QtWidgets/QTextEdit>
+#include <QtWidgets/QTreeView>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -57,6 +60,11 @@ public:
     QPushButton *button_downloadytdl;
     QPushButton *button_downloadffmpeg;
     QCheckBox *checkbox_dark;
+    QGroupBox *groupBox_9;
+    QTableWidget *table_clipinfo;
+    QGroupBox *groupBox_10;
+    QTreeView *treeview_files;
+    QGroupBox *groupBox_11;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *Download_and_ClipClass)
@@ -64,7 +72,7 @@ public:
         if (Download_and_ClipClass->objectName().isEmpty())
             Download_and_ClipClass->setObjectName(QString::fromUtf8("Download_and_ClipClass"));
         Download_and_ClipClass->setEnabled(true);
-        Download_and_ClipClass->resize(1071, 652);
+        Download_and_ClipClass->resize(1351, 661);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -163,7 +171,24 @@ public:
 "QSlider::handle:horizontal:hover \n"
 "{ \n"
 "	border-radius: 6px;\n"
-"}"));
+"}\n"
+"\n"
+"QHeaderView::section \n"
+"{\n"
+"    background-color: rgb(110, 110, 110);\n"
+"}\n"
+"\n"
+"QHeaderView::section:horizontal\n"
+"{\n"
+"}\n"
+"\n"
+"QHeaderView::section:vertical\n"
+"{\n"
+"}\n"
+"\n"
+"\n"
+"\n"
+""));
         centralWidget = new QWidget(Download_and_ClipClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         centralWidget->setEnabled(true);
@@ -258,6 +283,7 @@ public:
         textedit_status_box = new QTextEdit(groupBox_3);
         textedit_status_box->setObjectName(QString::fromUtf8("textedit_status_box"));
         textedit_status_box->setGeometry(QRect(10, 20, 1011, 131));
+        textedit_status_box->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
         textedit_status_box->setReadOnly(true);
         progressBar = new QProgressBar(groupBox_3);
         progressBar->setObjectName(QString::fromUtf8("progressBar"));
@@ -277,8 +303,52 @@ public:
         button_downloadffmpeg->setFlat(false);
         checkbox_dark = new QCheckBox(centralWidget);
         checkbox_dark->setObjectName(QString::fromUtf8("checkbox_dark"));
-        checkbox_dark->setGeometry(QRect(980, 610, 70, 17));
+        checkbox_dark->setGeometry(QRect(20, 610, 70, 17));
         checkbox_dark->setChecked(true);
+        groupBox_9 = new QGroupBox(centralWidget);
+        groupBox_9->setObjectName(QString::fromUtf8("groupBox_9"));
+        groupBox_9->setGeometry(QRect(1060, 410, 271, 191));
+        table_clipinfo = new QTableWidget(groupBox_9);
+        if (table_clipinfo->columnCount() < 1)
+            table_clipinfo->setColumnCount(1);
+        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
+        table_clipinfo->setHorizontalHeaderItem(0, __qtablewidgetitem);
+        if (table_clipinfo->rowCount() < 2)
+            table_clipinfo->setRowCount(2);
+        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
+        table_clipinfo->setVerticalHeaderItem(0, __qtablewidgetitem1);
+        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
+        table_clipinfo->setVerticalHeaderItem(1, __qtablewidgetitem2);
+        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
+        __qtablewidgetitem3->setFlags(Qt::ItemIsEditable|Qt::ItemIsDragEnabled|Qt::ItemIsDropEnabled|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
+        table_clipinfo->setItem(0, 0, __qtablewidgetitem3);
+        QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
+        __qtablewidgetitem4->setFlags(Qt::NoItemFlags);
+        table_clipinfo->setItem(1, 0, __qtablewidgetitem4);
+        table_clipinfo->setObjectName(QString::fromUtf8("table_clipinfo"));
+        table_clipinfo->setEnabled(true);
+        table_clipinfo->setGeometry(QRect(10, 20, 251, 161));
+        sizePolicy.setHeightForWidth(table_clipinfo->sizePolicy().hasHeightForWidth());
+        table_clipinfo->setSizePolicy(sizePolicy);
+        table_clipinfo->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
+        table_clipinfo->setSelectionMode(QAbstractItemView::NoSelection);
+        table_clipinfo->setShowGrid(true);
+        table_clipinfo->setCornerButtonEnabled(false);
+        table_clipinfo->horizontalHeader()->setVisible(false);
+        table_clipinfo->horizontalHeader()->setHighlightSections(false);
+        table_clipinfo->horizontalHeader()->setStretchLastSection(true);
+        table_clipinfo->verticalHeader()->setVisible(true);
+        table_clipinfo->verticalHeader()->setHighlightSections(false);
+        table_clipinfo->verticalHeader()->setStretchLastSection(false);
+        groupBox_10 = new QGroupBox(centralWidget);
+        groupBox_10->setObjectName(QString::fromUtf8("groupBox_10"));
+        groupBox_10->setGeometry(QRect(1060, 90, 271, 311));
+        treeview_files = new QTreeView(groupBox_10);
+        treeview_files->setObjectName(QString::fromUtf8("treeview_files"));
+        treeview_files->setGeometry(QRect(10, 20, 251, 281));
+        groupBox_11 = new QGroupBox(centralWidget);
+        groupBox_11->setObjectName(QString::fromUtf8("groupBox_11"));
+        groupBox_11->setGeometry(QRect(1060, 19, 271, 61));
         Download_and_ClipClass->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(Download_and_ClipClass);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
@@ -326,6 +396,18 @@ public:
         button_downloadytdl->setText(QCoreApplication::translate("Download_and_ClipClass", "Download/Update Youtube-dl", nullptr));
         button_downloadffmpeg->setText(QCoreApplication::translate("Download_and_ClipClass", "Download/Update FFmpeg", nullptr));
         checkbox_dark->setText(QCoreApplication::translate("Download_and_ClipClass", "Dark Mode", nullptr));
+        groupBox_9->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Latest Clip Info", nullptr));
+        QTableWidgetItem *___qtablewidgetitem = table_clipinfo->verticalHeaderItem(0);
+        ___qtablewidgetitem->setText(QCoreApplication::translate("Download_and_ClipClass", "Name", nullptr));
+        QTableWidgetItem *___qtablewidgetitem1 = table_clipinfo->verticalHeaderItem(1);
+        ___qtablewidgetitem1->setText(QCoreApplication::translate("Download_and_ClipClass", "Size", nullptr));
+
+        const bool __sortingEnabled = table_clipinfo->isSortingEnabled();
+        table_clipinfo->setSortingEnabled(false);
+        table_clipinfo->setSortingEnabled(__sortingEnabled);
+
+        groupBox_10->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Working Directory", nullptr));
+        groupBox_11->setTitle(QString());
     } // retranslateUi
 
 };
