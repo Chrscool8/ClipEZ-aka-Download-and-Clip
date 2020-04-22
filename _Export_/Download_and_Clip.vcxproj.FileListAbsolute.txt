@@ -1,0 +1,4 @@
+G:\Documents\GitHub\Download-and-Clip\x64\Release\Download_and_Clip.vcxproj.CopyComplete
+G:\Documents\GitHub\Download-and-Clip\x64\Release\Download_and_Clip.exe
+G:\Documents\GitHub\Download-and-Clip\x64\Release\libcurl.dll
+G:\Documents\GitHub\Download-and-Clip\x64\Release\zlib1.dll
