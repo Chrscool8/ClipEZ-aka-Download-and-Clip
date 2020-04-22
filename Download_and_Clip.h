@@ -26,11 +26,10 @@ public:
 	void darkmode(bool on);
 
 
-
 private slots:
 	void download_ytdl();
 	void run_ytdl();
-	
+
 	void run_ffmpeg();
 
 	void darkmode_toggle(bool state);
@@ -38,9 +37,10 @@ private slots:
 	void clear_download();
 	void typing_clip_name();
 
-	void show_folder();
+	void show_folder_working();
+	void show_folder_output();
 
-	
+	void choose_directory();
 
 	void processStateChange(std::string, QProcess::ProcessState newState, std::string tag);
 
