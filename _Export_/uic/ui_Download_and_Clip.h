@@ -15,6 +15,7 @@
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QProgressBar>
@@ -22,6 +23,7 @@
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QTreeView>
@@ -33,12 +35,6 @@ class Ui_Download_and_ClipClass
 {
 public:
     QWidget *centralWidget;
-    QGroupBox *groupBox;
-    QLabel *label;
-    QPlainTextEdit *textedit_videoid;
-    QPushButton *button_download;
-    QPushButton *button_cleardownload;
-    QLabel *label_thumb;
     QGroupBox *groupBox_2;
     QPushButton *button_clip;
     QGroupBox *groupBox_5;
@@ -51,8 +47,7 @@ public:
     QGroupBox *groupBox_7;
     QPlainTextEdit *textedit_endtime;
     QGroupBox *groupBox_8;
-    QPlainTextEdit *textedit_outputname;
-    QPushButton *button_showfolder;
+    QLineEdit *lineedit_outputname;
     QGroupBox *groupBox_3;
     QTextEdit *textedit_status_box;
     QProgressBar *progressBar;
@@ -65,6 +60,21 @@ public:
     QGroupBox *groupBox_10;
     QTreeView *treeview_files;
     QGroupBox *groupBox_11;
+    QPushButton *button_showfolder;
+    QTabWidget *tabWidget;
+    QWidget *tab;
+    QGroupBox *groupBox;
+    QLabel *label;
+    QPlainTextEdit *textedit_videoid;
+    QPushButton *button_download;
+    QPushButton *button_cleardownload;
+    QLabel *label_thumb_download;
+    QLabel *label_download_title;
+    QWidget *tab_2;
+    QGroupBox *groupBox_12;
+    QLabel *label_thumb_local;
+    QPushButton *pushButton;
+    QLabel *label_local_name;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *Download_and_ClipClass)
@@ -72,7 +82,7 @@ public:
         if (Download_and_ClipClass->objectName().isEmpty())
             Download_and_ClipClass->setObjectName(QString::fromUtf8("Download_and_ClipClass"));
         Download_and_ClipClass->setEnabled(true);
-        Download_and_ClipClass->resize(1351, 661);
+        Download_and_ClipClass->resize(1371, 665);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -192,34 +202,9 @@ public:
         centralWidget = new QWidget(Download_and_ClipClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         centralWidget->setEnabled(true);
-        groupBox = new QGroupBox(centralWidget);
-        groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setEnabled(true);
-        groupBox->setGeometry(QRect(20, 90, 511, 311));
-        label = new QLabel(groupBox);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(30, 20, 120, 16));
-        textedit_videoid = new QPlainTextEdit(groupBox);
-        textedit_videoid->setObjectName(QString::fromUtf8("textedit_videoid"));
-        textedit_videoid->setEnabled(false);
-        textedit_videoid->setGeometry(QRect(25, 40, 451, 31));
-        textedit_videoid->setInputMethodHints(Qt::ImhNone);
-        button_download = new QPushButton(groupBox);
-        button_download->setObjectName(QString::fromUtf8("button_download"));
-        button_download->setEnabled(false);
-        button_download->setGeometry(QRect(120, 280, 111, 23));
-        button_cleardownload = new QPushButton(groupBox);
-        button_cleardownload->setObjectName(QString::fromUtf8("button_cleardownload"));
-        button_cleardownload->setEnabled(true);
-        button_cleardownload->setGeometry(QRect(250, 280, 111, 23));
-        label_thumb = new QLabel(groupBox);
-        label_thumb->setObjectName(QString::fromUtf8("label_thumb"));
-        label_thumb->setGeometry(QRect(80, 90, 320, 180));
-        label_thumb->setScaledContents(true);
-        label_thumb->setAlignment(Qt::AlignCenter);
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        groupBox_2->setGeometry(QRect(540, 90, 511, 311));
+        groupBox_2->setGeometry(QRect(550, 90, 511, 311));
         button_clip = new QPushButton(groupBox_2);
         button_clip->setObjectName(QString::fromUtf8("button_clip"));
         button_clip->setEnabled(false);
@@ -269,17 +254,13 @@ public:
         groupBox_8 = new QGroupBox(groupBox_2);
         groupBox_8->setObjectName(QString::fromUtf8("groupBox_8"));
         groupBox_8->setGeometry(QRect(20, 190, 461, 71));
-        textedit_outputname = new QPlainTextEdit(groupBox_8);
-        textedit_outputname->setObjectName(QString::fromUtf8("textedit_outputname"));
-        textedit_outputname->setEnabled(false);
-        textedit_outputname->setGeometry(QRect(10, 20, 421, 31));
-        textedit_outputname->setInputMethodHints(Qt::ImhNone);
-        button_showfolder = new QPushButton(groupBox_2);
-        button_showfolder->setObjectName(QString::fromUtf8("button_showfolder"));
-        button_showfolder->setGeometry(QRect(260, 280, 81, 23));
+        lineedit_outputname = new QLineEdit(groupBox_8);
+        lineedit_outputname->setObjectName(QString::fromUtf8("lineedit_outputname"));
+        lineedit_outputname->setEnabled(false);
+        lineedit_outputname->setGeometry(QRect(10, 30, 431, 21));
         groupBox_3 = new QGroupBox(centralWidget);
         groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
-        groupBox_3->setGeometry(QRect(20, 410, 1031, 191));
+        groupBox_3->setGeometry(QRect(30, 410, 1031, 191));
         textedit_status_box = new QTextEdit(groupBox_3);
         textedit_status_box->setObjectName(QString::fromUtf8("textedit_status_box"));
         textedit_status_box->setGeometry(QRect(10, 20, 1011, 131));
@@ -291,7 +272,7 @@ public:
         progressBar->setValue(0);
         groupBox_4 = new QGroupBox(centralWidget);
         groupBox_4->setObjectName(QString::fromUtf8("groupBox_4"));
-        groupBox_4->setGeometry(QRect(20, 20, 1031, 61));
+        groupBox_4->setGeometry(QRect(30, 20, 1031, 61));
         button_downloadytdl = new QPushButton(groupBox_4);
         button_downloadytdl->setObjectName(QString::fromUtf8("button_downloadytdl"));
         button_downloadytdl->setEnabled(false);
@@ -303,11 +284,11 @@ public:
         button_downloadffmpeg->setFlat(false);
         checkbox_dark = new QCheckBox(centralWidget);
         checkbox_dark->setObjectName(QString::fromUtf8("checkbox_dark"));
-        checkbox_dark->setGeometry(QRect(20, 610, 70, 17));
+        checkbox_dark->setGeometry(QRect(30, 610, 70, 17));
         checkbox_dark->setChecked(true);
         groupBox_9 = new QGroupBox(centralWidget);
         groupBox_9->setObjectName(QString::fromUtf8("groupBox_9"));
-        groupBox_9->setGeometry(QRect(1060, 410, 271, 191));
+        groupBox_9->setGeometry(QRect(1070, 410, 271, 191));
         table_clipinfo = new QTableWidget(groupBox_9);
         if (table_clipinfo->columnCount() < 1)
             table_clipinfo->setColumnCount(1);
@@ -342,13 +323,77 @@ public:
         table_clipinfo->verticalHeader()->setStretchLastSection(false);
         groupBox_10 = new QGroupBox(centralWidget);
         groupBox_10->setObjectName(QString::fromUtf8("groupBox_10"));
-        groupBox_10->setGeometry(QRect(1060, 90, 271, 311));
+        groupBox_10->setGeometry(QRect(1070, 90, 271, 311));
         treeview_files = new QTreeView(groupBox_10);
         treeview_files->setObjectName(QString::fromUtf8("treeview_files"));
         treeview_files->setGeometry(QRect(10, 20, 251, 281));
         groupBox_11 = new QGroupBox(centralWidget);
         groupBox_11->setObjectName(QString::fromUtf8("groupBox_11"));
-        groupBox_11->setGeometry(QRect(1060, 19, 271, 61));
+        groupBox_11->setGeometry(QRect(1070, 19, 271, 61));
+        button_showfolder = new QPushButton(groupBox_11);
+        button_showfolder->setObjectName(QString::fromUtf8("button_showfolder"));
+        button_showfolder->setGeometry(QRect(70, 20, 141, 23));
+        tabWidget = new QTabWidget(centralWidget);
+        tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
+        tabWidget->setEnabled(true);
+        tabWidget->setGeometry(QRect(14, 90, 527, 311));
+        tabWidget->setTabPosition(QTabWidget::West);
+        tabWidget->setTabShape(QTabWidget::Triangular);
+        tabWidget->setElideMode(Qt::ElideNone);
+        tabWidget->setUsesScrollButtons(false);
+        tabWidget->setDocumentMode(true);
+        tab = new QWidget();
+        tab->setObjectName(QString::fromUtf8("tab"));
+        groupBox = new QGroupBox(tab);
+        groupBox->setObjectName(QString::fromUtf8("groupBox"));
+        groupBox->setEnabled(true);
+        groupBox->setGeometry(QRect(-10, -10, 521, 331));
+        label = new QLabel(groupBox);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setGeometry(QRect(30, 20, 120, 16));
+        textedit_videoid = new QPlainTextEdit(groupBox);
+        textedit_videoid->setObjectName(QString::fromUtf8("textedit_videoid"));
+        textedit_videoid->setEnabled(false);
+        textedit_videoid->setGeometry(QRect(25, 40, 461, 31));
+        textedit_videoid->setInputMethodHints(Qt::ImhNone);
+        button_download = new QPushButton(groupBox);
+        button_download->setObjectName(QString::fromUtf8("button_download"));
+        button_download->setEnabled(false);
+        button_download->setGeometry(QRect(370, 160, 111, 23));
+        button_cleardownload = new QPushButton(groupBox);
+        button_cleardownload->setObjectName(QString::fromUtf8("button_cleardownload"));
+        button_cleardownload->setEnabled(true);
+        button_cleardownload->setGeometry(QRect(370, 200, 111, 23));
+        label_thumb_download = new QLabel(groupBox);
+        label_thumb_download->setObjectName(QString::fromUtf8("label_thumb_download"));
+        label_thumb_download->setGeometry(QRect(30, 120, 291, 141));
+        label_thumb_download->setFrameShape(QFrame::NoFrame);
+        label_thumb_download->setScaledContents(true);
+        label_thumb_download->setAlignment(Qt::AlignCenter);
+        label_download_title = new QLabel(groupBox);
+        label_download_title->setObjectName(QString::fromUtf8("label_download_title"));
+        label_download_title->setGeometry(QRect(30, 80, 451, 20));
+        label_download_title->setAlignment(Qt::AlignCenter);
+        tabWidget->addTab(tab, QString());
+        tab_2 = new QWidget();
+        tab_2->setObjectName(QString::fromUtf8("tab_2"));
+        groupBox_12 = new QGroupBox(tab_2);
+        groupBox_12->setObjectName(QString::fromUtf8("groupBox_12"));
+        groupBox_12->setGeometry(QRect(-10, -10, 531, 331));
+        label_thumb_local = new QLabel(groupBox_12);
+        label_thumb_local->setObjectName(QString::fromUtf8("label_thumb_local"));
+        label_thumb_local->setGeometry(QRect(120, 110, 291, 141));
+        label_thumb_local->setFrameShape(QFrame::NoFrame);
+        label_thumb_local->setScaledContents(true);
+        label_thumb_local->setAlignment(Qt::AlignCenter);
+        pushButton = new QPushButton(groupBox_12);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setEnabled(false);
+        pushButton->setGeometry(QRect(230, 50, 75, 23));
+        label_local_name = new QLabel(groupBox_12);
+        label_local_name->setObjectName(QString::fromUtf8("label_local_name"));
+        label_local_name->setGeometry(QRect(240, 280, 47, 13));
+        tabWidget->addTab(tab_2, QString());
         Download_and_ClipClass->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(Download_and_ClipClass);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
@@ -356,18 +401,15 @@ public:
 
         retranslateUi(Download_and_ClipClass);
 
+        tabWidget->setCurrentIndex(0);
+
+
         QMetaObject::connectSlotsByName(Download_and_ClipClass);
     } // setupUi
 
     void retranslateUi(QMainWindow *Download_and_ClipClass)
     {
-        Download_and_ClipClass->setWindowTitle(QCoreApplication::translate("Download_and_ClipClass", "Download and Clip", nullptr));
-        groupBox->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Download", nullptr));
-        label->setText(QCoreApplication::translate("Download_and_ClipClass", "YouTube Video ID", nullptr));
-        textedit_videoid->setPlaceholderText(QString());
-        button_download->setText(QCoreApplication::translate("Download_and_ClipClass", "Download", nullptr));
-        button_cleardownload->setText(QCoreApplication::translate("Download_and_ClipClass", "Clear Downloaded", nullptr));
-        label_thumb->setText(QCoreApplication::translate("Download_and_ClipClass", "TextLabel", nullptr));
+        Download_and_ClipClass->setWindowTitle(QCoreApplication::translate("Download_and_ClipClass", "YesClip", nullptr));
         groupBox_2->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Clip", nullptr));
         button_clip->setText(QCoreApplication::translate("Download_and_ClipClass", "Clip", nullptr));
         groupBox_5->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Quality", nullptr));
@@ -383,9 +425,7 @@ public:
         textedit_endtime->setPlainText(QCoreApplication::translate("Download_and_ClipClass", "00:00:05.0", nullptr));
         textedit_endtime->setPlaceholderText(QString());
         groupBox_8->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Output Name", nullptr));
-        textedit_outputname->setPlainText(QCoreApplication::translate("Download_and_ClipClass", "export_clip", nullptr));
-        textedit_outputname->setPlaceholderText(QString());
-        button_showfolder->setText(QCoreApplication::translate("Download_and_ClipClass", "Show Folder", nullptr));
+        lineedit_outputname->setText(QCoreApplication::translate("Download_and_ClipClass", "export_clip", nullptr));
         groupBox_3->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Info and Status", nullptr));
         textedit_status_box->setHtml(QCoreApplication::translate("Download_and_ClipClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -408,6 +448,20 @@ public:
 
         groupBox_10->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Working Directory", nullptr));
         groupBox_11->setTitle(QString());
+        button_showfolder->setText(QCoreApplication::translate("Download_and_ClipClass", "Show Folder In Explorer", nullptr));
+        groupBox->setTitle(QString());
+        label->setText(QCoreApplication::translate("Download_and_ClipClass", "YouTube Video ID", nullptr));
+        textedit_videoid->setPlaceholderText(QString());
+        button_download->setText(QCoreApplication::translate("Download_and_ClipClass", "Download", nullptr));
+        button_cleardownload->setText(QCoreApplication::translate("Download_and_ClipClass", "Clear Downloaded", nullptr));
+        label_thumb_download->setText(QCoreApplication::translate("Download_and_ClipClass", "[Thumbnail]", nullptr));
+        label_download_title->setText(QCoreApplication::translate("Download_and_ClipClass", "Video Title", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("Download_and_ClipClass", "Download", nullptr));
+        groupBox_12->setTitle(QString());
+        label_thumb_local->setText(QCoreApplication::translate("Download_and_ClipClass", "[Thumbnail]", nullptr));
+        pushButton->setText(QCoreApplication::translate("Download_and_ClipClass", "Choose File", nullptr));
+        label_local_name->setText(QCoreApplication::translate("Download_and_ClipClass", "File Name", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("Download_and_ClipClass", "Local File", nullptr));
     } // retranslateUi
 
 };

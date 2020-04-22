@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Download_and_Clip_t {
-    QByteArrayData data[16];
-    char stringdata0[267];
+    QByteArrayData data[15];
+    char stringdata0[186];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,29 +36,25 @@ QT_MOC_LITERAL(0, 0, 17), // "Download_and_Clip"
 QT_MOC_LITERAL(1, 18, 13), // "download_ytdl"
 QT_MOC_LITERAL(2, 32, 0), // ""
 QT_MOC_LITERAL(3, 33, 8), // "run_ytdl"
-QT_MOC_LITERAL(4, 42, 19), // "processStarted_ytdl"
-QT_MOC_LITERAL(5, 62, 28), // "readyReadStandardOutput_ytdl"
-QT_MOC_LITERAL(6, 91, 21), // "downloadFinished_ytdl"
-QT_MOC_LITERAL(7, 113, 10), // "run_ffmpeg"
-QT_MOC_LITERAL(8, 124, 21), // "processStarted_ffmpeg"
-QT_MOC_LITERAL(9, 146, 30), // "readyReadStandardOutput_ffmpeg"
-QT_MOC_LITERAL(10, 177, 23), // "encodingFinished_ffmpeg"
-QT_MOC_LITERAL(11, 201, 15), // "darkmode_toggle"
-QT_MOC_LITERAL(12, 217, 5), // "state"
-QT_MOC_LITERAL(13, 223, 14), // "clear_download"
-QT_MOC_LITERAL(14, 238, 16), // "typing_clip_name"
-QT_MOC_LITERAL(15, 255, 11) // "show_folder"
+QT_MOC_LITERAL(4, 42, 10), // "run_ffmpeg"
+QT_MOC_LITERAL(5, 53, 15), // "darkmode_toggle"
+QT_MOC_LITERAL(6, 69, 5), // "state"
+QT_MOC_LITERAL(7, 75, 14), // "clear_download"
+QT_MOC_LITERAL(8, 90, 16), // "typing_clip_name"
+QT_MOC_LITERAL(9, 107, 11), // "show_folder"
+QT_MOC_LITERAL(10, 119, 18), // "processStateChange"
+QT_MOC_LITERAL(11, 138, 11), // "std::string"
+QT_MOC_LITERAL(12, 150, 22), // "QProcess::ProcessState"
+QT_MOC_LITERAL(13, 173, 8), // "newState"
+QT_MOC_LITERAL(14, 182, 3) // "tag"
 
     },
     "Download_and_Clip\0download_ytdl\0\0"
-    "run_ytdl\0processStarted_ytdl\0"
-    "readyReadStandardOutput_ytdl\0"
-    "downloadFinished_ytdl\0run_ffmpeg\0"
-    "processStarted_ffmpeg\0"
-    "readyReadStandardOutput_ffmpeg\0"
-    "encodingFinished_ffmpeg\0darkmode_toggle\0"
+    "run_ytdl\0run_ffmpeg\0darkmode_toggle\0"
     "state\0clear_download\0typing_clip_name\0"
-    "show_folder"
+    "show_folder\0processStateChange\0"
+    "std::string\0QProcess::ProcessState\0"
+    "newState\0tag"
 };
 #undef QT_MOC_LITERAL
 
@@ -68,7 +64,7 @@ static const uint qt_meta_data_Download_and_Clip[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -76,34 +72,24 @@ static const uint qt_meta_data_Download_and_Clip[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   79,    2, 0x08 /* Private */,
-       3,    0,   80,    2, 0x08 /* Private */,
-       4,    0,   81,    2, 0x08 /* Private */,
-       5,    0,   82,    2, 0x08 /* Private */,
-       6,    0,   83,    2, 0x08 /* Private */,
-       7,    0,   84,    2, 0x08 /* Private */,
-       8,    0,   85,    2, 0x08 /* Private */,
-       9,    0,   86,    2, 0x08 /* Private */,
-      10,    0,   87,    2, 0x08 /* Private */,
-      11,    1,   88,    2, 0x08 /* Private */,
-      13,    0,   91,    2, 0x08 /* Private */,
-      14,    0,   92,    2, 0x08 /* Private */,
-      15,    0,   93,    2, 0x08 /* Private */,
+       1,    0,   54,    2, 0x08 /* Private */,
+       3,    0,   55,    2, 0x08 /* Private */,
+       4,    0,   56,    2, 0x08 /* Private */,
+       5,    1,   57,    2, 0x08 /* Private */,
+       7,    0,   60,    2, 0x08 /* Private */,
+       8,    0,   61,    2, 0x08 /* Private */,
+       9,    0,   62,    2, 0x08 /* Private */,
+      10,    3,   63,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Bool,    6,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void, QMetaType::Bool,   12,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 11, 0x80000000 | 12, 0x80000000 | 11,    2,   13,   14,
 
        0        // eod
 };
@@ -116,17 +102,12 @@ void Download_and_Clip::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         switch (_id) {
         case 0: _t->download_ytdl(); break;
         case 1: _t->run_ytdl(); break;
-        case 2: _t->processStarted_ytdl(); break;
-        case 3: _t->readyReadStandardOutput_ytdl(); break;
-        case 4: _t->downloadFinished_ytdl(); break;
-        case 5: _t->run_ffmpeg(); break;
-        case 6: _t->processStarted_ffmpeg(); break;
-        case 7: _t->readyReadStandardOutput_ffmpeg(); break;
-        case 8: _t->encodingFinished_ffmpeg(); break;
-        case 9: _t->darkmode_toggle((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 10: _t->clear_download(); break;
-        case 11: _t->typing_clip_name(); break;
-        case 12: _t->show_folder(); break;
+        case 2: _t->run_ffmpeg(); break;
+        case 3: _t->darkmode_toggle((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 4: _t->clear_download(); break;
+        case 5: _t->typing_clip_name(); break;
+        case 6: _t->show_folder(); break;
+        case 7: _t->processStateChange((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< QProcess::ProcessState(*)>(_a[2])),(*reinterpret_cast< std::string(*)>(_a[3]))); break;
         default: ;
         }
     }
@@ -161,13 +142,13 @@ int Download_and_Clip::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 13)
+        if (_id < 8)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 13;
+        _id -= 8;
     }
     return _id;
 }
