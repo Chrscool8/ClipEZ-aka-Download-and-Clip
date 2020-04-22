@@ -11,6 +11,12 @@ class Download_and_Clip : public QMainWindow
 
 public:
 	Download_and_Clip(QWidget* parent = Q_NULLPTR);
+
+
+	void load_thumbnail();
+	void load_video_info();
+	void load_video();
+	void start_new_process(std::string program, QStringList args, std::string tag);
 	void check_for_downloaded_files();
 	void update_status(std::string str);
 	int download_file(std::string _url, std::string _file);
@@ -19,19 +25,13 @@ public:
 	void download_ffmpeg();
 	void darkmode(bool on);
 
-	
+
 
 private slots:
 	void download_ytdl();
 	void run_ytdl();
-	void processStarted_ytdl();
-	void readyReadStandardOutput_ytdl();
-	void downloadFinished_ytdl();
-
+	
 	void run_ffmpeg();
-	void processStarted_ffmpeg();
-	void readyReadStandardOutput_ffmpeg();
-	void encodingFinished_ffmpeg();
 
 	void darkmode_toggle(bool state);
 
@@ -39,13 +39,16 @@ private slots:
 	void typing_clip_name();
 
 	void show_folder();
+
 	
+
+	void processStateChange(std::string, QProcess::ProcessState newState, std::string tag);
 
 private:
 	Ui::Download_and_ClipClass ui;
 
 
-	
+
 };
 
 

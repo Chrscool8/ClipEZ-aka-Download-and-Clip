@@ -343,41 +343,22 @@ QHeaderView::section:vertical
      <property name="title">
       <string>Output Name</string>
      </property>
-     <widget class="QPlainTextEdit" name="textedit_outputname">
+     <widget class="QLineEdit" name="lineedit_outputname">
       <property name="enabled">
        <bool>false</bool>
       </property>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>20</y>
-        <width>421</width>
-        <height>31</height>
+        <y>30</y>
+        <width>431</width>
+        <height>21</height>
        </rect>
       </property>
-      <property name="inputMethodHints">
-       <set>Qt::ImhNone</set>
-      </property>
-      <property name="plainText">
+      <property name="text">
        <string>export_clip</string>
       </property>
-      <property name="placeholderText">
-       <string/>
-      </property>
      </widget>
-    </widget>
-    <widget class="QPushButton" name="button_showfolder">
-     <property name="geometry">
-      <rect>
-       <x>260</x>
-       <y>280</y>
-       <width>81</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Show Folder</string>
-     </property>
     </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_3">
@@ -621,8 +602,24 @@ p, li { white-space: pre-wrap; }
     <property name="title">
      <string/>
     </property>
+    <widget class="QPushButton" name="button_showfolder">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>20</y>
+       <width>141</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Show Folder In Explorer</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QTabWidget" name="tabWidget">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>14</x>
@@ -754,6 +751,22 @@ p, li { white-space: pre-wrap; }
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+      <widget class="QLabel" name="label_download_title">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>80</y>
+         <width>451</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Video Title</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
@@ -795,6 +808,9 @@ p, li { white-space: pre-wrap; }
        </property>
       </widget>
       <widget class="QPushButton" name="pushButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>230</x>
