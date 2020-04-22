@@ -44,12 +44,17 @@ void Download_and_Clip::check_for_downloaded_files()
 	if (!downloaded_thumb.empty())
 	{
 		QPixmap image(downloaded_thumb.c_str());
-		ui.label_thumb->setPixmap(image);
+
+		int w = ui.label_thumb_download->width();
+		int h = ui.label_thumb_download->height();
+		ui.label_thumb_download->setPixmap(image.scaled(w, h, Qt::KeepAspectRatioByExpanding));
 	}
 
-
-
-
+	std::ifstream infile("working_directory/info.txt");
+	std::string url;
+	infile >> url;
+	infile.close();
+	ui.textedit_videoid->setPlainText(url.c_str());
 
 }
 
@@ -163,9 +168,24 @@ void Download_and_Clip::run_ytdl()
 
 	//////////
 
+	std::string url = ui.textedit_videoid->toPlainText().toStdString();
+	std::ofstream out("working_directory/info.txt");
+	out << url;
+	out.close();
+
+	QProcess* info = new QProcess(this);
+	std::string program3 = "youtube-dl.exe";
+	QStringList args3 = { ui.textedit_videoid->toPlainText(), "-o", "working_directory/downloaded_info", "--skip-download", "--no-playlist", "--write-info-json" };
+	//mTranscodingProcess = new QProcess;
+	info->setProgram(program3.c_str());
+	info->setStandardErrorFile("stderr.txt");
+	info->setStandardOutputFile("stdout.txt");
+	info->setArguments(args3);
+	info->start();
+
 	QProcess* thumb = new QProcess(this);
 	std::string program2 = "youtube-dl.exe";
-	QStringList args2 = { ui.textedit_videoid->toPlainText(), "-o", "working_directory/downloaded_thumb", "--write-thumbnail", "--skip-download" };
+	QStringList args2 = { ui.textedit_videoid->toPlainText(), "-o", "working_directory/downloaded_thumb", "--write-thumbnail", "--skip-download", "--no-playlist" };
 	//mTranscodingProcess = new QProcess;
 	thumb->setProgram(program2.c_str());
 	thumb->setStandardErrorFile("stderr.txt");
@@ -176,7 +196,7 @@ void Download_and_Clip::run_ytdl()
 	//////////
 
 	std::string program = "youtube-dl.exe";
-	QStringList args = { ui.textedit_videoid->toPlainText(), "-o", "working_directory/downloaded_video", "-f", "bestvideo+bestaudio/best" };
+	QStringList args = { ui.textedit_videoid->toPlainText(), "-o", "working_directory/downloaded_video", "-f", "bestvideo+bestaudio/best", "--no-playlist" };
 	//mTranscodingProcess = new QProcess;
 	process_ytdl->setProgram(program.c_str());
 	process_ytdl->setStandardErrorFile("stderr.txt");
@@ -304,9 +324,18 @@ void Download_and_Clip::darkmode(bool on)
 
 void Download_and_Clip::typing_clip_name()
 {
-	//std::string s = ui.textedit_outputname->toPlainText().toStdString();
-	//std::replace(s.begin(), s.end(), ' ', '_');
-	//ui.textedit_outputname->setPlainText("Bleh");
+	const int m_maxDescriptionLength = 10;
+	const int m_maxTextEditLength = 2;
+	if (ui.textedit_outputname->toPlainText().length() > m_maxDescriptionLength)
+	{
+		int diff = ui.textedit_outputname->toPlainText().length() - m_maxTextEditLength; //m_maxTextEditLength - just an integer
+		QString newStr = ui.textedit_outputname->toPlainText();
+		newStr.chop(diff);
+		ui.textedit_outputname->setPlainText(newStr);
+		QTextCursor cursor(ui.textedit_outputname->textCursor());
+		cursor.movePosition(QTextCursor::End, QTextCursor::MoveAnchor);
+		ui.textedit_outputname->setTextCursor(cursor);
+	}
 }
 
 void Download_and_Clip::show_folder()
@@ -337,6 +366,8 @@ Download_and_Clip::Download_and_Clip(QWidget* parent) :QMainWindow(parent)
 
 	connect(ui.textedit_outputname, SIGNAL(textChanged()), this, SLOT(typing_clip_name()));
 
+
+
 	check_for_ytdl();
 
 	process_ytdl = new QProcess(this);
@@ -355,7 +386,8 @@ Download_and_Clip::Download_and_Clip(QWidget* parent) :QMainWindow(parent)
 		fs::create_directory(working_dir);
 	}
 
-	ui.label_thumb->setText("");
+	ui.label_thumb_download->setText("");
+	ui.label_thumb_local->setText("");
 
 	check_for_downloaded_files();
 
