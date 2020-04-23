@@ -316,7 +316,6 @@ void Download_and_Clip::run_ffmpeg()
 			else {
 				ripcord = true;
 			}
-
 		}
 
 		if (!ripcord)
@@ -450,6 +449,8 @@ Download_and_Clip::Download_and_Clip(QWidget* parent) :QMainWindow(parent)
 	connect(ui.button_downloadffmpeg, SIGNAL(clicked()), this, SLOT(download_ffmpeg()));
 	connect(ui.button_download, SIGNAL(clicked()), this, SLOT(run_ytdl()));
 	connect(ui.button_clip, SIGNAL(clicked()), this, SLOT(run_ffmpeg()));
+	connect(ui.lineedit_outputname, SIGNAL(returnPressed()), this, SLOT(run_ffmpeg()));
+
 	connect(ui.button_cleardownload, SIGNAL(clicked()), this, SLOT(clear_download()));
 	connect(ui.button_showworking, SIGNAL(clicked()), this, SLOT(show_folder_working()));
 	connect(ui.button_showoutput, SIGNAL(clicked()), this, SLOT(show_folder_output()));
