@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1371</width>
-    <height>709</height>
+    <height>715</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -184,7 +184,7 @@ QHeaderView::section:vertical
       </property>
       <property name="geometry">
        <rect>
-        <x>380</x>
+        <x>330</x>
         <y>30</y>
         <width>42</width>
         <height>22</height>
@@ -206,9 +206,9 @@ QHeaderView::section:vertical
       </property>
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>20</x>
         <y>30</y>
-        <width>361</width>
+        <width>301</width>
         <height>22</height>
        </rect>
       </property>
@@ -216,13 +216,13 @@ QHeaderView::section:vertical
        <enum>Qt::RightToLeft</enum>
       </property>
       <property name="minimum">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="maximum">
-       <number>64</number>
+       <number>51</number>
       </property>
       <property name="value">
-       <number>15</number>
+       <number>25</number>
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -231,7 +231,7 @@ QHeaderView::section:vertical
      <widget class="QLabel" name="label_quality_smallest">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>20</x>
         <y>60</y>
         <width>47</width>
         <height>13</height>
@@ -244,7 +244,7 @@ QHeaderView::section:vertical
      <widget class="QLabel" name="label_7">
       <property name="geometry">
        <rect>
-        <x>340</x>
+        <x>280</x>
         <y>60</y>
         <width>47</width>
         <height>13</height>
@@ -253,6 +253,26 @@ QHeaderView::section:vertical
       <property name="text">
        <string>Biggest</string>
       </property>
+     </widget>
+     <widget class="QComboBox" name="combo_encoder">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>30</y>
+        <width>61</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>x264</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>x265</string>
+       </property>
+      </item>
      </widget>
     </widget>
     <widget class="QGroupBox" name="groupBox_6">

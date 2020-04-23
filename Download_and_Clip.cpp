@@ -322,8 +322,8 @@ void Download_and_Clip::run_ffmpeg()
 		if (!ripcord)
 		{
 			remove(outfile.c_str());
-
-			QStringList args = { "-i", downloaded_video.c_str(), "-c:v", "libx265", "-crf", std::to_string(ui.slider_quality->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
+			
+			QStringList args = { "-i", downloaded_video.c_str(), "-c:v", ("lib" + ui.combo_encoder->currentText()).toStdString().c_str(), "-crf", std::to_string(ui.slider_quality->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
 				"-b:a", "192k", "-ss", ui.lineedit_starttime->text(), "-to", ui.lineedit_endtime->text(), "-ac", "2", outfile.c_str() };
 			start_new_process("ffmpeg.exe", args, "encode");
 

@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QCheckBox>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -42,6 +43,7 @@ public:
     QSlider *slider_quality;
     QLabel *label_quality_smallest;
     QLabel *label_7;
+    QComboBox *combo_encoder;
     QGroupBox *groupBox_6;
     QLineEdit *lineedit_starttime;
     QGroupBox *groupBox_7;
@@ -87,7 +89,7 @@ public:
         if (Download_and_ClipClass->objectName().isEmpty())
             Download_and_ClipClass->setObjectName(QString::fromUtf8("Download_and_ClipClass"));
         Download_and_ClipClass->setEnabled(true);
-        Download_and_ClipClass->resize(1371, 709);
+        Download_and_ClipClass->resize(1371, 715);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -220,25 +222,30 @@ public:
         spinbox_quality = new QSpinBox(groupBox_5);
         spinbox_quality->setObjectName(QString::fromUtf8("spinbox_quality"));
         spinbox_quality->setEnabled(false);
-        spinbox_quality->setGeometry(QRect(380, 30, 42, 22));
+        spinbox_quality->setGeometry(QRect(330, 30, 42, 22));
         spinbox_quality->setMinimum(1);
         spinbox_quality->setMaximum(64);
         spinbox_quality->setValue(15);
         slider_quality = new QSlider(groupBox_5);
         slider_quality->setObjectName(QString::fromUtf8("slider_quality"));
         slider_quality->setEnabled(false);
-        slider_quality->setGeometry(QRect(10, 30, 361, 22));
+        slider_quality->setGeometry(QRect(20, 30, 301, 22));
         slider_quality->setLayoutDirection(Qt::RightToLeft);
-        slider_quality->setMinimum(1);
-        slider_quality->setMaximum(64);
-        slider_quality->setValue(15);
+        slider_quality->setMinimum(0);
+        slider_quality->setMaximum(51);
+        slider_quality->setValue(25);
         slider_quality->setOrientation(Qt::Horizontal);
         label_quality_smallest = new QLabel(groupBox_5);
         label_quality_smallest->setObjectName(QString::fromUtf8("label_quality_smallest"));
-        label_quality_smallest->setGeometry(QRect(10, 60, 47, 13));
+        label_quality_smallest->setGeometry(QRect(20, 60, 47, 13));
         label_7 = new QLabel(groupBox_5);
         label_7->setObjectName(QString::fromUtf8("label_7"));
-        label_7->setGeometry(QRect(340, 60, 47, 13));
+        label_7->setGeometry(QRect(280, 60, 47, 13));
+        combo_encoder = new QComboBox(groupBox_5);
+        combo_encoder->addItem(QString());
+        combo_encoder->addItem(QString());
+        combo_encoder->setObjectName(QString::fromUtf8("combo_encoder"));
+        combo_encoder->setGeometry(QRect(380, 30, 61, 22));
         groupBox_6 = new QGroupBox(groupBox_2);
         groupBox_6->setObjectName(QString::fromUtf8("groupBox_6"));
         groupBox_6->setGeometry(QRect(20, 120, 231, 51));
@@ -435,6 +442,9 @@ public:
         groupBox_5->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Quality", nullptr));
         label_quality_smallest->setText(QCoreApplication::translate("Download_and_ClipClass", "Smallest", nullptr));
         label_7->setText(QCoreApplication::translate("Download_and_ClipClass", "Biggest", nullptr));
+        combo_encoder->setItemText(0, QCoreApplication::translate("Download_and_ClipClass", "x264", nullptr));
+        combo_encoder->setItemText(1, QCoreApplication::translate("Download_and_ClipClass", "x265", nullptr));
+
         groupBox_6->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Start Time", nullptr));
         lineedit_starttime->setText(QCoreApplication::translate("Download_and_ClipClass", "00:00:00.0", nullptr));
         groupBox_7->setTitle(QCoreApplication::translate("Download_and_ClipClass", "End Time", nullptr));
