@@ -9,3 +9,4 @@ _Export_/stdout.txt
 stderr.txt
 stdout.txt
 config.txt
+*.tlog
