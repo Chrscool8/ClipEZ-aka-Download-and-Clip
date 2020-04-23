@@ -323,7 +323,7 @@ void Download_and_Clip::run_ffmpeg()
 		{
 			remove(outfile.c_str());
 
-			QStringList args = { "-i", downloaded_video.c_str(), "-c:v", "libx264", "-crf", std::to_string(ui.slider_quality->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
+			QStringList args = { "-i", downloaded_video.c_str(), "-c:v", "libx265", "-crf", std::to_string(ui.slider_quality->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
 				"-b:a", "192k", "-ss", ui.lineedit_starttime->text(), "-to", ui.lineedit_endtime->text(), "-ac", "2", outfile.c_str() };
 			start_new_process("ffmpeg.exe", args, "encode");
 
@@ -413,7 +413,15 @@ void Download_and_Clip::show_folder_output()
 void Download_and_Clip::choose_directory()
 {
 	QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"), ui.lineedit_directory->text(), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-	std::string str = dir.toStdString() + "/";
+
+	std::string str;
+
+	if (dir.isEmpty())
+		str = working_directory;
+	else
+		str = dir.toStdString() + "/";
+
+
 
 	while (str.find("//") != std::string::npos)
 	{
