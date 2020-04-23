@@ -757,25 +757,6 @@ p, li { white-space: pre-wrap; }
         <string>YouTube Video ID</string>
        </property>
       </widget>
-      <widget class="QPlainTextEdit" name="textedit_videoid">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>25</x>
-         <y>40</y>
-         <width>461</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="inputMethodHints">
-        <set>Qt::ImhNone</set>
-       </property>
-       <property name="placeholderText">
-        <string/>
-       </property>
-      </widget>
       <widget class="QPushButton" name="button_download">
        <property name="enabled">
         <bool>false</bool>
@@ -844,6 +825,16 @@ p, li { white-space: pre-wrap; }
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="lineedit_videoid">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>50</y>
+         <width>461</width>
+         <height>20</height>
+        </rect>
        </property>
       </widget>
      </widget>

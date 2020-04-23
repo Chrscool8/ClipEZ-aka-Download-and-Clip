@@ -18,7 +18,6 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
@@ -72,11 +71,11 @@ public:
     QWidget *tab;
     QGroupBox *groupBox;
     QLabel *label;
-    QPlainTextEdit *textedit_videoid;
     QPushButton *button_download;
     QPushButton *button_cleardownload;
     QLabel *label_thumb_download;
     QLabel *label_download_title;
+    QLineEdit *lineedit_videoid;
     QWidget *tab_2;
     QGroupBox *groupBox_12;
     QLabel *label_thumb_local;
@@ -378,11 +377,6 @@ public:
         label = new QLabel(groupBox);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(30, 20, 120, 16));
-        textedit_videoid = new QPlainTextEdit(groupBox);
-        textedit_videoid->setObjectName(QString::fromUtf8("textedit_videoid"));
-        textedit_videoid->setEnabled(false);
-        textedit_videoid->setGeometry(QRect(25, 40, 461, 31));
-        textedit_videoid->setInputMethodHints(Qt::ImhNone);
         button_download = new QPushButton(groupBox);
         button_download->setObjectName(QString::fromUtf8("button_download"));
         button_download->setEnabled(false);
@@ -401,6 +395,9 @@ public:
         label_download_title->setObjectName(QString::fromUtf8("label_download_title"));
         label_download_title->setGeometry(QRect(30, 90, 291, 20));
         label_download_title->setAlignment(Qt::AlignCenter);
+        lineedit_videoid = new QLineEdit(groupBox);
+        lineedit_videoid->setObjectName(QString::fromUtf8("lineedit_videoid"));
+        lineedit_videoid->setGeometry(QRect(30, 50, 461, 20));
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -482,7 +479,6 @@ public:
         button_showoutput->setText(QCoreApplication::translate("Download_and_ClipClass", "Output Dir", nullptr));
         groupBox->setTitle(QString());
         label->setText(QCoreApplication::translate("Download_and_ClipClass", "YouTube Video ID", nullptr));
-        textedit_videoid->setPlaceholderText(QString());
         button_download->setText(QCoreApplication::translate("Download_and_ClipClass", "Download", nullptr));
         button_cleardownload->setText(QCoreApplication::translate("Download_and_ClipClass", "Clear Downloaded", nullptr));
         label_thumb_download->setText(QCoreApplication::translate("Download_and_ClipClass", "[Thumbnail]", nullptr));

@@ -70,7 +70,7 @@ void Download_and_Clip::load_video_info()
 				}
 				QJsonObject rootObj = doc.object();
 				ui.label_download_title->setText(rootObj.value("title").toString());
-				ui.textedit_videoid->setPlainText(rootObj.value("webpage_url").toString());
+				ui.lineedit_videoid->setText(rootObj.value("webpage_url").toString());
 				downloaded_info = file;
 				check_for_ffmpeg();
 			}
@@ -223,7 +223,7 @@ void Download_and_Clip::check_for_ytdl()
 	if (fs::exists(fs::path("youtube-dl.exe")))
 	{
 		update_status("youtube-dl.exe found.");
-		ui.textedit_videoid->setEnabled(true);
+		ui.lineedit_videoid->setEnabled(true);
 		ui.button_download->setEnabled(true);
 		//ui.button_downloadytdl->setEnabled(true);
 		ui.button_downloadytdl->setText("Update Youtube-DL");
@@ -231,7 +231,7 @@ void Download_and_Clip::check_for_ytdl()
 	else
 	{
 		update_status("youtube-dl.exe not found.");
-		ui.textedit_videoid->setEnabled(false);
+		ui.lineedit_videoid->setEnabled(false);
 		ui.button_download->setEnabled(false);
 		//ui.button_downloadytdl->setEnabled(true);
 		ui.button_downloadytdl->setText("Download Youtube-DL");
@@ -285,13 +285,13 @@ void Download_and_Clip::run_ytdl()
 	remove(downloaded_video.c_str());
 	remove(downloaded_thumb.c_str());
 
-	QStringList args = { ui.textedit_videoid->toPlainText(), "-o", (working_directory + "downloaded_info").c_str(), "--skip-download", "--no-playlist", "--write-info-json" };
+	QStringList args = { ui.lineedit_videoid->text(), "-o", (working_directory + "downloaded_info").c_str(), "--skip-download", "--no-playlist", "--write-info-json" };
 	start_new_process("youtube-dl.exe", args, "download video info");
 
-	QStringList args2 = { ui.textedit_videoid->toPlainText(), "-o", (working_directory + "downloaded_thumb").c_str(), "--write-thumbnail", "--skip-download", "--no-playlist" };
+	QStringList args2 = { ui.lineedit_videoid->text(), "-o", (working_directory + "downloaded_thumb").c_str(), "--write-thumbnail", "--skip-download", "--no-playlist" };
 	start_new_process("youtube-dl.exe", args2, "download video thumbnail");
 
-	QStringList args3 = { ui.textedit_videoid->toPlainText(), "-o", (working_directory + "downloaded_video").c_str(), "-f", "bestvideo+bestaudio/best", "--no-playlist" };
+	QStringList args3 = { ui.lineedit_videoid->text(), "-o", (working_directory + "downloaded_video").c_str(), "-f", "bestvideo+bestaudio/best", "--no-playlist" };
 	start_new_process("youtube-dl.exe", args3, "download video");
 
 	ui.button_download->setEnabled(false);
@@ -450,6 +450,8 @@ Download_and_Clip::Download_and_Clip(QWidget* parent) :QMainWindow(parent)
 	connect(ui.button_download, SIGNAL(clicked()), this, SLOT(run_ytdl()));
 	connect(ui.button_clip, SIGNAL(clicked()), this, SLOT(run_ffmpeg()));
 	connect(ui.lineedit_outputname, SIGNAL(returnPressed()), this, SLOT(run_ffmpeg()));
+
+	connect(ui.lineedit_videoid, SIGNAL(returnPressed()), this, SLOT(run_ytdl()));
 
 	connect(ui.button_cleardownload, SIGNAL(clicked()), this, SLOT(clear_download()));
 	connect(ui.button_showworking, SIGNAL(clicked()), this, SLOT(show_folder_working()));
