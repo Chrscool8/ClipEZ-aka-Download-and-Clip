@@ -695,7 +695,7 @@ p, li { white-space: pre-wrap; }
      </property>
     </widget>
    </widget>
-   <widget class="QTabWidget" name="tabWidget">
+   <widget class="QTabWidget" name="tabs_source">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -714,7 +714,7 @@ p, li { white-space: pre-wrap; }
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideNone</enum>
@@ -849,7 +849,7 @@ p, li { white-space: pre-wrap; }
         <x>-10</x>
         <y>-10</y>
         <width>531</width>
-        <height>331</height>
+        <height>381</height>
        </rect>
       </property>
       <property name="title">
@@ -861,7 +861,7 @@ p, li { white-space: pre-wrap; }
          <x>120</x>
          <y>110</y>
          <width>291</width>
-         <height>141</height>
+         <height>161</height>
         </rect>
        </property>
        <property name="frameShape">
@@ -877,9 +877,9 @@ p, li { white-space: pre-wrap; }
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="button_choose_local">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="geometry">
         <rect>
@@ -896,14 +896,17 @@ p, li { white-space: pre-wrap; }
       <widget class="QLabel" name="label_local_name">
        <property name="geometry">
         <rect>
-         <x>240</x>
+         <x>20</x>
          <y>280</y>
-         <width>47</width>
-         <height>13</height>
+         <width>491</width>
+         <height>20</height>
         </rect>
        </property>
        <property name="text">
         <string>File Name</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </widget>

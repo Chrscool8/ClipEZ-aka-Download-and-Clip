@@ -1,3 +1,10 @@
-﻿  Download_and_Clip.cpp
+﻿  Reading Qt configuration (G:\Software\Qt\5.14.2\msvc2017_64\bin\qmake.exe)
+  uic Download_and_Clip.ui
+  rcc Download_and_Clip.qrc
+  moc Download_and_Clip.h
+   RCC: Warning: No resources in 'G:\Documents\GitHub\Download-and-Clip\Download_and_Clip.qrc'.
+  Download_and_Clip.cpp
+  main.cpp
+  qrc_Download_and_Clip.cpp
   moc_Download_and_Clip.cpp
   Download_and_Clip.vcxproj -> G:\Documents\GitHub\Download-and-Clip\x64\Release\Download_and_Clip.exe

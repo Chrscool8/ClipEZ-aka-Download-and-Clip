@@ -67,7 +67,7 @@ public:
     QGroupBox *groupBox_11;
     QPushButton *button_showworking;
     QPushButton *button_showoutput;
-    QTabWidget *tabWidget;
+    QTabWidget *tabs_source;
     QWidget *tab;
     QGroupBox *groupBox;
     QLabel *label;
@@ -79,7 +79,7 @@ public:
     QWidget *tab_2;
     QGroupBox *groupBox_12;
     QLabel *label_thumb_local;
-    QPushButton *pushButton;
+    QPushButton *button_choose_local;
     QLabel *label_local_name;
     QStatusBar *statusBar;
 
@@ -359,15 +359,15 @@ public:
         button_showoutput = new QPushButton(groupBox_11);
         button_showoutput->setObjectName(QString::fromUtf8("button_showoutput"));
         button_showoutput->setGeometry(QRect(140, 20, 101, 23));
-        tabWidget = new QTabWidget(centralWidget);
-        tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
-        tabWidget->setEnabled(true);
-        tabWidget->setGeometry(QRect(14, 90, 527, 361));
-        tabWidget->setTabPosition(QTabWidget::West);
-        tabWidget->setTabShape(QTabWidget::Triangular);
-        tabWidget->setElideMode(Qt::ElideNone);
-        tabWidget->setUsesScrollButtons(false);
-        tabWidget->setDocumentMode(true);
+        tabs_source = new QTabWidget(centralWidget);
+        tabs_source->setObjectName(QString::fromUtf8("tabs_source"));
+        tabs_source->setEnabled(true);
+        tabs_source->setGeometry(QRect(14, 90, 527, 361));
+        tabs_source->setTabPosition(QTabWidget::West);
+        tabs_source->setTabShape(QTabWidget::Triangular);
+        tabs_source->setElideMode(Qt::ElideNone);
+        tabs_source->setUsesScrollButtons(false);
+        tabs_source->setDocumentMode(true);
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
         groupBox = new QGroupBox(tab);
@@ -398,26 +398,27 @@ public:
         lineedit_videoid = new QLineEdit(groupBox);
         lineedit_videoid->setObjectName(QString::fromUtf8("lineedit_videoid"));
         lineedit_videoid->setGeometry(QRect(30, 50, 461, 20));
-        tabWidget->addTab(tab, QString());
+        tabs_source->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
         groupBox_12 = new QGroupBox(tab_2);
         groupBox_12->setObjectName(QString::fromUtf8("groupBox_12"));
-        groupBox_12->setGeometry(QRect(-10, -10, 531, 331));
+        groupBox_12->setGeometry(QRect(-10, -10, 531, 381));
         label_thumb_local = new QLabel(groupBox_12);
         label_thumb_local->setObjectName(QString::fromUtf8("label_thumb_local"));
-        label_thumb_local->setGeometry(QRect(120, 110, 291, 141));
+        label_thumb_local->setGeometry(QRect(120, 110, 291, 161));
         label_thumb_local->setFrameShape(QFrame::NoFrame);
         label_thumb_local->setScaledContents(true);
         label_thumb_local->setAlignment(Qt::AlignCenter);
-        pushButton = new QPushButton(groupBox_12);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setEnabled(false);
-        pushButton->setGeometry(QRect(230, 50, 75, 23));
+        button_choose_local = new QPushButton(groupBox_12);
+        button_choose_local->setObjectName(QString::fromUtf8("button_choose_local"));
+        button_choose_local->setEnabled(true);
+        button_choose_local->setGeometry(QRect(230, 50, 75, 23));
         label_local_name = new QLabel(groupBox_12);
         label_local_name->setObjectName(QString::fromUtf8("label_local_name"));
-        label_local_name->setGeometry(QRect(240, 280, 47, 13));
-        tabWidget->addTab(tab_2, QString());
+        label_local_name->setGeometry(QRect(20, 280, 491, 20));
+        label_local_name->setAlignment(Qt::AlignCenter);
+        tabs_source->addTab(tab_2, QString());
         Download_and_ClipClass->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(Download_and_ClipClass);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
@@ -425,7 +426,7 @@ public:
 
         retranslateUi(Download_and_ClipClass);
 
-        tabWidget->setCurrentIndex(0);
+        tabs_source->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(Download_and_ClipClass);
@@ -483,12 +484,12 @@ public:
         button_cleardownload->setText(QCoreApplication::translate("Download_and_ClipClass", "Clear Downloaded", nullptr));
         label_thumb_download->setText(QCoreApplication::translate("Download_and_ClipClass", "[Thumbnail]", nullptr));
         label_download_title->setText(QCoreApplication::translate("Download_and_ClipClass", "Video Title", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("Download_and_ClipClass", "Download", nullptr));
+        tabs_source->setTabText(tabs_source->indexOf(tab), QCoreApplication::translate("Download_and_ClipClass", "Download", nullptr));
         groupBox_12->setTitle(QString());
         label_thumb_local->setText(QCoreApplication::translate("Download_and_ClipClass", "[Thumbnail]", nullptr));
-        pushButton->setText(QCoreApplication::translate("Download_and_ClipClass", "Choose File", nullptr));
+        button_choose_local->setText(QCoreApplication::translate("Download_and_ClipClass", "Choose File", nullptr));
         label_local_name->setText(QCoreApplication::translate("Download_and_ClipClass", "File Name", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("Download_and_ClipClass", "Local File", nullptr));
+        tabs_source->setTabText(tabs_source->indexOf(tab_2), QCoreApplication::translate("Download_and_ClipClass", "Local File", nullptr));
     } // retranslateUi
 
 };

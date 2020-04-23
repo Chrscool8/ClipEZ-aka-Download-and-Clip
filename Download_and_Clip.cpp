@@ -25,11 +25,14 @@ std::string downloaded_video;
 std::string downloaded_thumb;
 std::string downloaded_info;
 
+std::string local_video;
+std::string local_thumb;
+
 std::string working_directory = (QDir::currentPath().toStdString() + "/working_directory/");
 
 std::vector<QProcess*> QProcesses;
 
-void Download_and_Clip::load_thumbnail()
+void Download_and_Clip::load_downloaded_thumbnail()
 {
 	downloaded_thumb = "";
 
@@ -43,6 +46,26 @@ void Download_and_Clip::load_thumbnail()
 				QPixmap image(file.c_str());
 				ui.label_thumb_download->setPixmap(image);
 				downloaded_thumb = file;
+			}
+		}
+	}
+}
+
+
+void Download_and_Clip::load_local_thumbnail()
+{
+	local_thumb = "";
+
+	for (auto& p : fs::directory_iterator(working_directory))
+	{
+		std::string file = p.path().string();
+		if (file.find("local_thumb") != std::string::npos)
+		{
+			if (!file.empty())
+			{
+				QPixmap image(file.c_str());
+				ui.label_thumb_local->setPixmap(image);
+				local_thumb = file;
 			}
 		}
 	}
@@ -116,7 +139,7 @@ void Download_and_Clip::processStateChange(std::string program, QProcess::Proces
 
 		if (tag == "download video thumbnail")
 		{
-			load_thumbnail();
+			load_downloaded_thumbnail();
 		}
 		else if (tag == "download video")
 		{
@@ -152,6 +175,10 @@ void Download_and_Clip::processStateChange(std::string program, QProcess::Proces
 		{
 			load_video_info();
 		}
+		else if (tag == "local thumb")
+		{
+			load_local_thumbnail();
+		}
 	}
 	break;
 	};
@@ -176,7 +203,7 @@ void Download_and_Clip::start_new_process(std::string program, QStringList args,
 
 void Download_and_Clip::check_for_downloaded_files()
 {
-	load_thumbnail();
+	load_downloaded_thumbnail();
 	load_video_info();
 	load_video();
 }
@@ -321,8 +348,14 @@ void Download_and_Clip::run_ffmpeg()
 		if (!ripcord)
 		{
 			remove(outfile.c_str());
-			
-			QStringList args = { "-i", downloaded_video.c_str(), "-c:v", ("lib" + ui.combo_encoder->currentText()).toStdString().c_str(), "-crf", std::to_string(ui.slider_quality->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
+
+			std::string source_video;
+			if (ui.tabs_source->currentIndex() == 0)
+				source_video = downloaded_video;
+			else
+				source_video = local_video;
+
+			QStringList args = { "-i", source_video.c_str(), "-c:v", ("lib" + ui.combo_encoder->currentText()).toStdString().c_str(), "-crf", std::to_string(ui.slider_quality->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
 				"-b:a", "192k", "-ss", ui.lineedit_starttime->text(), "-to", ui.lineedit_endtime->text(), "-ac", "2", outfile.c_str() };
 			start_new_process("ffmpeg.exe", args, "encode");
 
@@ -409,7 +442,7 @@ void Download_and_Clip::show_folder_output()
 	system(("explorer \"" + str + "\"").c_str());
 }
 
-void Download_and_Clip::choose_directory()
+void Download_and_Clip::choose_output_directory()
 {
 	QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"), ui.lineedit_directory->text(), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
@@ -436,6 +469,28 @@ void Download_and_Clip::choose_directory()
 	out.close();
 }
 
+void Download_and_Clip::choose_local_video()
+{
+	std::string s = ("Video File (*.*)");
+	QString ex = s.c_str();
+	QString dir = QFileDialog::getOpenFileName(this, tr("Open File"), ui.lineedit_directory->text(), ex);
+
+	std::string str;
+
+	if (!dir.isEmpty())
+	{
+		str = dir.toStdString();
+		//ui.lineedit_directory->setText(str.c_str());
+
+		local_video = str;
+		ui.label_local_name->setText(str.c_str());
+
+		QStringList args = { "-i", str.c_str(), "-ss", "00:00:05.01", "-frames:v", "1", (working_directory + "local_thumb.png").c_str() };
+		start_new_process("ffmpeg.exe", args, "local thumb");
+	}
+}
+
+
 //Init
 Download_and_Clip::Download_and_Clip(QWidget* parent) :QMainWindow(parent)
 {
@@ -456,7 +511,8 @@ Download_and_Clip::Download_and_Clip(QWidget* parent) :QMainWindow(parent)
 	connect(ui.button_cleardownload, SIGNAL(clicked()), this, SLOT(clear_download()));
 	connect(ui.button_showworking, SIGNAL(clicked()), this, SLOT(show_folder_working()));
 	connect(ui.button_showoutput, SIGNAL(clicked()), this, SLOT(show_folder_output()));
-	connect(ui.button_choose_directory, SIGNAL(clicked()), this, SLOT(choose_directory()));
+	connect(ui.button_choose_directory, SIGNAL(clicked()), this, SLOT(choose_output_directory()));
+	connect(ui.button_choose_local, SIGNAL(clicked()), this, SLOT(choose_local_video()));
 
 	connect(ui.slider_quality, SIGNAL(valueChanged(int)), ui.spinbox_quality, SLOT(setValue(int)));
 	connect(ui.spinbox_quality, SIGNAL(valueChanged(int)), ui.slider_quality, SLOT(setValue(int)));
@@ -478,7 +534,7 @@ Download_and_Clip::Download_and_Clip(QWidget* parent) :QMainWindow(parent)
 		ui.lineedit_directory->setText(dir.c_str());
 	}
 
-
+	remove((working_directory + "local_thumb.png").c_str());
 
 	check_for_ytdl();
 

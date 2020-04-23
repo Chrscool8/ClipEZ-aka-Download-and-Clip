@@ -13,7 +13,8 @@ public:
 	Download_and_Clip(QWidget* parent = Q_NULLPTR);
 
 
-	void load_thumbnail();
+	void load_downloaded_thumbnail();
+	void load_local_thumbnail();
 	void load_video_info();
 	void load_video();
 	void start_new_process(std::string program, QStringList args, std::string tag);
@@ -40,7 +41,9 @@ private slots:
 	void show_folder_working();
 	void show_folder_output();
 
-	void choose_directory();
+	void choose_output_directory();
+
+	void choose_local_video();
 
 	void processStateChange(std::string, QProcess::ProcessState newState, std::string tag);
 
