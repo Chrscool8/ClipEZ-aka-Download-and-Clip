@@ -25,11 +25,13 @@ public:
 	void check_for_ffmpeg();
 	void download_ffmpeg();
 	void darkmode(bool on);
-
+	std::string get_ext();
 
 private slots:
 	void download_ytdl();
 	void run_ytdl();
+
+	
 
 	void run_ffmpeg();
 

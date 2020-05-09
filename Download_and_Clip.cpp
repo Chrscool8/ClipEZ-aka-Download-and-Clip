@@ -150,7 +150,7 @@ void Download_and_Clip::processStateChange(std::string program, QProcess::Proces
 			ui.button_download->setEnabled(true);
 			ui.button_clip->setEnabled(true);
 
-			std::string s = ui.lineedit_outputname->text().toStdString() + ".mp4";
+			std::string s = ui.lineedit_outputname->text().toStdString() + get_ext();
 
 			ui.progressBar->setValue(100);
 
@@ -189,8 +189,8 @@ void Download_and_Clip::start_new_process(std::string program, QStringList args,
 	QProcess* info = new QProcess(this);
 	QProcesses.push_back(info);
 	info->setProgram(program.c_str());
-	//info->setStandardErrorFile("stderr.txt");
-	//info->setStandardOutputFile("stdout.txt");
+	info->setStandardErrorFile("stderr.txt");
+	info->setStandardOutputFile("stdout.txt");
 	info->setArguments(args);
 
 	connect(info, &QProcess::stateChanged, [=](QProcess::ProcessState newState)
@@ -325,11 +325,30 @@ void Download_and_Clip::run_ytdl()
 	ui.progressBar->setValue(0);
 }
 
+std::string Download_and_Clip::get_ext()
+{
+	std::string type = ui.combo_encoder->currentText().toStdString();
+	std::string extension = "";
+	if (type.compare("x264") == 0 || type.compare("x265") == 0)
+		extension = ".mp4";
+	else if (type.compare("gif") == 0)
+		extension = ".gif";
+	else
+	{
+		extension = ".error";
+		update_status("Unknown format??");
+	}
+	return extension;
+}
+
 void Download_and_Clip::run_ffmpeg()
 {
 	if (ui.lineedit_outputname->text().length() > 0)
 	{
-		std::string outfile = (ui.lineedit_directory->text() + ui.lineedit_outputname->text() + ".mp4").toStdString();
+		std::string outfile = (ui.lineedit_directory->text() + ui.lineedit_outputname->text()).toStdString();
+		outfile += get_ext();
+
+		update_status(outfile);
 
 		bool ripcord = false;
 
@@ -355,9 +374,22 @@ void Download_and_Clip::run_ffmpeg()
 			else
 				source_video = local_video;
 
-			QStringList args = { "-i", source_video.c_str(), "-c:v", ("lib" + ui.combo_encoder->currentText()).toStdString().c_str(), "-crf", std::to_string(ui.slider_quality->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
-				"-b:a", "192k", "-ss", ui.lineedit_starttime->text(), "-to", ui.lineedit_endtime->text(), "-ac", "2", outfile.c_str() };
-			start_new_process("ffmpeg.exe", args, "encode");
+			std::string type = ui.combo_encoder->currentText().toStdString();
+
+			if (type.compare("x264") == 0 || type.compare("x265") == 0)
+			{
+				QStringList args = { "-i", source_video.c_str(), "-c:v", ("lib" + ui.combo_encoder->currentText().toStdString()).c_str(), "-crf", std::to_string(ui.slider_quality->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
+					"-b:a", "192k", "-ss", ui.lineedit_starttime->text(), "-to", ui.lineedit_endtime->text(), "-ac", "2", outfile.c_str() };
+				start_new_process("ffmpeg.exe", args, "encode");
+			}
+			else if (type.compare("gif") == 0)
+			{
+				QStringList args = { "-i", source_video.c_str(), "-crf", std::to_string(ui.slider_quality->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
+					"-b:a", "192k", "-ss", ui.lineedit_starttime->text(), "-to", ui.lineedit_endtime->text(), "-ac", "2", (outfile).c_str() };
+				start_new_process("ffmpeg.exe", args, "encode");
+			}
+			else
+				update_status("Unknown type???");
 
 			ui.button_download->setEnabled(false);
 			ui.button_clip->setEnabled(false);

@@ -273,6 +273,11 @@ QHeaderView::section:vertical
         <string>x265</string>
        </property>
       </item>
+      <item>
+       <property name="text">
+        <string>gif</string>
+       </property>
+      </item>
      </widget>
     </widget>
     <widget class="QGroupBox" name="groupBox_6">
@@ -714,7 +719,7 @@ p, li { white-space: pre-wrap; }
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideNone</enum>

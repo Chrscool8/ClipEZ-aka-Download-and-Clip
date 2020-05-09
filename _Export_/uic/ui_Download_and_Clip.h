@@ -243,6 +243,7 @@ public:
         combo_encoder = new QComboBox(groupBox_5);
         combo_encoder->addItem(QString());
         combo_encoder->addItem(QString());
+        combo_encoder->addItem(QString());
         combo_encoder->setObjectName(QString::fromUtf8("combo_encoder"));
         combo_encoder->setGeometry(QRect(380, 30, 61, 22));
         groupBox_6 = new QGroupBox(groupBox_2);
@@ -426,7 +427,7 @@ public:
 
         retranslateUi(Download_and_ClipClass);
 
-        tabs_source->setCurrentIndex(1);
+        tabs_source->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(Download_and_ClipClass);
@@ -442,6 +443,7 @@ public:
         label_7->setText(QCoreApplication::translate("Download_and_ClipClass", "Biggest", nullptr));
         combo_encoder->setItemText(0, QCoreApplication::translate("Download_and_ClipClass", "x264", nullptr));
         combo_encoder->setItemText(1, QCoreApplication::translate("Download_and_ClipClass", "x265", nullptr));
+        combo_encoder->setItemText(2, QCoreApplication::translate("Download_and_ClipClass", "gif", nullptr));
 
         groupBox_6->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Start Time", nullptr));
         lineedit_starttime->setText(QCoreApplication::translate("Download_and_ClipClass", "00:00:00.0", nullptr));
