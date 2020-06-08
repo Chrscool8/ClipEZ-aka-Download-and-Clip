@@ -65,16 +65,19 @@
     <ResourceCompile Include="Download_and_Clip.rc" />
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="included files\16x9.png">
+    <CopyFileToFolders Include="16x9.png">
       <Filter>Resource Files\included files</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="included files\ffmpeg.exe">
+    <CopyFileToFolders Include="ffmpeg.exe">
       <Filter>Resource Files\included files</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="included files\ffprobe.exe">
+    <CopyFileToFolders Include="ffplay.exe">
       <Filter>Resource Files\included files</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="included files\youtube-dl.exe">
+    <CopyFileToFolders Include="ffprobe.exe">
+      <Filter>Resource Files\included files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="youtube-dl.exe">
       <Filter>Resource Files\included files</Filter>
     </CopyFileToFolders>
   </ItemGroup>

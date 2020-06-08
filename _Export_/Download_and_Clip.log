@@ -1,4 +1,4 @@
-﻿  Reading Qt configuration (G:\Software\Qt\5.15.0\msvc2019_64\bin\qmake.exe)
+﻿  Download_and_Clip.cpp
   Download_and_Clip.vcxproj -> G:\Documents\GitHub\Download-and-Clip\x64\Release\Download_and_Clip.exe
   Add Qt Libraries to exe
   G:\Documents\GitHub\Download-and-Clip\x64\Release\Download_and_Clip.exe 64 bit, release executable
@@ -13,31 +13,26 @@
   All dependencies   : Qt5Core Qt5Gui Qt5Widgets
   To be deployed     : Qt5Core Qt5Gui Qt5Svg Qt5Widgets
 EXEC : warning : Cannot find Visual Studio installation directory, VCINSTALLDIR is not set.
-  Updating Qt5Core.dll.
-  Updating Qt5Gui.dll.
-  Updating Qt5Svg.dll.
-  Updating Qt5Widgets.dll.
-  Updating libGLESv2.dll.
-  Updating libEGL.dll.
-  Updating D3Dcompiler_47.dll.
-  Updating opengl32sw.dll.
-  Creating directory G:/Documents/GitHub/Download-and-Clip/x64/Release/iconengines.
-  Updating qsvgicon.dll.
-  Creating directory G:/Documents/GitHub/Download-and-Clip/x64/Release/imageformats.
-  Updating qgif.dll.
-  Updating qicns.dll.
-  Updating qico.dll.
-  Updating qjpeg.dll.
-  Updating qsvg.dll.
-  Updating qtga.dll.
-  Updating qtiff.dll.
-  Updating qwbmp.dll.
-  Updating qwebp.dll.
-  Creating directory G:/Documents/GitHub/Download-and-Clip/x64/Release/platforms.
-  Updating qwindows.dll.
-  Creating directory G:/Documents/GitHub/Download-and-Clip/x64/Release/styles.
-  Updating qwindowsvistastyle.dll.
-  Creating G:\Documents\GitHub\Download-and-Clip\x64\Release\translations...
+  Qt5Core.dll is up to date.
+  Qt5Gui.dll is up to date.
+  Qt5Svg.dll is up to date.
+  Qt5Widgets.dll is up to date.
+  libGLESv2.dll is up to date.
+  libEGL.dll is up to date.
+  D3Dcompiler_47.dll is up to date.
+  opengl32sw.dll is up to date.
+  qsvgicon.dll is up to date.
+  qgif.dll is up to date.
+  qicns.dll is up to date.
+  qico.dll is up to date.
+  qjpeg.dll is up to date.
+  qsvg.dll is up to date.
+  qtga.dll is up to date.
+  qtiff.dll is up to date.
+  qwbmp.dll is up to date.
+  qwebp.dll is up to date.
+  qwindows.dll is up to date.
+  qwindowsvistastyle.dll is up to date.
   Creating qt_ar.qm...
   Creating qt_bg.qm...
   Creating qt_ca.qm...
