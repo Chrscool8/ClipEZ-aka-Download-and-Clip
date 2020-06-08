@@ -1,2 +1,3 @@
-G:\Documents\GitHub\Download-and-Clip\x64\Debug\Download_and_Clip.exe
-G:\Documents\GitHub\Download-and-Clip\x64\Debug\Download_and_Clip.pdb
+G:\Documents\GitHub\Download-and-Clip\x64\Release\Download_and_Clip.exe.lastcodeanalysissucceeded
+G:\Documents\GitHub\Download-and-Clip\x64\Release\NativeCodeAnalysis.read.1.tlog
+G:\Documents\GitHub\Download-and-Clip\x64\Release\Download_and_Clip.exe
