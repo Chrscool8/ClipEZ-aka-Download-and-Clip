@@ -5,8 +5,6 @@ packages/
 working_directory/
 styles/
 stderr.txt
-_Export_/stdout.txt
-stderr.txt
 stdout.txt
 config.txt
 *.tlog
