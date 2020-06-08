@@ -691,19 +691,17 @@ void Download_and_Clip::browse_for_ffprobe()
 	}
 }
 
+const int animation_time = 300;
 void Download_and_Clip::collapse_panel(QToolBox* toolbox)
 {
-	//toolbox->setMinimumWidth(0);
-	//toolbox->setMaximumWidth(0);
-
 	animation = new QPropertyAnimation(toolbox, "maximumSize");
-	animation->setDuration(400);
+	animation->setDuration(animation_time);
 	animation->setStartValue(toolbox->size());
 	animation->setEndValue(QSize(0, toolbox->size().height()));
 	animation->start();
 
 	animation = new QPropertyAnimation(toolbox, "minimumSize");
-	animation->setDuration(400);
+	animation->setDuration(animation_time);
 	animation->setStartValue(toolbox->size());
 	animation->setEndValue(QSize(0, toolbox->size().height()));
 	animation->start();
@@ -711,17 +709,14 @@ void Download_and_Clip::collapse_panel(QToolBox* toolbox)
 
 void Download_and_Clip::expand_panel(QToolBox* toolbox)
 {
-	//toolbox->setMinimumWidth(450);
-	//toolbox->setMaximumWidth(16777215);
-
 	animation = new QPropertyAnimation(toolbox, "maximumSize");
-	animation->setDuration(400);
+	animation->setDuration(animation_time);
 	animation->setStartValue(toolbox->size());
 	animation->setEndValue(QSize(16777215, toolbox->size().height()));
 	animation->start();
 
 	animation = new QPropertyAnimation(toolbox, "minimumSize");
-	animation->setDuration(400);
+	animation->setDuration(animation_time);
 	animation->setStartValue(toolbox->size());
 	animation->setEndValue(QSize(450, toolbox->size().height()));
 	animation->start();
