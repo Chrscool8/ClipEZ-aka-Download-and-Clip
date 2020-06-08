@@ -16,19 +16,20 @@
 #include <algorithm>
 #include <string>
 
+#include "base64.cpp"
+
 #include <filesystem>  
 namespace fs = std::filesystem;
 
 std::string status = "";
 QString dark_stylesheet;
 
-//std::string downloaded_video;
-//std::string downloaded_thumb;
-//std::string downloaded_info;
-
 std::string local_video;
 std::string local_thumb;
+std::vector<QProcess*> QProcesses;
 
+
+// Settings //
 enum setting
 {
 	exe_ytdl,
@@ -39,56 +40,7 @@ enum setting
 	settings_num
 };
 
-std::string settings[settings_num+1];
-std::vector<QProcess*> QProcesses;
-
-
-/////// courtesy of random internet place
-
-static std::string base64_encode(const std::string& in) {
-
-	std::string out;
-
-	int val = 0, valb = -6;
-	for (uchar c : in) {
-		val = (val << 8) + c;
-		valb += 8;
-		while (valb >= 0) {
-			out.push_back("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"[(val >> valb) & 0x3F]);
-			valb -= 6;
-		}
-	}
-	if (valb > -6) out.push_back("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"[((val << 8) >> (valb + 8)) & 0x3F]);
-	while (out.size() % 4) out.push_back('=');
-	return out;
-}
-
-static std::string base64_decode(const std::string& in) {
-
-	std::string out;
-
-	std::vector<int> T(256, -1);
-	for (int i = 0; i < 64; i++) T["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"[i]] = i;
-
-	int val = 0, valb = -8;
-	for (uchar c : in) {
-		if (T[c] == -1) break;
-		val = (val << 6) + T[c];
-		valb += 6;
-		if (valb >= 0) {
-			out.push_back(char((val >> valb) & 0xFF));
-			valb -= 8;
-		}
-	}
-	return out;
-}
-////////
-
-void Download_and_Clip::init_elements()
-{
-	std::map<std::string, QWidget*> element;
-	// still considering
-}
+std::string settings[settings_num + 1];
 
 std::string Download_and_Clip::get_setting(int setting)
 {
@@ -102,10 +54,56 @@ void Download_and_Clip::set_setting(int setting, std::string value)
 	file_save_settings();
 }
 
+void Download_and_Clip::init_settings()
+{
+	if (get_setting(working_directory) == "")
+	{
+		set_setting(working_directory, (QDir::currentPath().toStdString() + "/working_directory/").c_str());
+	}
+}
+
+void Download_and_Clip::file_load_settings()
+{
+	QFile inputFile("config.txt");
+	if (inputFile.open(QIODevice::ReadOnly))
+	{
+		QTextStream in(&inputFile);
+
+		int index = 0;
+		while (!in.atEnd())
+		{
+			QString line = in.readLine();
+			settings[index] = line.toStdString();
+			index += 1;
+		}
+		inputFile.close();
+	}
+}
+
+void Download_and_Clip::file_save_settings()
+{
+	remove("config.txt");
+	QFile outputFile("config.txt");
+	if (outputFile.open(QIODevice::WriteOnly | QIODevice::Text))
+	{
+		QTextStream stream(&outputFile);
+
+		int index = 0;
+
+		while (index < settings_num + 1)
+		{
+			stream << settings[index].c_str() << endl;
+			index += 1;
+		}
+		outputFile.close();
+	}
+}
+
+//////////////
+
+
 void Download_and_Clip::load_downloaded_thumbnail()
 {
-	//downloaded_thumb = "";
-
 	for (auto& p : fs::directory_iterator(get_setting(working_directory)))
 	{
 		std::string file = p.path().string();
@@ -115,7 +113,7 @@ void Download_and_Clip::load_downloaded_thumbnail()
 			{
 				QPixmap image(file.c_str());
 				ui.focus_image->setPixmap(image);
-				//downloaded_thumb = file;
+				ui.download_check_thumb->setChecked(true);
 			}
 		}
 	}
@@ -140,10 +138,19 @@ void Download_and_Clip::load_local_thumbnail()
 	}
 }
 
+void Download_and_Clip::check_full_download()
+{
+	if (ui.download_check_video->isChecked() && ui.download_check_thumb->isChecked() && ui.download_check_description->isChecked() && !ui.download_check_probe->isChecked())
+	{
+		ui.download_check_probe->setChecked(true);
+		// .\ffprobe.exe downloaded_video.mkv -show_streams -show_format -print_format json -pretty > probe.json.txt
+		QStringList args = { (get_setting(working_directory) + "downloaded_video.mkv").c_str(), "-show_streams", "-show_format", "-print_format", "json", "-pretty" };
+		start_new_process("ffprobe.exe", args, "probe download video", (get_setting(working_directory) + "probe.txt").c_str());
+	}
+}
+
 void Download_and_Clip::load_video_info()
 {
-	//downloaded_info = "";
-
 	for (auto& p : fs::directory_iterator(get_setting(working_directory)))
 	{
 		std::string file = p.path().string();
@@ -151,32 +158,34 @@ void Download_and_Clip::load_video_info()
 		{
 			if (!file.empty())
 			{
-				QFile inFile(file.c_str());
+				ui.download_check_description->setChecked(true);
+				/*QFile inFile(file.c_str());
 				inFile.open(QIODevice::ReadOnly);
 				QByteArray data = inFile.readAll();
 				inFile.close();
 				QJsonParseError errorPtr;
 				QJsonDocument doc = QJsonDocument::fromJson(data, &errorPtr);
-				if (doc.isNull()) {
-					//update_status("Parse failed");
-
+				if (doc.isNull())
+				{
+					update_status("Parse failed", ui.setup_status);
 				}
 				QJsonObject rootObj = doc.object();
 				//ui.label_download_title->setText(rootObj.value("title").toString());
 				ui.focus_table->setItem(0, 0, new QTableWidgetItem(rootObj.value("title").toString()));
 				//ui.lineedit_videoid->setText(rootObj.value("webpage_url").toString());
 				//downloaded_info = file;
-				check_for_ffmpeg();
+				//check_for_ffmpeg();
+				*/
 			}
 		}
 	}
 }
 
-void Download_and_Clip::load_video()
+void Download_and_Clip::load_downloaded_video()
 {
 	//downloaded_video = "";
-	/*
-	for (auto& p : fs::directory_iterator(get_setting(working_directory)))
+
+	/*for (auto& p : fs::directory_iterator(get_setting(working_directory)))
 	{
 		std::string file = p.path().string();
 
@@ -188,6 +197,36 @@ void Download_and_Clip::load_video()
 	//ui.button_download->setEnabled(true);
 	//check_for_ffmpeg();
 	//ui.progressBar->setValue(100);
+
+	ui.download_check_video->setChecked(true);
+}
+
+void Download_and_Clip::encode_done()
+{
+	//ui.button_download->setEnabled(true);
+			//ui.button_clip->setEnabled(true);
+
+	std::string s = ui.encode_lineedit_filename->text().toStdString() + get_ext();
+
+	//ui.progressBar->setValue(100);
+
+	if (fs::exists(ui.encode_lineedit_directory->text().toStdString() + s))
+	{
+		std::string full = working_directory + s.c_str();
+
+		update_status("Your clip was saved to: ", ui.setup_status);
+		update_status(full, ui.setup_status);
+
+		QString valueText = this->locale().formattedDataSize(fs::file_size(full));
+		update_status(valueText.toStdString(), ui.encode_status);
+
+		//ui.focus_table->setItem(0, 0, new QTableWidgetItem(s.c_str()));
+		//ui.focus_table->setItem(0, 1, new QTableWidgetItem(valueText));
+	}
+	else
+	{
+		update_status("Uh oh!!! Your clip might not have worked??", ui.encode_status);
+	}
 }
 
 void Download_and_Clip::processStateChange(std::string program, QProcess::ProcessState newState, std::string tag)
@@ -211,58 +250,54 @@ void Download_and_Clip::processStateChange(std::string program, QProcess::Proces
 		if (tag == "download video thumbnail")
 		{
 			load_downloaded_thumbnail();
+			check_full_download();
 		}
 		else if (tag == "download video")
 		{
-			load_video();
-		}
-		else if (tag == "encode")
-		{
-			//ui.button_download->setEnabled(true);
-			//ui.button_clip->setEnabled(true);
-
-			std::string s = ui.encode_lineedit_filename->text().toStdString() + get_ext();
-
-			//ui.progressBar->setValue(100);
-
-			if (fs::exists(ui.encode_lineedit_directory->text().toStdString() + s))
-			{
-				std::string full = working_directory + s.c_str();
-
-				update_status("Your clip was saved to: ", ui.setup_status);
-				update_status(full, ui.setup_status);
-
-				QString valueText = this->locale().formattedDataSize(fs::file_size(full));
-				update_status(valueText.toStdString(), ui.encode_status);
-
-				//ui.focus_table->setItem(0, 0, new QTableWidgetItem(s.c_str()));
-				//ui.focus_table->setItem(0, 1, new QTableWidgetItem(valueText));
-			}
-			else
-			{
-				update_status("Uh oh!!! Your clip might not have worked??", ui.encode_status);
-			}
+			load_downloaded_video();
+			check_full_download();
 		}
 		else if (tag == "download video info")
 		{
 			load_video_info();
+			check_full_download();
+		}
+		else if (tag == "encode")
+		{
+			encode_done();
 		}
 		else if (tag == "local thumb")
 		{
 			load_local_thumbnail();
+		}
+		else if (tag == "probe downloaded video")
+		{
+			std::string file = get_setting(working_directory) + "probe.txt";
+			QFile inFile(file.c_str());
+			inFile.open(QIODevice::ReadOnly);
+			QByteArray data = inFile.readAll();
+			inFile.close();
+			QJsonParseError errorPtr;
+			QJsonDocument doc = QJsonDocument::fromJson(data, &errorPtr);
+			if (doc.isNull())
+			{
+				update_status("Parse failed", ui.setup_status);
+			}
+			QJsonObject rootObj = doc.object();
+			ui.focus_table->setItem(0, 0, new QTableWidgetItem(rootObj.value("title").toString()));
 		}
 	}
 	break;
 	};
 }
 
-void Download_and_Clip::start_new_process(std::string program, QStringList args, std::string tag)
+void Download_and_Clip::start_new_process(std::string program, QStringList args, std::string tag, QString out)
 {
 	QProcess* info = new QProcess(this);
 	QProcesses.push_back(info);
 	info->setProgram(program.c_str());
 	info->setStandardErrorFile("stderr.txt");
-	info->setStandardOutputFile("stdout.txt");
+	info->setStandardOutputFile(out);
 	info->setArguments(args);
 
 	connect(info, &QProcess::stateChanged, [=](QProcess::ProcessState newState)
@@ -277,7 +312,7 @@ void Download_and_Clip::check_for_downloaded_files()
 {
 	load_downloaded_thumbnail();
 	load_video_info();
-	load_video();
+	load_downloaded_video();
 }
 
 void Download_and_Clip::update_status(std::string str, QTextEdit* box)
@@ -385,8 +420,8 @@ void Download_and_Clip::remove_fuzzy(std::string filename)
 		std::string file = p.path().string();
 		if (file.find(filename) != std::string::npos)
 		{
-				remove(file.c_str());
-				}
+			remove(file.c_str());
+		}
 	}
 }
 
@@ -396,17 +431,23 @@ void Download_and_Clip::execute_ytdl_download()
 	remove_fuzzy("downloaded_info");
 	remove_fuzzy("downloaded_video");
 	remove_fuzzy("downloaded_thumb");
+	remove_fuzzy("downloaded_probe");
+
+	ui.download_check_video->setChecked(false);
+	ui.download_check_thumb->setChecked(false);
+	ui.download_check_description->setChecked(false);
+	ui.download_check_probe->setChecked(false);
 
 	QString video_id = ui.download_linedit->text();
 
 	QStringList args = { video_id, "-o", (get_setting(working_directory) + "downloaded_info").c_str(), "--skip-download", "--no-playlist", "--write-info-json" };
-	start_new_process("youtube-dl.exe", args, "download video info");
+	start_new_process("youtube-dl.exe", args, "download video info", "stdout.txt");
 
 	QStringList args2 = { video_id, "-o", (get_setting(working_directory) + "downloaded_thumb").c_str(), "--write-thumbnail", "--skip-download", "--no-playlist" };
-	start_new_process("youtube-dl.exe", args2, "download video thumbnail");
+	start_new_process("youtube-dl.exe", args2, "download video thumbnail", "stdout.txt");
 
 	QStringList args3 = { video_id, "-o", (get_setting(working_directory) + "downloaded_video").c_str(), "-f", "bestvideo+bestaudio/best", "--no-playlist" };
-	start_new_process("youtube-dl.exe", args3, "download video");
+	start_new_process("youtube-dl.exe", args3, "download video", "stdout.txt");
 }
 
 std::string Download_and_Clip::get_ext()
@@ -488,7 +529,7 @@ void Download_and_Clip::execute_ffmpeg_encode()
 	}
 	else
 		update_status("Clip Name Too Short", ui.encode_status);
-		
+
 }
 
 void Download_and_Clip::darkmode_toggle(bool state)
@@ -613,7 +654,7 @@ void Download_and_Clip::choose_local_video()
 		ui.local_lineedit->setText(str.c_str());
 
 		QStringList args = { "-i", str.c_str(), "-ss", "00:00:05.01", "-frames:v", "1", (get_setting(working_directory) + "local_thumb.png").c_str() };
-		start_new_process("ffmpeg.exe", args, "local thumb");
+		start_new_process("ffmpeg.exe", args, "local thumb", "stdout.txt");
 	}
 }
 
@@ -652,14 +693,38 @@ void Download_and_Clip::browse_for_ffprobe()
 
 void Download_and_Clip::collapse_panel(QToolBox* toolbox)
 {
-	toolbox->setMinimumWidth(0);
-	toolbox->setMaximumWidth(0);
+	//toolbox->setMinimumWidth(0);
+	//toolbox->setMaximumWidth(0);
+
+	animation = new QPropertyAnimation(toolbox, "maximumSize");
+	animation->setDuration(400);
+	animation->setStartValue(toolbox->size());
+	animation->setEndValue(QSize(0, toolbox->size().height()));
+	animation->start();
+
+	animation = new QPropertyAnimation(toolbox, "minimumSize");
+	animation->setDuration(400);
+	animation->setStartValue(toolbox->size());
+	animation->setEndValue(QSize(0, toolbox->size().height()));
+	animation->start();
 }
 
 void Download_and_Clip::expand_panel(QToolBox* toolbox)
 {
-	toolbox->setMinimumWidth(450);
-	toolbox->setMaximumWidth(16777215);
+	//toolbox->setMinimumWidth(450);
+	//toolbox->setMaximumWidth(16777215);
+
+	animation = new QPropertyAnimation(toolbox, "maximumSize");
+	animation->setDuration(400);
+	animation->setStartValue(toolbox->size());
+	animation->setEndValue(QSize(16777215, toolbox->size().height()));
+	animation->start();
+
+	animation = new QPropertyAnimation(toolbox, "minimumSize");
+	animation->setDuration(400);
+	animation->setStartValue(toolbox->size());
+	animation->setEndValue(QSize(450, toolbox->size().height()));
+	animation->start();
 }
 
 void Download_and_Clip::expand_left()
@@ -672,52 +737,6 @@ void Download_and_Clip::expand_right()
 {
 	collapse_panel(ui.import_toolbox);
 	expand_panel(ui.export_toolbox);
-}
-
-
-void Download_and_Clip::init_settings()
-{
-	if (get_setting(working_directory) == "")
-	{
-		set_setting(working_directory, (QDir::currentPath().toStdString() + "/working_directory/").c_str());
-	}
-}
-
-void Download_and_Clip::file_load_settings()
-{
-	QFile inputFile("config.txt");
-	if (inputFile.open(QIODevice::ReadOnly))
-	{
-		QTextStream in(&inputFile);
-
-		int index = 0;
-		while (!in.atEnd())
-		{
-			QString line = in.readLine();
-			settings[index] = line.toStdString();
-			index += 1;
-		}
-		inputFile.close();
-	}
-}
-
-void Download_and_Clip::file_save_settings()
-{
-	remove("config.txt");
-	QFile outputFile("config.txt");
-	if (outputFile.open(QIODevice::WriteOnly | QIODevice::Text))
-	{
-		QTextStream stream(&outputFile);
-
-		int index = 0;
-
-		while (index < settings_num+1)
-		{
-			stream << settings[index].c_str() << endl;
-			index += 1;
-		}
-		outputFile.close();
-	}
 }
 
 void Download_and_Clip::update_ui_from_settings()
@@ -735,7 +754,6 @@ void Download_and_Clip::update_ui_from_settings()
 		ui.setup_ffprobe_lineedit->setText(option.c_str());
 
 }
-
 
 //Init
 Download_and_Clip::Download_and_Clip(QWidget* parent) :QMainWindow(parent)
@@ -771,8 +789,6 @@ Download_and_Clip::Download_and_Clip(QWidget* parent) :QMainWindow(parent)
 	connect(ui.setup_ffmpeg_button, SIGNAL(clicked()), this, SLOT(browse_for_ffmpeg()));
 	connect(ui.setup_ffprobe_button, SIGNAL(clicked()), this, SLOT(browse_for_ffprobe()));
 
-
-
 	connect(ui.encode_slider, SIGNAL(valueChanged(int)), ui.encode_spinbox, SLOT(setValue(int)));
 	connect(ui.encode_spinbox, SIGNAL(valueChanged(int)), ui.encode_slider, SLOT(setValue(int)));
 
@@ -793,6 +809,9 @@ Download_and_Clip::Download_and_Clip(QWidget* parent) :QMainWindow(parent)
 		QPixmap image("16x9.png");
 		ui.focus_image->setPixmap(image);
 		ui.focus_image->setScaledContents(true);
+
+		ui.download_image->setPixmap(image);
+		ui.download_image->setScaledContents(true);
 	}
 
 	/*if (fs::exists("config.txt"))
@@ -816,7 +835,10 @@ Download_and_Clip::Download_and_Clip(QWidget* parent) :QMainWindow(parent)
 		fs::create_directory(dir);
 	}
 
-	collapse_panel(ui.export_toolbox);
+	ui.export_toolbox->setMinimumWidth(0);
+	ui.export_toolbox->setMaximumWidth(0);
+
+	//collapse_panel(ui.export_toolbox, false);
 
 	/*ui.label_thumb_download->setText("");
 	ui.label_thumb_local->setText("");

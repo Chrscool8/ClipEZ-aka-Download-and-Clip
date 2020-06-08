@@ -17,9 +17,11 @@ public:
 	void set_setting(int setting, std::string value);
 	void load_downloaded_thumbnail();
 	void load_local_thumbnail();
+	void check_full_download();
 	void load_video_info();
-	void load_video();
-	void start_new_process(std::string program, QStringList args, std::string tag);
+	void load_downloaded_video();
+	void encode_done();
+	void start_new_process(std::string program, QStringList args, std::string tag, QString out);
 	void check_for_downloaded_files();
 	void update_status(std::string str, QTextEdit* box);
 	int download_file(std::string _url, std::string _file);
@@ -32,16 +34,13 @@ public:
 	QString Download_and_Clip::choose_directory(std::string hint, QString starting_dir);
 	void collapse_panel(QToolBox* toolbox);
 	void expand_panel(QToolBox* toolbox);
-
-	//void load_settings(std::string filename);
-	//bool setting_exists(std::string setting);
-
 	void init_settings();
 	void file_load_settings();
 	void file_save_settings();
 	void update_ui_from_settings();
 	QString choose_file(std::string hint, QString starting_dir, std::string exts);
 
+	QPropertyAnimation* animation;
 
 private slots:
 	void download_exe_ytdl();
