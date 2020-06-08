@@ -23,6 +23,9 @@
       <Extensions>qrc;*</Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
+    <Filter Include="Resource Files\included files">
+      <UniqueIdentifier>{bf2c4dca-aa0a-4b02-919d-5d5d17fc59df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -52,7 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon1.ico" />
-    <Image Include="16x9.png" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -61,5 +63,19 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Download_and_Clip.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="included files\16x9.png">
+      <Filter>Resource Files\included files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="included files\ffmpeg.exe">
+      <Filter>Resource Files\included files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="included files\ffprobe.exe">
+      <Filter>Resource Files\included files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="included files\youtube-dl.exe">
+      <Filter>Resource Files\included files</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

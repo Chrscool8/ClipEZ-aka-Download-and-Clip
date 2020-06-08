@@ -18,7 +18,7 @@
 
 #include "base64.cpp"
 
-#include <filesystem>  
+#include <filesystem>
 namespace fs = std::filesystem;
 
 std::string status = "";
