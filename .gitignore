@@ -1,10 +1,10 @@
-.vs/
 x64/
-packages/
-*.ipch
 working_directory/
 styles/
-stderr.txt
 stdout.txt
+stderr.txt
+packages/
 config.txt
+.vs/
 *.tlog
+*.ipch
