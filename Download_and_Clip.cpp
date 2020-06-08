@@ -12,6 +12,7 @@
 #include <atlconv.h>
 #include <iostream>
 
+#include <map>
 #include <algorithm>
 #include <string>
 
@@ -21,22 +22,91 @@ namespace fs = std::filesystem;
 std::string status = "";
 QString dark_stylesheet;
 
-std::string downloaded_video;
-std::string downloaded_thumb;
-std::string downloaded_info;
+//std::string downloaded_video;
+//std::string downloaded_thumb;
+//std::string downloaded_info;
 
 std::string local_video;
 std::string local_thumb;
 
-std::string working_directory = (QDir::currentPath().toStdString() + "/working_directory/");
+enum setting
+{
+	exe_ytdl,
+	exe_ffmpeg,
+	exe_ffprobe,
+	working_directory,
+	output_directory,
+	settings_num
+};
 
+std::string settings[settings_num+1];
 std::vector<QProcess*> QProcesses;
+
+
+/////// courtesy of random internet place
+
+static std::string base64_encode(const std::string& in) {
+
+	std::string out;
+
+	int val = 0, valb = -6;
+	for (uchar c : in) {
+		val = (val << 8) + c;
+		valb += 8;
+		while (valb >= 0) {
+			out.push_back("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"[(val >> valb) & 0x3F]);
+			valb -= 6;
+		}
+	}
+	if (valb > -6) out.push_back("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"[((val << 8) >> (valb + 8)) & 0x3F]);
+	while (out.size() % 4) out.push_back('=');
+	return out;
+}
+
+static std::string base64_decode(const std::string& in) {
+
+	std::string out;
+
+	std::vector<int> T(256, -1);
+	for (int i = 0; i < 64; i++) T["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"[i]] = i;
+
+	int val = 0, valb = -8;
+	for (uchar c : in) {
+		if (T[c] == -1) break;
+		val = (val << 6) + T[c];
+		valb += 6;
+		if (valb >= 0) {
+			out.push_back(char((val >> valb) & 0xFF));
+			valb -= 8;
+		}
+	}
+	return out;
+}
+////////
+
+void Download_and_Clip::init_elements()
+{
+	std::map<std::string, QWidget*> element;
+	// still considering
+}
+
+std::string Download_and_Clip::get_setting(int setting)
+{
+	return base64_decode(settings[setting]);
+}
+
+void Download_and_Clip::set_setting(int setting, std::string value)
+{
+	settings[setting] = base64_encode(value);
+
+	file_save_settings();
+}
 
 void Download_and_Clip::load_downloaded_thumbnail()
 {
-	downloaded_thumb = "";
+	//downloaded_thumb = "";
 
-	for (auto& p : fs::directory_iterator(working_directory))
+	for (auto& p : fs::directory_iterator(get_setting(working_directory)))
 	{
 		std::string file = p.path().string();
 		if (file.find("downloaded_thumb") != std::string::npos)
@@ -44,19 +114,18 @@ void Download_and_Clip::load_downloaded_thumbnail()
 			if (!file.empty())
 			{
 				QPixmap image(file.c_str());
-				ui.label_thumb_download->setPixmap(image);
-				downloaded_thumb = file;
+				ui.focus_image->setPixmap(image);
+				//downloaded_thumb = file;
 			}
 		}
 	}
 }
 
-
 void Download_and_Clip::load_local_thumbnail()
 {
 	local_thumb = "";
 
-	for (auto& p : fs::directory_iterator(working_directory))
+	for (auto& p : fs::directory_iterator(get_setting(working_directory)))
 	{
 		std::string file = p.path().string();
 		if (file.find("local_thumb") != std::string::npos)
@@ -64,7 +133,7 @@ void Download_and_Clip::load_local_thumbnail()
 			if (!file.empty())
 			{
 				QPixmap image(file.c_str());
-				ui.label_thumb_local->setPixmap(image);
+				ui.focus_image->setPixmap(image);
 				local_thumb = file;
 			}
 		}
@@ -73,9 +142,9 @@ void Download_and_Clip::load_local_thumbnail()
 
 void Download_and_Clip::load_video_info()
 {
-	downloaded_info = "";
+	//downloaded_info = "";
 
-	for (auto& p : fs::directory_iterator(working_directory))
+	for (auto& p : fs::directory_iterator(get_setting(working_directory)))
 	{
 		std::string file = p.path().string();
 		if (file.find("downloaded_info") != std::string::npos)
@@ -89,12 +158,14 @@ void Download_and_Clip::load_video_info()
 				QJsonParseError errorPtr;
 				QJsonDocument doc = QJsonDocument::fromJson(data, &errorPtr);
 				if (doc.isNull()) {
-					update_status("Parse failed");
+					//update_status("Parse failed");
+
 				}
 				QJsonObject rootObj = doc.object();
-				ui.label_download_title->setText(rootObj.value("title").toString());
-				ui.lineedit_videoid->setText(rootObj.value("webpage_url").toString());
-				downloaded_info = file;
+				//ui.label_download_title->setText(rootObj.value("title").toString());
+				ui.focus_table->setItem(0, 0, new QTableWidgetItem(rootObj.value("title").toString()));
+				//ui.lineedit_videoid->setText(rootObj.value("webpage_url").toString());
+				//downloaded_info = file;
 				check_for_ffmpeg();
 			}
 		}
@@ -103,9 +174,9 @@ void Download_and_Clip::load_video_info()
 
 void Download_and_Clip::load_video()
 {
-	downloaded_video = "";
-
-	for (auto& p : fs::directory_iterator(working_directory))
+	//downloaded_video = "";
+	/*
+	for (auto& p : fs::directory_iterator(get_setting(working_directory)))
 	{
 		std::string file = p.path().string();
 
@@ -113,10 +184,10 @@ void Download_and_Clip::load_video()
 		{
 			downloaded_video = file;
 		}
-	}
-	ui.button_download->setEnabled(true);
-	check_for_ffmpeg();
-	ui.progressBar->setValue(100);
+	}*/
+	//ui.button_download->setEnabled(true);
+	//check_for_ffmpeg();
+	//ui.progressBar->setValue(100);
 }
 
 void Download_and_Clip::processStateChange(std::string program, QProcess::ProcessState newState, std::string tag)
@@ -125,17 +196,17 @@ void Download_and_Clip::processStateChange(std::string program, QProcess::Proces
 	{
 	case QProcess::Starting:
 	{
-		update_status(tag + " Starting");
+		update_status(tag + " Starting", ui.setup_status);
 	}
 	break;
 	case QProcess::Running:
 	{
-		update_status(tag + " Running");
+		update_status(tag + " Running", ui.setup_status);
 	}
 	break;
 	case QProcess::NotRunning:
 	{
-		update_status(tag + " Done");
+		update_status(tag + " Done", ui.setup_status);
 
 		if (tag == "download video thumbnail")
 		{
@@ -147,28 +218,29 @@ void Download_and_Clip::processStateChange(std::string program, QProcess::Proces
 		}
 		else if (tag == "encode")
 		{
-			ui.button_download->setEnabled(true);
-			ui.button_clip->setEnabled(true);
+			//ui.button_download->setEnabled(true);
+			//ui.button_clip->setEnabled(true);
 
-			std::string s = ui.lineedit_outputname->text().toStdString() + get_ext();
+			std::string s = ui.encode_lineedit_filename->text().toStdString() + get_ext();
 
-			ui.progressBar->setValue(100);
+			//ui.progressBar->setValue(100);
 
-			if (fs::exists(ui.lineedit_directory->text().toStdString() + s))
+			if (fs::exists(ui.encode_lineedit_directory->text().toStdString() + s))
 			{
-				update_status("Your clip was saved to: ");
-				update_status(working_directory + s);
+				std::string full = working_directory + s.c_str();
 
-				QLocale locale = this->locale();
-				QString valueText = locale.formattedDataSize(fs::file_size((ui.lineedit_directory->text().toStdString() + s).c_str()));
-				update_status(valueText.toStdString());
+				update_status("Your clip was saved to: ", ui.setup_status);
+				update_status(full, ui.setup_status);
 
-				ui.table_clipinfo->setItem(0, 0, new QTableWidgetItem(s.c_str()));
-				ui.table_clipinfo->setItem(0, 1, new QTableWidgetItem(valueText));
+				QString valueText = this->locale().formattedDataSize(fs::file_size(full));
+				update_status(valueText.toStdString(), ui.encode_status);
+
+				//ui.focus_table->setItem(0, 0, new QTableWidgetItem(s.c_str()));
+				//ui.focus_table->setItem(0, 1, new QTableWidgetItem(valueText));
 			}
 			else
 			{
-				update_status("Uh oh!!! Your clip might not have worked??");
+				update_status("Uh oh!!! Your clip might not have worked??", ui.encode_status);
 			}
 		}
 		else if (tag == "download video info")
@@ -208,12 +280,12 @@ void Download_and_Clip::check_for_downloaded_files()
 	load_video();
 }
 
-void Download_and_Clip::update_status(std::string str)
+void Download_and_Clip::update_status(std::string str, QTextEdit* box)
 {
-	ui.textedit_status_box->append(str.c_str());
-	QTextCursor c = ui.textedit_status_box->textCursor();
+	box->append(str.c_str());
+	QTextCursor c = box->textCursor();
 	c.movePosition(QTextCursor::End);
-	ui.textedit_status_box->setTextCursor(c);
+	box->setTextCursor(c);
 }
 
 static size_t write_data(void* ptr, size_t size, size_t nmemb, void* stream)
@@ -222,8 +294,9 @@ static size_t write_data(void* ptr, size_t size, size_t nmemb, void* stream)
 	return written;
 }
 
-int Download_and_Clip::download_file(std::string _url, std::string _file) {
-	CURL* curl;
+int Download_and_Clip::download_file(std::string _url, std::string _file)
+{
+	/*CURL* curl;
 	FILE* fp;
 
 	curl = curl_easy_init();
@@ -241,13 +314,13 @@ int Download_and_Clip::download_file(std::string _url, std::string _file) {
 		update_status("Done.");
 		curl_easy_cleanup(curl);
 		fclose(fp);
-	}
+	}*/
 	return 0;
 }
 
 void Download_and_Clip::check_for_ytdl()
 {
-	if (fs::exists(fs::path("youtube-dl.exe")))
+	/*if (fs::exists(fs::path("youtube-dl.exe")))
 	{
 		update_status("youtube-dl.exe found.");
 		ui.lineedit_videoid->setEnabled(true);
@@ -262,12 +335,12 @@ void Download_and_Clip::check_for_ytdl()
 		ui.button_download->setEnabled(false);
 		//ui.button_downloadytdl->setEnabled(true);
 		ui.button_downloadytdl->setText("Download Youtube-DL");
-	}
+	}*/
 }
 
 void Download_and_Clip::check_for_ffmpeg()
 {
-	if (fs::exists(fs::path("ffmpeg.exe")))
+	/*if (fs::exists(fs::path("ffmpeg.exe")))
 	{
 		update_status("ffmpeg.exe found.");
 		ui.button_downloadffmpeg->setEnabled(false);
@@ -288,46 +361,57 @@ void Download_and_Clip::check_for_ffmpeg()
 		ui.spinbox_quality->setEnabled(false);
 		ui.lineedit_outputname->setEnabled(false);
 		ui.button_clip->setEnabled(false);
-	}
+	}*/
 }
 
-void Download_and_Clip::download_ytdl()
+void Download_and_Clip::download_exe_ytdl()
 {
-	ui.button_downloadytdl->setEnabled(false);
+	//ui.button_downloadytdl->setEnabled(false);
 	download_file("https://yt-dl.org/latest/youtube-dl.exe", "youtube-dl.exe");
 	check_for_ytdl();
 }
 
-void Download_and_Clip::download_ffmpeg()
+void Download_and_Clip::download_exe_ffmpeg()
 {
-	ui.button_downloadytdl->setEnabled(false);
+	//ui.button_downloadytdl->setEnabled(false);
 	download_file("https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-20200403-52523b6-win64-static.zip", "ffmpeg.zip");
 	check_for_ffmpeg();
 }
 
-void Download_and_Clip::run_ytdl()
+void Download_and_Clip::remove_fuzzy(std::string filename)
 {
-	update_status("Run YT-DL");
-	remove(downloaded_info.c_str());
-	remove(downloaded_video.c_str());
-	remove(downloaded_thumb.c_str());
+	for (auto& p : fs::directory_iterator(get_setting(working_directory)))
+	{
+		std::string file = p.path().string();
+		if (file.find(filename) != std::string::npos)
+		{
+				remove(file.c_str());
+				}
+	}
+}
 
-	QStringList args = { ui.lineedit_videoid->text(), "-o", (working_directory + "downloaded_info").c_str(), "--skip-download", "--no-playlist", "--write-info-json" };
+void Download_and_Clip::execute_ytdl_download()
+{
+	update_status("Run YT-DL", ui.download_status);
+	remove_fuzzy("downloaded_info");
+	remove_fuzzy("downloaded_video");
+	remove_fuzzy("downloaded_thumb");
+
+	QString video_id = ui.download_linedit->text();
+
+	QStringList args = { video_id, "-o", (get_setting(working_directory) + "downloaded_info").c_str(), "--skip-download", "--no-playlist", "--write-info-json" };
 	start_new_process("youtube-dl.exe", args, "download video info");
 
-	QStringList args2 = { ui.lineedit_videoid->text(), "-o", (working_directory + "downloaded_thumb").c_str(), "--write-thumbnail", "--skip-download", "--no-playlist" };
+	QStringList args2 = { video_id, "-o", (get_setting(working_directory) + "downloaded_thumb").c_str(), "--write-thumbnail", "--skip-download", "--no-playlist" };
 	start_new_process("youtube-dl.exe", args2, "download video thumbnail");
 
-	QStringList args3 = { ui.lineedit_videoid->text(), "-o", (working_directory + "downloaded_video").c_str(), "-f", "bestvideo+bestaudio/best", "--no-playlist" };
+	QStringList args3 = { video_id, "-o", (get_setting(working_directory) + "downloaded_video").c_str(), "-f", "bestvideo+bestaudio/best", "--no-playlist" };
 	start_new_process("youtube-dl.exe", args3, "download video");
-
-	ui.button_download->setEnabled(false);
-	ui.progressBar->setValue(0);
 }
 
 std::string Download_and_Clip::get_ext()
 {
-	std::string type = ui.combo_encoder->currentText().toStdString();
+	std::string type = ui.encode_combo->currentText().toStdString();
 	std::string extension = "";
 	if (type.compare("x264") == 0 || type.compare("x265") == 0)
 		extension = ".mp4";
@@ -336,19 +420,22 @@ std::string Download_and_Clip::get_ext()
 	else
 	{
 		extension = ".error";
-		update_status("Unknown format??");
+		update_status("Unknown format??", ui.encode_status);
 	}
 	return extension;
 }
 
-void Download_and_Clip::run_ffmpeg()
+void Download_and_Clip::execute_ffmpeg_encode()
 {
-	if (ui.lineedit_outputname->text().length() > 0)
+	QString directory_name = ui.encode_lineedit_directory->text();
+	QString output_name = ui.encode_lineedit_filename->text();
+
+	if (output_name.length() > 0)
 	{
-		std::string outfile = (ui.lineedit_directory->text() + ui.lineedit_outputname->text()).toStdString();
+		std::string outfile = (directory_name + output_name).toStdString();
 		outfile += get_ext();
 
-		update_status(outfile);
+		update_status(outfile, ui.encode_status);
 
 		bool ripcord = false;
 
@@ -356,17 +443,19 @@ void Download_and_Clip::run_ffmpeg()
 		{
 			QMessageBox::StandardButton reply;
 			reply = QMessageBox::question(this, "File Exists!", (outfile + "\nWant to overwrite?").c_str(), QMessageBox::Yes | QMessageBox::No);
-			if (reply == QMessageBox::Yes) {
+			if (reply == QMessageBox::Yes)
+			{
 
 			}
-			else {
+			else
+			{
 				ripcord = true;
 			}
 		}
 
 		if (!ripcord)
 		{
-			remove(outfile.c_str());
+			/*remove(outfile.c_str());
 
 			std::string source_video;
 			if (ui.tabs_source->currentIndex() == 0)
@@ -391,13 +480,15 @@ void Download_and_Clip::run_ffmpeg()
 			else
 				update_status("Unknown type???");
 
-			ui.button_download->setEnabled(false);
-			ui.button_clip->setEnabled(false);
-			ui.progressBar->setValue(0);
+			//ui.button_download->setEnabled(false);
+			//ui.button_clip->setEnabled(false);
+			//ui.progressBar->setValue(0);
+			*/
 		}
 	}
 	else
-		update_status("Clip Name Too Short");
+		update_status("Clip Name Too Short", ui.encode_status);
+		
 }
 
 void Download_and_Clip::darkmode_toggle(bool state)
@@ -407,7 +498,7 @@ void Download_and_Clip::darkmode_toggle(bool state)
 
 void Download_and_Clip::clear_download()
 {
-	update_status("Clear");
+	/*update_status("Clear");
 	remove(downloaded_thumb.c_str());
 	remove(downloaded_video.c_str());
 	remove(downloaded_info.c_str());
@@ -417,7 +508,7 @@ void Download_and_Clip::clear_download()
 	ui.slider_quality->setEnabled(false);
 	ui.spinbox_quality->setEnabled(false);
 	ui.lineedit_outputname->setEnabled(false);
-	ui.button_clip->setEnabled(false);
+	ui.button_clip->setEnabled(false);*/
 }
 
 void Download_and_Clip::darkmode(bool on)
@@ -428,9 +519,10 @@ void Download_and_Clip::darkmode(bool on)
 		this->setStyleSheet("");
 }
 
-const std::string forbiddenChars = "\\/:?\"<>|,.!*";
 static char ClearForbidden(char toCheck)
 {
+	const std::string forbiddenChars = "\\/:?\"<>|,.!*";
+
 	if (forbiddenChars.find(toCheck) != std::string::npos)
 	{
 		return '_';
@@ -441,12 +533,12 @@ static char ClearForbidden(char toCheck)
 
 void Download_and_Clip::typing_clip_name()
 {
-	QString qstr = ui.lineedit_outputname->text();
+	QString qstr = ui.encode_lineedit_filename->text();
 
 	std::string str = qstr.toStdString();
 	std::transform(str.begin(), str.end(), str.begin(), ClearForbidden);
 	qstr = str.c_str();
-	ui.lineedit_outputname->setText(qstr);
+	ui.encode_lineedit_filename->setText(qstr);
 }
 
 static char fix_slashes(char toCheck)
@@ -462,125 +554,276 @@ static char fix_slashes(char toCheck)
 
 void Download_and_Clip::show_folder_working()
 {
-	std::string str = working_directory;
+	std::string str = get_setting(working_directory);
 	std::transform(str.begin(), str.end(), str.begin(), fix_slashes);
 	system(("explorer \"" + str + "\"").c_str());
 }
 
 void Download_and_Clip::show_folder_output()
 {
-	std::string str = ui.lineedit_directory->text().toStdString();
+	/*std::string str = ui.lineedit_directory->text().toStdString();
 	std::transform(str.begin(), str.end(), str.begin(), fix_slashes);
-	system(("explorer \"" + str + "\"").c_str());
+	system(("explorer \"" + str + "\"").c_str());*/
+}
+
+QString Download_and_Clip::choose_directory(std::string hint, QString starting_dir)
+{
+	return QFileDialog::getExistingDirectory(this, tr(hint.c_str()), starting_dir, QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 }
 
 void Download_and_Clip::choose_output_directory()
 {
-	QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"), ui.lineedit_directory->text(), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+	QString dir = choose_directory("Open Directory", ui.encode_lineedit_directory->text());
 
 	std::string str;
 
 	if (dir.isEmpty())
-		str = working_directory;
+		str = get_setting(working_directory);
 	else
 		str = dir.toStdString() + "/";
-
-
 
 	while (str.find("//") != std::string::npos)
 	{
 		str.replace(str.begin(), str.end(), "//", "/");
 	}
 
-	ui.lineedit_directory->setText(str.c_str());
+	ui.encode_lineedit_directory->setText(str.c_str());
 
-	remove("config.txt");
+	/*remove("config.txt");
 	std::ofstream out;
 	out.open("config.txt");
 	out << str;
-	out.close();
+	out.close();*/
+}
+
+QString Download_and_Clip::choose_file(std::string hint, QString starting_dir, std::string exts)
+{
+	return QFileDialog::getOpenFileName(this, tr(hint.c_str()), starting_dir, exts.c_str());
 }
 
 void Download_and_Clip::choose_local_video()
 {
-	std::string s = ("Video File (*.*)");
-	QString ex = s.c_str();
-	QString dir = QFileDialog::getOpenFileName(this, tr("Open File"), ui.lineedit_directory->text(), ex);
-
-	std::string str;
+	QString dir = choose_file("Open Video", ui.local_lineedit->text(), "Video File (*.*)");
 
 	if (!dir.isEmpty())
 	{
-		str = dir.toStdString();
-		//ui.lineedit_directory->setText(str.c_str());
+		std::string str = dir.toStdString();
 
 		local_video = str;
-		ui.label_local_name->setText(str.c_str());
+		ui.local_lineedit->setText(str.c_str());
 
-		QStringList args = { "-i", str.c_str(), "-ss", "00:00:05.01", "-frames:v", "1", (working_directory + "local_thumb.png").c_str() };
+		QStringList args = { "-i", str.c_str(), "-ss", "00:00:05.01", "-frames:v", "1", (get_setting(working_directory) + "local_thumb.png").c_str() };
 		start_new_process("ffmpeg.exe", args, "local thumb");
 	}
+}
+
+void Download_and_Clip::browse_for_ytdl()
+{
+	QString dir = choose_file("Find YouTube-DL", ui.setup_ytdl_lineedit->text(), "YT-DL (youtube-dl.exe)");
+
+	if (!dir.isEmpty())
+	{
+		ui.setup_ytdl_lineedit->setText(dir);
+		set_setting(exe_ytdl, dir.toStdString());
+	}
+}
+
+void Download_and_Clip::browse_for_ffmpeg()
+{
+	QString dir = choose_file("Find FFmpeg", ui.setup_ffmpeg_lineedit->text(), "FFmpeg (ffmpeg.exe)");
+
+	if (!dir.isEmpty())
+	{
+		ui.setup_ffmpeg_lineedit->setText(dir);
+		set_setting(exe_ffmpeg, dir.toStdString());
+	}
+}
+
+void Download_and_Clip::browse_for_ffprobe()
+{
+	QString dir = choose_file("Find ffprobe", ui.setup_ffprobe_lineedit->text(), "ffprobe (ffprobe.exe)");
+
+	if (!dir.isEmpty())
+	{
+		ui.setup_ffprobe_lineedit->setText(dir);
+		set_setting(exe_ffprobe, dir.toStdString());
+	}
+}
+
+void Download_and_Clip::collapse_panel(QToolBox* toolbox)
+{
+	toolbox->setMinimumWidth(0);
+	toolbox->setMaximumWidth(0);
+}
+
+void Download_and_Clip::expand_panel(QToolBox* toolbox)
+{
+	toolbox->setMinimumWidth(450);
+	toolbox->setMaximumWidth(16777215);
+}
+
+void Download_and_Clip::expand_left()
+{
+	collapse_panel(ui.export_toolbox);
+	expand_panel(ui.import_toolbox);
+}
+
+void Download_and_Clip::expand_right()
+{
+	collapse_panel(ui.import_toolbox);
+	expand_panel(ui.export_toolbox);
+}
+
+
+void Download_and_Clip::init_settings()
+{
+	if (get_setting(working_directory) == "")
+	{
+		set_setting(working_directory, (QDir::currentPath().toStdString() + "/working_directory/").c_str());
+	}
+}
+
+void Download_and_Clip::file_load_settings()
+{
+	QFile inputFile("config.txt");
+	if (inputFile.open(QIODevice::ReadOnly))
+	{
+		QTextStream in(&inputFile);
+
+		int index = 0;
+		while (!in.atEnd())
+		{
+			QString line = in.readLine();
+			settings[index] = line.toStdString();
+			index += 1;
+		}
+		inputFile.close();
+	}
+}
+
+void Download_and_Clip::file_save_settings()
+{
+	remove("config.txt");
+	QFile outputFile("config.txt");
+	if (outputFile.open(QIODevice::WriteOnly | QIODevice::Text))
+	{
+		QTextStream stream(&outputFile);
+
+		int index = 0;
+
+		while (index < settings_num+1)
+		{
+			stream << settings[index].c_str() << endl;
+			index += 1;
+		}
+		outputFile.close();
+	}
+}
+
+void Download_and_Clip::update_ui_from_settings()
+{
+	auto option = get_setting(exe_ytdl);
+	if (option != "")
+		ui.setup_ytdl_lineedit->setText(option.c_str());
+
+	option = get_setting(exe_ffmpeg);
+	if (option != "")
+		ui.setup_ffmpeg_lineedit->setText(option.c_str());
+
+	option = get_setting(exe_ffprobe);
+	if (option != "")
+		ui.setup_ffprobe_lineedit->setText(option.c_str());
+
 }
 
 
 //Init
 Download_and_Clip::Download_and_Clip(QWidget* parent) :QMainWindow(parent)
 {
-	setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);
-
 	ui.setupUi(this);
 
 	dark_stylesheet = this->styleSheet();
 
-	connect(ui.button_downloadytdl, SIGNAL(clicked()), this, SLOT(download_ytdl()));
-	connect(ui.button_downloadffmpeg, SIGNAL(clicked()), this, SLOT(download_ffmpeg()));
-	connect(ui.button_download, SIGNAL(clicked()), this, SLOT(run_ytdl()));
-	connect(ui.button_clip, SIGNAL(clicked()), this, SLOT(run_ffmpeg()));
-	connect(ui.lineedit_outputname, SIGNAL(returnPressed()), this, SLOT(run_ffmpeg()));
+	// Shrink
+	this->setMaximumSize(QSize(0, 0));
+	this->setMaximumSize(QSize(16777215, 16777215));
 
-	connect(ui.lineedit_videoid, SIGNAL(returnPressed()), this, SLOT(run_ytdl()));
+	//connect(ui.button_downloadytdl, SIGNAL(clicked()), this, SLOT(download_exe_ytdl()));
+	//connect(ui.button_downloadffmpeg, SIGNAL(clicked()), this, SLOT(download_exe_ffmpeg()));
 
-	connect(ui.button_cleardownload, SIGNAL(clicked()), this, SLOT(clear_download()));
-	connect(ui.button_showworking, SIGNAL(clicked()), this, SLOT(show_folder_working()));
-	connect(ui.button_showoutput, SIGNAL(clicked()), this, SLOT(show_folder_output()));
-	connect(ui.button_choose_directory, SIGNAL(clicked()), this, SLOT(choose_output_directory()));
-	connect(ui.button_choose_local, SIGNAL(clicked()), this, SLOT(choose_local_video()));
+	connect(ui.download_button, SIGNAL(clicked()), this, SLOT(execute_ytdl_download()));
+	connect(ui.download_linedit, SIGNAL(returnPressed()), this, SLOT(execute_ytdl_download()));
 
-	connect(ui.slider_quality, SIGNAL(valueChanged(int)), ui.spinbox_quality, SLOT(setValue(int)));
-	connect(ui.spinbox_quality, SIGNAL(valueChanged(int)), ui.slider_quality, SLOT(setValue(int)));
+	connect(ui.encode_button, SIGNAL(clicked()), this, SLOT(execute_ffmpeg_encode()));
+	connect(ui.encode_lineedit_filename, SIGNAL(returnPressed()), this, SLOT(execute_ffmpeg_encode()));
 
-	connect(ui.checkbox_dark, SIGNAL(clicked(bool)), this, SLOT(darkmode_toggle(bool)));
+	connect(ui.expand_left, SIGNAL(clicked()), this, SLOT(expand_left()));
+	connect(ui.expand_right, SIGNAL(clicked()), this, SLOT(expand_right()));
 
-	connect(ui.lineedit_outputname, SIGNAL(textChanged(QString)), this, SLOT(typing_clip_name()));
+	//connect(ui.button_cleardownload, SIGNAL(clicked()), this, SLOT(clear_download()));
+	connect(ui.setup_show_working_dir, SIGNAL(clicked()), this, SLOT(show_folder_working()));
+	connect(ui.setup_show_output_dir, SIGNAL(clicked()), this, SLOT(show_folder_output()));
 
-	ui.lineedit_directory->setText(working_directory.c_str());
+	//connect(ui.button_choose_directory, SIGNAL(clicked()), this, SLOT(choose_output_directory()));
+	connect(ui.local_button, SIGNAL(clicked()), this, SLOT(choose_local_video()));
 
-	if (fs::exists("config.txt"))
+	connect(ui.setup_ytdl_button, SIGNAL(clicked()), this, SLOT(browse_for_ytdl()));
+	connect(ui.setup_ffmpeg_button, SIGNAL(clicked()), this, SLOT(browse_for_ffmpeg()));
+	connect(ui.setup_ffprobe_button, SIGNAL(clicked()), this, SLOT(browse_for_ffprobe()));
+
+
+
+	connect(ui.encode_slider, SIGNAL(valueChanged(int)), ui.encode_spinbox, SLOT(setValue(int)));
+	connect(ui.encode_spinbox, SIGNAL(valueChanged(int)), ui.encode_slider, SLOT(setValue(int)));
+
+	//connect(ui.checkbox_dark, SIGNAL(clicked(bool)), this, SLOT(darkmode_toggle(bool)));
+
+	//connect(ui.lineedit_outputname, SIGNAL(textChanged(QString)), this, SLOT(typing_clip_name()));
+
+	//ui.lineedit_directory->setText(working_directory.c_str());
+
+	//load_settings("config.json");
+
+	file_load_settings();
+	init_settings();
+
+	update_ui_from_settings();
+
+	{
+		QPixmap image("16x9.png");
+		ui.focus_image->setPixmap(image);
+		ui.focus_image->setScaledContents(true);
+	}
+
+	/*if (fs::exists("config.txt"))
 	{
 		std::ifstream infile("config.txt");
 		std::string dir;
 		std::getline(infile, dir);
-		update_status(dir);
-		ui.lineedit_directory->setText(dir.c_str());
+		update_status(dir, ui.setup_status);
+		//ui.lineedit_directory->setText(dir.c_str());
 		infile.close();
 		ui.lineedit_directory->setText(dir.c_str());
-	}
+	}*/
 
-	remove((working_directory + "local_thumb.png").c_str());
+	//remove((working_directory + "local_thumb.png").c_str());
 
-	check_for_ytdl();
+	//check_for_ytdl();
 
-	if (!(fs::exists(working_directory)))
+	auto dir = get_setting(working_directory);
+	if (!(fs::exists(dir)))
 	{
-		fs::create_directory(working_directory);
+		fs::create_directory(dir);
 	}
 
-	ui.label_thumb_download->setText("");
+	collapse_panel(ui.export_toolbox);
+
+	/*ui.label_thumb_download->setText("");
 	ui.label_thumb_local->setText("");
-	ui.label_download_title->setText("");
+	ui.label_download_title->setText("");*/
 
-	check_for_downloaded_files();
+	//check_for_downloaded_files();
 
-	ui.table_clipinfo->resizeRowsToContents();
+	ui.focus_table->resizeRowsToContents();
 
 }

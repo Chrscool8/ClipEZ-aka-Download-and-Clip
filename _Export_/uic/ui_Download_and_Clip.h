@@ -11,22 +11,22 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSpinBox>
-#include <QtWidgets/QStatusBar>
-#include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QTextEdit>
-#include <QtWidgets/QTreeView>
+#include <QtWidgets/QToolBox>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -35,60 +35,84 @@ class Ui_Download_and_ClipClass
 {
 public:
     QWidget *centralWidget;
-    QGroupBox *groupBox_2;
-    QPushButton *button_clip;
-    QGroupBox *groupBox_5;
-    QSpinBox *spinbox_quality;
-    QSlider *slider_quality;
+    QHBoxLayout *horizontalLayout_2;
+    QToolBox *import_toolbox;
+    QWidget *page_5;
+    QGridLayout *gridLayout_2;
+    QPushButton *setup_ytdl_button;
+    QSpacerItem *verticalSpacer_8;
+    QLineEdit *setup_ytdl_lineedit;
+    QHBoxLayout *horizontalLayout;
+    QPushButton *setup_show_working_dir;
+    QSpacerItem *horizontalSpacer;
+    QPushButton *setup_show_output_dir;
+    QLabel *setup_ytdl_label;
+    QSpacerItem *verticalSpacer;
+    QWidget *page_4;
+    QGridLayout *gridLayout;
+    QSpacerItem *verticalSpacer_3;
+    QPushButton *download_button;
+    QSpacerItem *verticalSpacer_2;
+    QSpacerItem *verticalSpacer_4;
+    QLabel *download_label;
+    QLineEdit *download_linedit;
+    QTextEdit *download_status;
+    QWidget *page_3;
+    QGridLayout *gridLayout_4;
+    QLabel *local_label;
+    QSpacerItem *verticalSpacer_6;
+    QPushButton *local_button;
+    QTextEdit *local_status;
+    QSpacerItem *verticalSpacer_5;
+    QSpacerItem *verticalSpacer_7;
+    QLineEdit *local_lineedit;
+    QPushButton *pushButton;
+    QPushButton *expand_left;
+    QGroupBox *groupBox;
+    QVBoxLayout *verticalLayout;
+    QLabel *focus_image;
+    QTableWidget *focus_table;
+    QTextEdit *setup_status;
+    QPushButton *expand_right;
+    QToolBox *export_toolbox;
+    QWidget *page_8;
+    QGridLayout *gridLayout_7;
+    QLineEdit *setup_ffprobe_lineedit;
+    QLineEdit *setup_ffmpeg_lineedit;
+    QPushButton *setup_ffmpeg_button;
+    QPushButton *setup_ffprobe_button;
+    QLabel *setup_ffprobe_label;
+    QLabel *setup_ffmpeg_label;
+    QSpacerItem *verticalSpacer_9;
+    QWidget *page_6;
+    QGridLayout *gridLayout_5;
+    QHBoxLayout *horizontalLayout_3;
+    QLabel *label;
+    QLineEdit *encode_starttime;
+    QLabel *label_2;
+    QLineEdit *encode_endtime;
+    QPushButton *encode_button;
+    QLabel *encode_label;
+    QGridLayout *gridLayout_3;
     QLabel *label_quality_smallest;
     QLabel *label_7;
-    QComboBox *combo_encoder;
-    QGroupBox *groupBox_6;
-    QLineEdit *lineedit_starttime;
-    QGroupBox *groupBox_7;
-    QLineEdit *lineedit_endtime;
-    QGroupBox *groupBox_8;
-    QGroupBox *groupBox_13;
-    QLineEdit *lineedit_directory;
-    QPushButton *button_choose_directory;
-    QGroupBox *groupBox_14;
-    QLineEdit *lineedit_outputname;
-    QGroupBox *groupBox_3;
-    QTextEdit *textedit_status_box;
-    QProgressBar *progressBar;
-    QGroupBox *groupBox_4;
-    QPushButton *button_downloadytdl;
-    QPushButton *button_downloadffmpeg;
-    QCheckBox *checkbox_dark;
-    QGroupBox *groupBox_9;
-    QTableWidget *table_clipinfo;
-    QGroupBox *groupBox_10;
-    QTreeView *treeview_files;
-    QGroupBox *groupBox_11;
-    QPushButton *button_showworking;
-    QPushButton *button_showoutput;
-    QTabWidget *tabs_source;
-    QWidget *tab;
-    QGroupBox *groupBox;
-    QLabel *label;
-    QPushButton *button_download;
-    QPushButton *button_cleardownload;
-    QLabel *label_thumb_download;
-    QLabel *label_download_title;
-    QLineEdit *lineedit_videoid;
-    QWidget *tab_2;
-    QGroupBox *groupBox_12;
-    QLabel *label_thumb_local;
-    QPushButton *button_choose_local;
-    QLabel *label_local_name;
-    QStatusBar *statusBar;
+    QSpinBox *encode_spinbox;
+    QSlider *encode_slider;
+    QLineEdit *encode_lineedit_filename;
+    QLabel *encode_label_2;
+    QLineEdit *encode_lineedit_directory;
+    QSpacerItem *verticalSpacer_10;
+    QTextEdit *encode_status;
+    QSpacerItem *verticalSpacer_11;
+    QComboBox *encode_combo;
+    QSpacerItem *verticalSpacer_12;
 
     void setupUi(QMainWindow *Download_and_ClipClass)
     {
         if (Download_and_ClipClass->objectName().isEmpty())
             Download_and_ClipClass->setObjectName(QString::fromUtf8("Download_and_ClipClass"));
         Download_and_ClipClass->setEnabled(true);
-        Download_and_ClipClass->resize(1371, 715);
+        Download_and_ClipClass->resize(1332, 498);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -208,226 +232,415 @@ public:
         centralWidget = new QWidget(Download_and_ClipClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         centralWidget->setEnabled(true);
-        groupBox_2 = new QGroupBox(centralWidget);
-        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        groupBox_2->setGeometry(QRect(550, 90, 511, 361));
-        button_clip = new QPushButton(groupBox_2);
-        button_clip->setObjectName(QString::fromUtf8("button_clip"));
-        button_clip->setEnabled(false);
-        button_clip->setGeometry(QRect(210, 330, 81, 23));
-        groupBox_5 = new QGroupBox(groupBox_2);
-        groupBox_5->setObjectName(QString::fromUtf8("groupBox_5"));
-        groupBox_5->setGeometry(QRect(20, 30, 461, 91));
-        spinbox_quality = new QSpinBox(groupBox_5);
-        spinbox_quality->setObjectName(QString::fromUtf8("spinbox_quality"));
-        spinbox_quality->setEnabled(false);
-        spinbox_quality->setGeometry(QRect(330, 30, 42, 22));
-        spinbox_quality->setMinimum(1);
-        spinbox_quality->setMaximum(64);
-        spinbox_quality->setValue(15);
-        slider_quality = new QSlider(groupBox_5);
-        slider_quality->setObjectName(QString::fromUtf8("slider_quality"));
-        slider_quality->setEnabled(false);
-        slider_quality->setGeometry(QRect(20, 30, 301, 22));
-        slider_quality->setLayoutDirection(Qt::RightToLeft);
-        slider_quality->setMinimum(0);
-        slider_quality->setMaximum(51);
-        slider_quality->setValue(25);
-        slider_quality->setOrientation(Qt::Horizontal);
-        label_quality_smallest = new QLabel(groupBox_5);
-        label_quality_smallest->setObjectName(QString::fromUtf8("label_quality_smallest"));
-        label_quality_smallest->setGeometry(QRect(20, 60, 47, 13));
-        label_7 = new QLabel(groupBox_5);
-        label_7->setObjectName(QString::fromUtf8("label_7"));
-        label_7->setGeometry(QRect(280, 60, 47, 13));
-        combo_encoder = new QComboBox(groupBox_5);
-        combo_encoder->addItem(QString());
-        combo_encoder->addItem(QString());
-        combo_encoder->addItem(QString());
-        combo_encoder->setObjectName(QString::fromUtf8("combo_encoder"));
-        combo_encoder->setGeometry(QRect(380, 30, 61, 22));
-        groupBox_6 = new QGroupBox(groupBox_2);
-        groupBox_6->setObjectName(QString::fromUtf8("groupBox_6"));
-        groupBox_6->setGeometry(QRect(20, 120, 231, 51));
-        lineedit_starttime = new QLineEdit(groupBox_6);
-        lineedit_starttime->setObjectName(QString::fromUtf8("lineedit_starttime"));
-        lineedit_starttime->setEnabled(false);
-        lineedit_starttime->setGeometry(QRect(20, 20, 191, 20));
-        groupBox_7 = new QGroupBox(groupBox_2);
-        groupBox_7->setObjectName(QString::fromUtf8("groupBox_7"));
-        groupBox_7->setGeometry(QRect(250, 120, 231, 51));
-        lineedit_endtime = new QLineEdit(groupBox_7);
-        lineedit_endtime->setObjectName(QString::fromUtf8("lineedit_endtime"));
-        lineedit_endtime->setEnabled(false);
-        lineedit_endtime->setGeometry(QRect(20, 20, 191, 20));
-        groupBox_8 = new QGroupBox(groupBox_2);
-        groupBox_8->setObjectName(QString::fromUtf8("groupBox_8"));
-        groupBox_8->setGeometry(QRect(20, 170, 461, 151));
-        groupBox_13 = new QGroupBox(groupBox_8);
-        groupBox_13->setObjectName(QString::fromUtf8("groupBox_13"));
-        groupBox_13->setGeometry(QRect(20, 30, 421, 51));
-        lineedit_directory = new QLineEdit(groupBox_13);
-        lineedit_directory->setObjectName(QString::fromUtf8("lineedit_directory"));
-        lineedit_directory->setEnabled(true);
-        lineedit_directory->setGeometry(QRect(10, 20, 321, 20));
-        lineedit_directory->setReadOnly(true);
-        button_choose_directory = new QPushButton(groupBox_13);
-        button_choose_directory->setObjectName(QString::fromUtf8("button_choose_directory"));
-        button_choose_directory->setGeometry(QRect(330, 20, 71, 20));
-        groupBox_14 = new QGroupBox(groupBox_8);
-        groupBox_14->setObjectName(QString::fromUtf8("groupBox_14"));
-        groupBox_14->setGeometry(QRect(20, 80, 421, 51));
-        lineedit_outputname = new QLineEdit(groupBox_14);
-        lineedit_outputname->setObjectName(QString::fromUtf8("lineedit_outputname"));
-        lineedit_outputname->setEnabled(false);
-        lineedit_outputname->setGeometry(QRect(10, 20, 391, 21));
-        groupBox_3 = new QGroupBox(centralWidget);
-        groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
-        groupBox_3->setGeometry(QRect(30, 460, 1031, 191));
-        textedit_status_box = new QTextEdit(groupBox_3);
-        textedit_status_box->setObjectName(QString::fromUtf8("textedit_status_box"));
-        textedit_status_box->setGeometry(QRect(10, 20, 1011, 131));
-        textedit_status_box->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-        textedit_status_box->setReadOnly(true);
-        progressBar = new QProgressBar(groupBox_3);
-        progressBar->setObjectName(QString::fromUtf8("progressBar"));
-        progressBar->setGeometry(QRect(10, 160, 1011, 23));
-        progressBar->setValue(0);
-        progressBar->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        groupBox_4 = new QGroupBox(centralWidget);
-        groupBox_4->setObjectName(QString::fromUtf8("groupBox_4"));
-        groupBox_4->setGeometry(QRect(30, 20, 1031, 61));
-        button_downloadytdl = new QPushButton(groupBox_4);
-        button_downloadytdl->setObjectName(QString::fromUtf8("button_downloadytdl"));
-        button_downloadytdl->setEnabled(false);
-        button_downloadytdl->setGeometry(QRect(300, 20, 181, 23));
-        button_downloadffmpeg = new QPushButton(groupBox_4);
-        button_downloadffmpeg->setObjectName(QString::fromUtf8("button_downloadffmpeg"));
-        button_downloadffmpeg->setEnabled(false);
-        button_downloadffmpeg->setGeometry(QRect(550, 20, 181, 23));
-        button_downloadffmpeg->setFlat(false);
-        checkbox_dark = new QCheckBox(centralWidget);
-        checkbox_dark->setObjectName(QString::fromUtf8("checkbox_dark"));
-        checkbox_dark->setGeometry(QRect(30, 660, 70, 17));
-        checkbox_dark->setChecked(true);
-        groupBox_9 = new QGroupBox(centralWidget);
-        groupBox_9->setObjectName(QString::fromUtf8("groupBox_9"));
-        groupBox_9->setGeometry(QRect(1070, 460, 271, 191));
-        table_clipinfo = new QTableWidget(groupBox_9);
-        if (table_clipinfo->columnCount() < 1)
-            table_clipinfo->setColumnCount(1);
-        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
-        table_clipinfo->setHorizontalHeaderItem(0, __qtablewidgetitem);
-        if (table_clipinfo->rowCount() < 2)
-            table_clipinfo->setRowCount(2);
-        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
-        table_clipinfo->setVerticalHeaderItem(0, __qtablewidgetitem1);
-        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
-        table_clipinfo->setVerticalHeaderItem(1, __qtablewidgetitem2);
-        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
-        __qtablewidgetitem3->setFlags(Qt::ItemIsEditable|Qt::ItemIsDragEnabled|Qt::ItemIsDropEnabled|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
-        table_clipinfo->setItem(0, 0, __qtablewidgetitem3);
-        QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
-        __qtablewidgetitem4->setFlags(Qt::NoItemFlags);
-        table_clipinfo->setItem(1, 0, __qtablewidgetitem4);
-        table_clipinfo->setObjectName(QString::fromUtf8("table_clipinfo"));
-        table_clipinfo->setEnabled(true);
-        table_clipinfo->setGeometry(QRect(10, 20, 251, 161));
-        sizePolicy.setHeightForWidth(table_clipinfo->sizePolicy().hasHeightForWidth());
-        table_clipinfo->setSizePolicy(sizePolicy);
-        table_clipinfo->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
-        table_clipinfo->setSelectionMode(QAbstractItemView::NoSelection);
-        table_clipinfo->setShowGrid(true);
-        table_clipinfo->setCornerButtonEnabled(false);
-        table_clipinfo->horizontalHeader()->setVisible(false);
-        table_clipinfo->horizontalHeader()->setHighlightSections(false);
-        table_clipinfo->horizontalHeader()->setStretchLastSection(true);
-        table_clipinfo->verticalHeader()->setVisible(true);
-        table_clipinfo->verticalHeader()->setHighlightSections(false);
-        table_clipinfo->verticalHeader()->setStretchLastSection(false);
-        groupBox_10 = new QGroupBox(centralWidget);
-        groupBox_10->setObjectName(QString::fromUtf8("groupBox_10"));
-        groupBox_10->setGeometry(QRect(1070, 90, 271, 361));
-        treeview_files = new QTreeView(groupBox_10);
-        treeview_files->setObjectName(QString::fromUtf8("treeview_files"));
-        treeview_files->setGeometry(QRect(10, 20, 251, 331));
-        groupBox_11 = new QGroupBox(centralWidget);
-        groupBox_11->setObjectName(QString::fromUtf8("groupBox_11"));
-        groupBox_11->setGeometry(QRect(1070, 19, 271, 61));
-        button_showworking = new QPushButton(groupBox_11);
-        button_showworking->setObjectName(QString::fromUtf8("button_showworking"));
-        button_showworking->setGeometry(QRect(30, 20, 101, 23));
-        button_showoutput = new QPushButton(groupBox_11);
-        button_showoutput->setObjectName(QString::fromUtf8("button_showoutput"));
-        button_showoutput->setGeometry(QRect(140, 20, 101, 23));
-        tabs_source = new QTabWidget(centralWidget);
-        tabs_source->setObjectName(QString::fromUtf8("tabs_source"));
-        tabs_source->setEnabled(true);
-        tabs_source->setGeometry(QRect(14, 90, 527, 361));
-        tabs_source->setTabPosition(QTabWidget::West);
-        tabs_source->setTabShape(QTabWidget::Triangular);
-        tabs_source->setElideMode(Qt::ElideNone);
-        tabs_source->setUsesScrollButtons(false);
-        tabs_source->setDocumentMode(true);
-        tab = new QWidget();
-        tab->setObjectName(QString::fromUtf8("tab"));
-        groupBox = new QGroupBox(tab);
+        horizontalLayout_2 = new QHBoxLayout(centralWidget);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        import_toolbox = new QToolBox(centralWidget);
+        import_toolbox->setObjectName(QString::fromUtf8("import_toolbox"));
+        import_toolbox->setMinimumSize(QSize(450, 450));
+        page_5 = new QWidget();
+        page_5->setObjectName(QString::fromUtf8("page_5"));
+        page_5->setGeometry(QRect(0, 0, 446, 395));
+        gridLayout_2 = new QGridLayout(page_5);
+        gridLayout_2->setSpacing(6);
+        gridLayout_2->setContentsMargins(11, 11, 11, 11);
+        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        setup_ytdl_button = new QPushButton(page_5);
+        setup_ytdl_button->setObjectName(QString::fromUtf8("setup_ytdl_button"));
+        setup_ytdl_button->setMinimumSize(QSize(60, 18));
+
+        gridLayout_2->addWidget(setup_ytdl_button, 0, 3, 1, 1);
+
+        verticalSpacer_8 = new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Fixed);
+
+        gridLayout_2->addItem(verticalSpacer_8, 1, 1, 1, 1);
+
+        setup_ytdl_lineedit = new QLineEdit(page_5);
+        setup_ytdl_lineedit->setObjectName(QString::fromUtf8("setup_ytdl_lineedit"));
+
+        gridLayout_2->addWidget(setup_ytdl_lineedit, 0, 1, 1, 1);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        setup_show_working_dir = new QPushButton(page_5);
+        setup_show_working_dir->setObjectName(QString::fromUtf8("setup_show_working_dir"));
+
+        horizontalLayout->addWidget(setup_show_working_dir);
+
+        horizontalSpacer = new QSpacerItem(13, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer);
+
+        setup_show_output_dir = new QPushButton(page_5);
+        setup_show_output_dir->setObjectName(QString::fromUtf8("setup_show_output_dir"));
+
+        horizontalLayout->addWidget(setup_show_output_dir);
+
+
+        gridLayout_2->addLayout(horizontalLayout, 3, 1, 1, 1);
+
+        setup_ytdl_label = new QLabel(page_5);
+        setup_ytdl_label->setObjectName(QString::fromUtf8("setup_ytdl_label"));
+
+        gridLayout_2->addWidget(setup_ytdl_label, 0, 0, 1, 1);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_2->addItem(verticalSpacer, 5, 1, 1, 1);
+
+        import_toolbox->addItem(page_5, QString::fromUtf8("Setup"));
+        page_4 = new QWidget();
+        page_4->setObjectName(QString::fromUtf8("page_4"));
+        page_4->setGeometry(QRect(0, 0, 145, 146));
+        gridLayout = new QGridLayout(page_4);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        verticalSpacer_3 = new QSpacerItem(20, 10, QSizePolicy::Minimum, QSizePolicy::Fixed);
+
+        gridLayout->addItem(verticalSpacer_3, 2, 1, 1, 1);
+
+        download_button = new QPushButton(page_4);
+        download_button->setObjectName(QString::fromUtf8("download_button"));
+        download_button->setMinimumSize(QSize(60, 18));
+
+        gridLayout->addWidget(download_button, 1, 2, 1, 1);
+
+        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout->addItem(verticalSpacer_2, 4, 1, 1, 1);
+
+        verticalSpacer_4 = new QSpacerItem(20, 5, QSizePolicy::Minimum, QSizePolicy::Fixed);
+
+        gridLayout->addItem(verticalSpacer_4, 0, 1, 1, 1);
+
+        download_label = new QLabel(page_4);
+        download_label->setObjectName(QString::fromUtf8("download_label"));
+
+        gridLayout->addWidget(download_label, 1, 0, 1, 1);
+
+        download_linedit = new QLineEdit(page_4);
+        download_linedit->setObjectName(QString::fromUtf8("download_linedit"));
+
+        gridLayout->addWidget(download_linedit, 1, 1, 1, 1);
+
+        download_status = new QTextEdit(page_4);
+        download_status->setObjectName(QString::fromUtf8("download_status"));
+        download_status->setEnabled(false);
+        download_status->setMaximumSize(QSize(16777215, 100));
+
+        gridLayout->addWidget(download_status, 5, 0, 1, 3);
+
+        import_toolbox->addItem(page_4, QString::fromUtf8("Download Video"));
+        page_3 = new QWidget();
+        page_3->setObjectName(QString::fromUtf8("page_3"));
+        page_3->setGeometry(QRect(0, 0, 170, 154));
+        gridLayout_4 = new QGridLayout(page_3);
+        gridLayout_4->setSpacing(6);
+        gridLayout_4->setContentsMargins(11, 11, 11, 11);
+        gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
+        local_label = new QLabel(page_3);
+        local_label->setObjectName(QString::fromUtf8("local_label"));
+
+        gridLayout_4->addWidget(local_label, 1, 0, 1, 1);
+
+        verticalSpacer_6 = new QSpacerItem(20, 326, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_4->addItem(verticalSpacer_6, 6, 1, 1, 1);
+
+        local_button = new QPushButton(page_3);
+        local_button->setObjectName(QString::fromUtf8("local_button"));
+        local_button->setMinimumSize(QSize(60, 18));
+
+        gridLayout_4->addWidget(local_button, 1, 2, 1, 1);
+
+        local_status = new QTextEdit(page_3);
+        local_status->setObjectName(QString::fromUtf8("local_status"));
+        local_status->setMaximumSize(QSize(16777215, 100));
+
+        gridLayout_4->addWidget(local_status, 3, 0, 1, 3);
+
+        verticalSpacer_5 = new QSpacerItem(20, 5, QSizePolicy::Minimum, QSizePolicy::Fixed);
+
+        gridLayout_4->addItem(verticalSpacer_5, 0, 1, 1, 1);
+
+        verticalSpacer_7 = new QSpacerItem(20, 10, QSizePolicy::Minimum, QSizePolicy::Fixed);
+
+        gridLayout_4->addItem(verticalSpacer_7, 2, 1, 1, 1);
+
+        local_lineedit = new QLineEdit(page_3);
+        local_lineedit->setObjectName(QString::fromUtf8("local_lineedit"));
+
+        gridLayout_4->addWidget(local_lineedit, 1, 1, 1, 1);
+
+        pushButton = new QPushButton(page_3);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        sizePolicy.setHeightForWidth(pushButton->sizePolicy().hasHeightForWidth());
+        pushButton->setSizePolicy(sizePolicy);
+        pushButton->setMinimumSize(QSize(0, 18));
+        pushButton->setMaximumSize(QSize(80, 16777215));
+
+        gridLayout_4->addWidget(pushButton, 2, 2, 1, 1);
+
+        import_toolbox->addItem(page_3, QString::fromUtf8("Load Local File"));
+
+        horizontalLayout_2->addWidget(import_toolbox);
+
+        expand_left = new QPushButton(centralWidget);
+        expand_left->setObjectName(QString::fromUtf8("expand_left"));
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(expand_left->sizePolicy().hasHeightForWidth());
+        expand_left->setSizePolicy(sizePolicy1);
+        expand_left->setMinimumSize(QSize(20, 20));
+        expand_left->setMaximumSize(QSize(15, 16777215));
+        expand_left->setLayoutDirection(Qt::RightToLeft);
+
+        horizontalLayout_2->addWidget(expand_left);
+
+        groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setEnabled(true);
-        groupBox->setGeometry(QRect(-10, -10, 521, 381));
-        label = new QLabel(groupBox);
+        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(groupBox->sizePolicy().hasHeightForWidth());
+        groupBox->setSizePolicy(sizePolicy2);
+        groupBox->setMinimumSize(QSize(350, 0));
+        groupBox->setAlignment(Qt::AlignCenter);
+        verticalLayout = new QVBoxLayout(groupBox);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        verticalLayout->setContentsMargins(-1, 20, -1, -1);
+        focus_image = new QLabel(groupBox);
+        focus_image->setObjectName(QString::fromUtf8("focus_image"));
+        sizePolicy.setHeightForWidth(focus_image->sizePolicy().hasHeightForWidth());
+        focus_image->setSizePolicy(sizePolicy);
+        focus_image->setMinimumSize(QSize(330, 185));
+        focus_image->setMaximumSize(QSize(330, 185));
+
+        verticalLayout->addWidget(focus_image);
+
+        focus_table = new QTableWidget(groupBox);
+        if (focus_table->rowCount() < 2)
+            focus_table->setRowCount(2);
+        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
+        focus_table->setVerticalHeaderItem(0, __qtablewidgetitem);
+        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
+        focus_table->setVerticalHeaderItem(1, __qtablewidgetitem1);
+        focus_table->setObjectName(QString::fromUtf8("focus_table"));
+        focus_table->setAlternatingRowColors(true);
+
+        verticalLayout->addWidget(focus_table);
+
+        setup_status = new QTextEdit(groupBox);
+        setup_status->setObjectName(QString::fromUtf8("setup_status"));
+        setup_status->setEnabled(false);
+        setup_status->setMaximumSize(QSize(16777215, 60));
+
+        verticalLayout->addWidget(setup_status);
+
+
+        horizontalLayout_2->addWidget(groupBox);
+
+        expand_right = new QPushButton(centralWidget);
+        expand_right->setObjectName(QString::fromUtf8("expand_right"));
+        sizePolicy1.setHeightForWidth(expand_right->sizePolicy().hasHeightForWidth());
+        expand_right->setSizePolicy(sizePolicy1);
+        expand_right->setMinimumSize(QSize(20, 0));
+        expand_right->setMaximumSize(QSize(20, 16777215));
+
+        horizontalLayout_2->addWidget(expand_right);
+
+        export_toolbox = new QToolBox(centralWidget);
+        export_toolbox->setObjectName(QString::fromUtf8("export_toolbox"));
+        export_toolbox->setEnabled(true);
+        export_toolbox->setMinimumSize(QSize(450, 450));
+        export_toolbox->setMaximumSize(QSize(16777215, 16777215));
+        page_8 = new QWidget();
+        page_8->setObjectName(QString::fromUtf8("page_8"));
+        page_8->setGeometry(QRect(0, 0, 446, 422));
+        gridLayout_7 = new QGridLayout(page_8);
+        gridLayout_7->setSpacing(6);
+        gridLayout_7->setContentsMargins(11, 11, 11, 11);
+        gridLayout_7->setObjectName(QString::fromUtf8("gridLayout_7"));
+        setup_ffprobe_lineedit = new QLineEdit(page_8);
+        setup_ffprobe_lineedit->setObjectName(QString::fromUtf8("setup_ffprobe_lineedit"));
+
+        gridLayout_7->addWidget(setup_ffprobe_lineedit, 1, 1, 1, 1);
+
+        setup_ffmpeg_lineedit = new QLineEdit(page_8);
+        setup_ffmpeg_lineedit->setObjectName(QString::fromUtf8("setup_ffmpeg_lineedit"));
+
+        gridLayout_7->addWidget(setup_ffmpeg_lineedit, 0, 1, 1, 1);
+
+        setup_ffmpeg_button = new QPushButton(page_8);
+        setup_ffmpeg_button->setObjectName(QString::fromUtf8("setup_ffmpeg_button"));
+        setup_ffmpeg_button->setMinimumSize(QSize(60, 18));
+
+        gridLayout_7->addWidget(setup_ffmpeg_button, 0, 2, 1, 1);
+
+        setup_ffprobe_button = new QPushButton(page_8);
+        setup_ffprobe_button->setObjectName(QString::fromUtf8("setup_ffprobe_button"));
+        setup_ffprobe_button->setMinimumSize(QSize(60, 18));
+
+        gridLayout_7->addWidget(setup_ffprobe_button, 1, 2, 1, 1);
+
+        setup_ffprobe_label = new QLabel(page_8);
+        setup_ffprobe_label->setObjectName(QString::fromUtf8("setup_ffprobe_label"));
+
+        gridLayout_7->addWidget(setup_ffprobe_label, 1, 0, 1, 1);
+
+        setup_ffmpeg_label = new QLabel(page_8);
+        setup_ffmpeg_label->setObjectName(QString::fromUtf8("setup_ffmpeg_label"));
+
+        gridLayout_7->addWidget(setup_ffmpeg_label, 0, 0, 1, 1);
+
+        verticalSpacer_9 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_7->addItem(verticalSpacer_9, 2, 1, 1, 1);
+
+        export_toolbox->addItem(page_8, QString::fromUtf8("Setup"));
+        page_6 = new QWidget();
+        page_6->setObjectName(QString::fromUtf8("page_6"));
+        page_6->setGeometry(QRect(0, 0, 446, 422));
+        gridLayout_5 = new QGridLayout(page_6);
+        gridLayout_5->setSpacing(6);
+        gridLayout_5->setContentsMargins(11, 11, 11, 11);
+        gridLayout_5->setObjectName(QString::fromUtf8("gridLayout_5"));
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        label = new QLabel(page_6);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(30, 20, 120, 16));
-        button_download = new QPushButton(groupBox);
-        button_download->setObjectName(QString::fromUtf8("button_download"));
-        button_download->setEnabled(false);
-        button_download->setGeometry(QRect(370, 170, 111, 23));
-        button_cleardownload = new QPushButton(groupBox);
-        button_cleardownload->setObjectName(QString::fromUtf8("button_cleardownload"));
-        button_cleardownload->setEnabled(true);
-        button_cleardownload->setGeometry(QRect(370, 210, 111, 23));
-        label_thumb_download = new QLabel(groupBox);
-        label_thumb_download->setObjectName(QString::fromUtf8("label_thumb_download"));
-        label_thumb_download->setGeometry(QRect(30, 120, 291, 161));
-        label_thumb_download->setFrameShape(QFrame::NoFrame);
-        label_thumb_download->setScaledContents(true);
-        label_thumb_download->setAlignment(Qt::AlignCenter);
-        label_download_title = new QLabel(groupBox);
-        label_download_title->setObjectName(QString::fromUtf8("label_download_title"));
-        label_download_title->setGeometry(QRect(30, 90, 291, 20));
-        label_download_title->setAlignment(Qt::AlignCenter);
-        lineedit_videoid = new QLineEdit(groupBox);
-        lineedit_videoid->setObjectName(QString::fromUtf8("lineedit_videoid"));
-        lineedit_videoid->setGeometry(QRect(30, 50, 461, 20));
-        tabs_source->addTab(tab, QString());
-        tab_2 = new QWidget();
-        tab_2->setObjectName(QString::fromUtf8("tab_2"));
-        groupBox_12 = new QGroupBox(tab_2);
-        groupBox_12->setObjectName(QString::fromUtf8("groupBox_12"));
-        groupBox_12->setGeometry(QRect(-10, -10, 531, 381));
-        label_thumb_local = new QLabel(groupBox_12);
-        label_thumb_local->setObjectName(QString::fromUtf8("label_thumb_local"));
-        label_thumb_local->setGeometry(QRect(120, 110, 291, 161));
-        label_thumb_local->setFrameShape(QFrame::NoFrame);
-        label_thumb_local->setScaledContents(true);
-        label_thumb_local->setAlignment(Qt::AlignCenter);
-        button_choose_local = new QPushButton(groupBox_12);
-        button_choose_local->setObjectName(QString::fromUtf8("button_choose_local"));
-        button_choose_local->setEnabled(true);
-        button_choose_local->setGeometry(QRect(230, 50, 75, 23));
-        label_local_name = new QLabel(groupBox_12);
-        label_local_name->setObjectName(QString::fromUtf8("label_local_name"));
-        label_local_name->setGeometry(QRect(20, 280, 491, 20));
-        label_local_name->setAlignment(Qt::AlignCenter);
-        tabs_source->addTab(tab_2, QString());
+
+        horizontalLayout_3->addWidget(label);
+
+        encode_starttime = new QLineEdit(page_6);
+        encode_starttime->setObjectName(QString::fromUtf8("encode_starttime"));
+        encode_starttime->setEnabled(true);
+
+        horizontalLayout_3->addWidget(encode_starttime);
+
+        label_2 = new QLabel(page_6);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+
+        horizontalLayout_3->addWidget(label_2);
+
+        encode_endtime = new QLineEdit(page_6);
+        encode_endtime->setObjectName(QString::fromUtf8("encode_endtime"));
+        encode_endtime->setEnabled(true);
+
+        horizontalLayout_3->addWidget(encode_endtime);
+
+
+        gridLayout_5->addLayout(horizontalLayout_3, 5, 0, 1, 3);
+
+        encode_button = new QPushButton(page_6);
+        encode_button->setObjectName(QString::fromUtf8("encode_button"));
+        encode_button->setMinimumSize(QSize(60, 18));
+
+        gridLayout_5->addWidget(encode_button, 0, 2, 1, 1);
+
+        encode_label = new QLabel(page_6);
+        encode_label->setObjectName(QString::fromUtf8("encode_label"));
+
+        gridLayout_5->addWidget(encode_label, 0, 0, 1, 1);
+
+        gridLayout_3 = new QGridLayout();
+        gridLayout_3->setSpacing(6);
+        gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
+        label_quality_smallest = new QLabel(page_6);
+        label_quality_smallest->setObjectName(QString::fromUtf8("label_quality_smallest"));
+        label_quality_smallest->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
+
+        gridLayout_3->addWidget(label_quality_smallest, 2, 0, 1, 1);
+
+        label_7 = new QLabel(page_6);
+        label_7->setObjectName(QString::fromUtf8("label_7"));
+        label_7->setAlignment(Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing);
+
+        gridLayout_3->addWidget(label_7, 2, 1, 1, 1);
+
+        encode_spinbox = new QSpinBox(page_6);
+        encode_spinbox->setObjectName(QString::fromUtf8("encode_spinbox"));
+        encode_spinbox->setEnabled(true);
+        encode_spinbox->setMaximumSize(QSize(40, 16777215));
+        encode_spinbox->setMinimum(1);
+        encode_spinbox->setMaximum(64);
+        encode_spinbox->setValue(15);
+
+        gridLayout_3->addWidget(encode_spinbox, 1, 2, 1, 1);
+
+        encode_slider = new QSlider(page_6);
+        encode_slider->setObjectName(QString::fromUtf8("encode_slider"));
+        encode_slider->setEnabled(true);
+        encode_slider->setLayoutDirection(Qt::RightToLeft);
+        encode_slider->setMinimum(0);
+        encode_slider->setMaximum(51);
+        encode_slider->setValue(15);
+        encode_slider->setOrientation(Qt::Horizontal);
+
+        gridLayout_3->addWidget(encode_slider, 1, 0, 1, 2);
+
+
+        gridLayout_5->addLayout(gridLayout_3, 3, 0, 1, 3);
+
+        encode_lineedit_filename = new QLineEdit(page_6);
+        encode_lineedit_filename->setObjectName(QString::fromUtf8("encode_lineedit_filename"));
+
+        gridLayout_5->addWidget(encode_lineedit_filename, 1, 1, 1, 1);
+
+        encode_label_2 = new QLabel(page_6);
+        encode_label_2->setObjectName(QString::fromUtf8("encode_label_2"));
+
+        gridLayout_5->addWidget(encode_label_2, 1, 0, 1, 1);
+
+        encode_lineedit_directory = new QLineEdit(page_6);
+        encode_lineedit_directory->setObjectName(QString::fromUtf8("encode_lineedit_directory"));
+
+        gridLayout_5->addWidget(encode_lineedit_directory, 0, 1, 1, 1);
+
+        verticalSpacer_10 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_5->addItem(verticalSpacer_10, 7, 1, 1, 1);
+
+        encode_status = new QTextEdit(page_6);
+        encode_status->setObjectName(QString::fromUtf8("encode_status"));
+        encode_status->setEnabled(false);
+        encode_status->setMaximumSize(QSize(16777215, 100));
+
+        gridLayout_5->addWidget(encode_status, 8, 0, 1, 3);
+
+        verticalSpacer_11 = new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Fixed);
+
+        gridLayout_5->addItem(verticalSpacer_11, 2, 1, 1, 1);
+
+        encode_combo = new QComboBox(page_6);
+        encode_combo->addItem(QString());
+        encode_combo->addItem(QString());
+        encode_combo->addItem(QString());
+        encode_combo->setObjectName(QString::fromUtf8("encode_combo"));
+
+        gridLayout_5->addWidget(encode_combo, 1, 2, 1, 1);
+
+        verticalSpacer_12 = new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Fixed);
+
+        gridLayout_5->addItem(verticalSpacer_12, 4, 1, 1, 1);
+
+        export_toolbox->addItem(page_6, QString::fromUtf8("Encode"));
+
+        horizontalLayout_2->addWidget(export_toolbox);
+
         Download_and_ClipClass->setCentralWidget(centralWidget);
-        statusBar = new QStatusBar(Download_and_ClipClass);
-        statusBar->setObjectName(QString::fromUtf8("statusBar"));
-        Download_and_ClipClass->setStatusBar(statusBar);
 
         retranslateUi(Download_and_ClipClass);
 
-        tabs_source->setCurrentIndex(0);
+        import_toolbox->setCurrentIndex(0);
+        export_toolbox->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(Download_and_ClipClass);
@@ -436,62 +649,46 @@ public:
     void retranslateUi(QMainWindow *Download_and_ClipClass)
     {
         Download_and_ClipClass->setWindowTitle(QCoreApplication::translate("Download_and_ClipClass", "YesClip", nullptr));
-        groupBox_2->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Clip", nullptr));
-        button_clip->setText(QCoreApplication::translate("Download_and_ClipClass", "Clip", nullptr));
-        groupBox_5->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Quality", nullptr));
+        setup_ytdl_button->setText(QCoreApplication::translate("Download_and_ClipClass", "Browse", nullptr));
+        setup_show_working_dir->setText(QCoreApplication::translate("Download_and_ClipClass", "Show Working Dir", nullptr));
+        setup_show_output_dir->setText(QCoreApplication::translate("Download_and_ClipClass", "Show Output Dir", nullptr));
+        setup_ytdl_label->setText(QCoreApplication::translate("Download_and_ClipClass", "YouTube-DL: ", nullptr));
+        import_toolbox->setItemText(import_toolbox->indexOf(page_5), QCoreApplication::translate("Download_and_ClipClass", "Setup", nullptr));
+        download_button->setText(QCoreApplication::translate("Download_and_ClipClass", "Download", nullptr));
+        download_label->setText(QCoreApplication::translate("Download_and_ClipClass", "URL: ", nullptr));
+        import_toolbox->setItemText(import_toolbox->indexOf(page_4), QCoreApplication::translate("Download_and_ClipClass", "Download Video", nullptr));
+        local_label->setText(QCoreApplication::translate("Download_and_ClipClass", "Directory: ", nullptr));
+        local_button->setText(QCoreApplication::translate("Download_and_ClipClass", "Browse", nullptr));
+        pushButton->setText(QCoreApplication::translate("Download_and_ClipClass", "> Focus >", nullptr));
+        import_toolbox->setItemText(import_toolbox->indexOf(page_3), QCoreApplication::translate("Download_and_ClipClass", "Load Local File", nullptr));
+        expand_left->setText(QCoreApplication::translate("Download_and_ClipClass", "<", nullptr));
+        groupBox->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Focused Media", nullptr));
+        focus_image->setText(QCoreApplication::translate("Download_and_ClipClass", "Image", nullptr));
+        QTableWidgetItem *___qtablewidgetitem = focus_table->verticalHeaderItem(0);
+        ___qtablewidgetitem->setText(QCoreApplication::translate("Download_and_ClipClass", "Name", nullptr));
+        QTableWidgetItem *___qtablewidgetitem1 = focus_table->verticalHeaderItem(1);
+        ___qtablewidgetitem1->setText(QCoreApplication::translate("Download_and_ClipClass", "Size", nullptr));
+        expand_right->setText(QCoreApplication::translate("Download_and_ClipClass", ">", nullptr));
+        setup_ffprobe_lineedit->setText(QString());
+        setup_ffmpeg_button->setText(QCoreApplication::translate("Download_and_ClipClass", "Browse", nullptr));
+        setup_ffprobe_button->setText(QCoreApplication::translate("Download_and_ClipClass", "Browse", nullptr));
+        setup_ffprobe_label->setText(QCoreApplication::translate("Download_and_ClipClass", "ffprobe: ", nullptr));
+        setup_ffmpeg_label->setText(QCoreApplication::translate("Download_and_ClipClass", "FFmpeg: ", nullptr));
+        export_toolbox->setItemText(export_toolbox->indexOf(page_8), QCoreApplication::translate("Download_and_ClipClass", "Setup", nullptr));
+        label->setText(QCoreApplication::translate("Download_and_ClipClass", "Start Time: ", nullptr));
+        encode_starttime->setText(QCoreApplication::translate("Download_and_ClipClass", "00:00:00.0", nullptr));
+        label_2->setText(QCoreApplication::translate("Download_and_ClipClass", "End Time: ", nullptr));
+        encode_endtime->setText(QCoreApplication::translate("Download_and_ClipClass", "00:00:05.0", nullptr));
+        encode_button->setText(QCoreApplication::translate("Download_and_ClipClass", "Browse", nullptr));
+        encode_label->setText(QCoreApplication::translate("Download_and_ClipClass", "Directory: ", nullptr));
         label_quality_smallest->setText(QCoreApplication::translate("Download_and_ClipClass", "Smallest", nullptr));
         label_7->setText(QCoreApplication::translate("Download_and_ClipClass", "Biggest", nullptr));
-        combo_encoder->setItemText(0, QCoreApplication::translate("Download_and_ClipClass", "x264", nullptr));
-        combo_encoder->setItemText(1, QCoreApplication::translate("Download_and_ClipClass", "x265", nullptr));
-        combo_encoder->setItemText(2, QCoreApplication::translate("Download_and_ClipClass", "gif", nullptr));
+        encode_label_2->setText(QCoreApplication::translate("Download_and_ClipClass", "File: ", nullptr));
+        encode_combo->setItemText(0, QCoreApplication::translate("Download_and_ClipClass", "x264", nullptr));
+        encode_combo->setItemText(1, QCoreApplication::translate("Download_and_ClipClass", "x265", nullptr));
+        encode_combo->setItemText(2, QCoreApplication::translate("Download_and_ClipClass", "gif", nullptr));
 
-        groupBox_6->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Start Time", nullptr));
-        lineedit_starttime->setText(QCoreApplication::translate("Download_and_ClipClass", "00:00:00.0", nullptr));
-        groupBox_7->setTitle(QCoreApplication::translate("Download_and_ClipClass", "End Time", nullptr));
-        lineedit_endtime->setText(QCoreApplication::translate("Download_and_ClipClass", "00:00:05.0", nullptr));
-        groupBox_8->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Output", nullptr));
-        groupBox_13->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Directory", nullptr));
-        lineedit_directory->setText(QCoreApplication::translate("Download_and_ClipClass", "C:/temp/", nullptr));
-        button_choose_directory->setText(QCoreApplication::translate("Download_and_ClipClass", "Choose", nullptr));
-        groupBox_14->setTitle(QCoreApplication::translate("Download_and_ClipClass", "File Name", nullptr));
-        lineedit_outputname->setText(QCoreApplication::translate("Download_and_ClipClass", "export_clip", nullptr));
-        groupBox_3->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Info and Status", nullptr));
-        textedit_status_box->setHtml(QCoreApplication::translate("Download_and_ClipClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", nullptr));
-        progressBar->setFormat(QCoreApplication::translate("Download_and_ClipClass", "%p% ", nullptr));
-        groupBox_4->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Programs", nullptr));
-        button_downloadytdl->setText(QCoreApplication::translate("Download_and_ClipClass", "Download/Update Youtube-dl", nullptr));
-        button_downloadffmpeg->setText(QCoreApplication::translate("Download_and_ClipClass", "Download/Update FFmpeg", nullptr));
-        checkbox_dark->setText(QCoreApplication::translate("Download_and_ClipClass", "Dark Mode", nullptr));
-        groupBox_9->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Latest Clip Info", nullptr));
-        QTableWidgetItem *___qtablewidgetitem = table_clipinfo->verticalHeaderItem(0);
-        ___qtablewidgetitem->setText(QCoreApplication::translate("Download_and_ClipClass", "Name", nullptr));
-        QTableWidgetItem *___qtablewidgetitem1 = table_clipinfo->verticalHeaderItem(1);
-        ___qtablewidgetitem1->setText(QCoreApplication::translate("Download_and_ClipClass", "Size", nullptr));
-
-        const bool __sortingEnabled = table_clipinfo->isSortingEnabled();
-        table_clipinfo->setSortingEnabled(false);
-        table_clipinfo->setSortingEnabled(__sortingEnabled);
-
-        groupBox_10->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Working Directory", nullptr));
-        groupBox_11->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Explorer", nullptr));
-        button_showworking->setText(QCoreApplication::translate("Download_and_ClipClass", "Working Dir", nullptr));
-        button_showoutput->setText(QCoreApplication::translate("Download_and_ClipClass", "Output Dir", nullptr));
-        groupBox->setTitle(QString());
-        label->setText(QCoreApplication::translate("Download_and_ClipClass", "YouTube Video ID", nullptr));
-        button_download->setText(QCoreApplication::translate("Download_and_ClipClass", "Download", nullptr));
-        button_cleardownload->setText(QCoreApplication::translate("Download_and_ClipClass", "Clear Downloaded", nullptr));
-        label_thumb_download->setText(QCoreApplication::translate("Download_and_ClipClass", "[Thumbnail]", nullptr));
-        label_download_title->setText(QCoreApplication::translate("Download_and_ClipClass", "Video Title", nullptr));
-        tabs_source->setTabText(tabs_source->indexOf(tab), QCoreApplication::translate("Download_and_ClipClass", "Download", nullptr));
-        groupBox_12->setTitle(QString());
-        label_thumb_local->setText(QCoreApplication::translate("Download_and_ClipClass", "[Thumbnail]", nullptr));
-        button_choose_local->setText(QCoreApplication::translate("Download_and_ClipClass", "Choose File", nullptr));
-        label_local_name->setText(QCoreApplication::translate("Download_and_ClipClass", "File Name", nullptr));
-        tabs_source->setTabText(tabs_source->indexOf(tab_2), QCoreApplication::translate("Download_and_ClipClass", "Local File", nullptr));
+        export_toolbox->setItemText(export_toolbox->indexOf(page_6), QCoreApplication::translate("Download_and_ClipClass", "Encode", nullptr));
     } // retranslateUi
 
 };
