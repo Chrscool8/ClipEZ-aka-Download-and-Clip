@@ -235,12 +235,7 @@ void Download_and_Clip::load_downloaded_video()
 
 void Download_and_Clip::encode_done()
 {
-	//ui.button_download->setEnabled(true);
-			//ui.button_clip->setEnabled(true);
-
 	std::string s = ui.encode_lineedit_filename->text().toStdString() + get_ext();
-
-	//ui.progressBar->setValue(100);
 
 	if (fs::exists(ui.encode_lineedit_directory->text().toStdString() + s))
 	{
@@ -251,9 +246,6 @@ void Download_and_Clip::encode_done()
 
 		QString valueText = this->locale().formattedDataSize(fs::file_size(full));
 		update_status(valueText.toStdString(), ui.encode_status);
-
-		//ui.focus_table->setItem(0, 0, new QTableWidgetItem(s.c_str()));
-		//ui.focus_table->setItem(0, 1, new QTableWidgetItem(valueText));
 	}
 	else
 	{
@@ -321,6 +313,9 @@ void Download_and_Clip::processStateChange(std::string program, QProcess::Proces
 
 
 			ui.download_table->setItem(0, 0, new QTableWidgetItem(ytdesc["title"].get<std::string>().c_str()));
+
+			QString valueText = this->locale().formattedDataSize(fs::file_size(find_fuzzy("downloaded_video")));
+			ui.download_table->setItem(0, 1, new QTableWidgetItem(valueText));
 
 			//std::string size = ytdesc["size"];
 			//QString valueText = this->locale().formattedDataSize(fs::file_size(size));
