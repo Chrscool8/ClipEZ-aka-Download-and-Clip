@@ -81,4 +81,7 @@
       <Filter>Resource Files\included files</Filter>
     </CopyFileToFolders>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
 </Project>

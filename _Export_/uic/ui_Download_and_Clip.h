@@ -10,6 +10,7 @@
 #define UI_DOWNLOAD_AND_CLIP_H
 
 #include <QtCore/QVariant>
+#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
@@ -20,6 +21,8 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QSpacerItem>
@@ -35,6 +38,10 @@ QT_BEGIN_NAMESPACE
 class Ui_Download_and_ClipClass
 {
 public:
+    QAction *actionExit;
+    QAction *menu_actionLight;
+    QAction *menu_actionDark;
+    QAction *menu_actionExit;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout_2;
     QToolBox *import_toolbox;
@@ -54,7 +61,7 @@ public:
     QLabel *download_label;
     QSpacerItem *verticalSpacer_4;
     QSpacerItem *verticalSpacer_3;
-    QTableWidget *focus_table_2;
+    QTableWidget *download_table;
     QTextEdit *download_status;
     QLineEdit *download_linedit;
     QSpacerItem *verticalSpacer_2;
@@ -117,13 +124,16 @@ public:
     QSpacerItem *verticalSpacer_11;
     QComboBox *encode_combo;
     QSpacerItem *verticalSpacer_12;
+    QMenuBar *menuBar;
+    QMenu *menuFile;
+    QMenu *menuTheme;
 
     void setupUi(QMainWindow *Download_and_ClipClass)
     {
         if (Download_and_ClipClass->objectName().isEmpty())
             Download_and_ClipClass->setObjectName(QString::fromUtf8("Download_and_ClipClass"));
         Download_and_ClipClass->setEnabled(true);
-        Download_and_ClipClass->resize(1333, 498);
+        Download_and_ClipClass->resize(1333, 521);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -249,6 +259,14 @@ public:
 "}\n"
 "\n"
 ""));
+        actionExit = new QAction(Download_and_ClipClass);
+        actionExit->setObjectName(QString::fromUtf8("actionExit"));
+        menu_actionLight = new QAction(Download_and_ClipClass);
+        menu_actionLight->setObjectName(QString::fromUtf8("menu_actionLight"));
+        menu_actionDark = new QAction(Download_and_ClipClass);
+        menu_actionDark->setObjectName(QString::fromUtf8("menu_actionDark"));
+        menu_actionExit = new QAction(Download_and_ClipClass);
+        menu_actionExit->setObjectName(QString::fromUtf8("menu_actionExit"));
         centralWidget = new QWidget(Download_and_ClipClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         centralWidget->setEnabled(true);
@@ -331,24 +349,34 @@ public:
 
         gridLayout->addItem(verticalSpacer_3, 2, 1, 1, 1);
 
-        focus_table_2 = new QTableWidget(page_4);
-        if (focus_table_2->rowCount() < 2)
-            focus_table_2->setRowCount(2);
+        download_table = new QTableWidget(page_4);
+        if (download_table->columnCount() < 1)
+            download_table->setColumnCount(1);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
-        focus_table_2->setVerticalHeaderItem(0, __qtablewidgetitem);
+        download_table->setHorizontalHeaderItem(0, __qtablewidgetitem);
+        if (download_table->rowCount() < 3)
+            download_table->setRowCount(3);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
-        focus_table_2->setVerticalHeaderItem(1, __qtablewidgetitem1);
-        focus_table_2->setObjectName(QString::fromUtf8("focus_table_2"));
+        download_table->setVerticalHeaderItem(0, __qtablewidgetitem1);
+        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
+        download_table->setVerticalHeaderItem(1, __qtablewidgetitem2);
+        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
+        download_table->setVerticalHeaderItem(2, __qtablewidgetitem3);
+        download_table->setObjectName(QString::fromUtf8("download_table"));
         QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Minimum);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(focus_table_2->sizePolicy().hasHeightForWidth());
-        focus_table_2->setSizePolicy(sizePolicy1);
-        focus_table_2->setMinimumSize(QSize(0, 92));
-        focus_table_2->setMaximumSize(QSize(16777215, 92));
-        focus_table_2->setAlternatingRowColors(true);
+        sizePolicy1.setHeightForWidth(download_table->sizePolicy().hasHeightForWidth());
+        download_table->setSizePolicy(sizePolicy1);
+        download_table->setMinimumSize(QSize(0, 92));
+        download_table->setMaximumSize(QSize(16777215, 92));
+        download_table->setAlternatingRowColors(false);
+        download_table->horizontalHeader()->setVisible(false);
+        download_table->horizontalHeader()->setHighlightSections(false);
+        download_table->horizontalHeader()->setStretchLastSection(true);
+        download_table->verticalHeader()->setHighlightSections(false);
 
-        gridLayout->addWidget(focus_table_2, 4, 0, 1, 3);
+        gridLayout->addWidget(download_table, 4, 0, 1, 3);
 
         download_status = new QTextEdit(page_4);
         download_status->setObjectName(QString::fromUtf8("download_status"));
@@ -526,14 +554,22 @@ public:
         verticalLayout->addWidget(focus_image);
 
         focus_table = new QTableWidget(groupBox);
+        if (focus_table->columnCount() < 1)
+            focus_table->setColumnCount(1);
+        QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
+        focus_table->setHorizontalHeaderItem(0, __qtablewidgetitem4);
         if (focus_table->rowCount() < 2)
             focus_table->setRowCount(2);
-        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
-        focus_table->setVerticalHeaderItem(0, __qtablewidgetitem2);
-        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
-        focus_table->setVerticalHeaderItem(1, __qtablewidgetitem3);
+        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
+        focus_table->setVerticalHeaderItem(0, __qtablewidgetitem5);
+        QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
+        focus_table->setVerticalHeaderItem(1, __qtablewidgetitem6);
         focus_table->setObjectName(QString::fromUtf8("focus_table"));
-        focus_table->setAlternatingRowColors(true);
+        focus_table->setAlternatingRowColors(false);
+        focus_table->horizontalHeader()->setVisible(false);
+        focus_table->horizontalHeader()->setHighlightSections(false);
+        focus_table->horizontalHeader()->setStretchLastSection(true);
+        focus_table->verticalHeader()->setHighlightSections(false);
 
         verticalLayout->addWidget(focus_table);
 
@@ -558,7 +594,7 @@ public:
 
         export_toolbox = new QToolBox(centralWidget);
         export_toolbox->setObjectName(QString::fromUtf8("export_toolbox"));
-        export_toolbox->setEnabled(true);
+        export_toolbox->setEnabled(false);
         export_toolbox->setMinimumSize(QSize(450, 450));
         export_toolbox->setMaximumSize(QSize(16777215, 16777215));
         page_8 = new QWidget();
@@ -622,7 +658,7 @@ public:
 
         encode_starttime = new QLineEdit(page_6);
         encode_starttime->setObjectName(QString::fromUtf8("encode_starttime"));
-        encode_starttime->setEnabled(true);
+        encode_starttime->setEnabled(false);
 
         horizontalLayout_3->addWidget(encode_starttime);
 
@@ -633,7 +669,7 @@ public:
 
         encode_endtime = new QLineEdit(page_6);
         encode_endtime->setObjectName(QString::fromUtf8("encode_endtime"));
-        encode_endtime->setEnabled(true);
+        encode_endtime->setEnabled(false);
 
         horizontalLayout_3->addWidget(encode_endtime);
 
@@ -668,7 +704,7 @@ public:
 
         encode_spinbox = new QSpinBox(page_6);
         encode_spinbox->setObjectName(QString::fromUtf8("encode_spinbox"));
-        encode_spinbox->setEnabled(true);
+        encode_spinbox->setEnabled(false);
         encode_spinbox->setMaximumSize(QSize(40, 16777215));
         encode_spinbox->setMinimum(1);
         encode_spinbox->setMaximum(64);
@@ -678,7 +714,7 @@ public:
 
         encode_slider = new QSlider(page_6);
         encode_slider->setObjectName(QString::fromUtf8("encode_slider"));
-        encode_slider->setEnabled(true);
+        encode_slider->setEnabled(false);
         encode_slider->setLayoutDirection(Qt::RightToLeft);
         encode_slider->setMinimum(0);
         encode_slider->setMaximum(51);
@@ -737,10 +773,23 @@ public:
         horizontalLayout_2->addWidget(export_toolbox);
 
         Download_and_ClipClass->setCentralWidget(centralWidget);
+        menuBar = new QMenuBar(Download_and_ClipClass);
+        menuBar->setObjectName(QString::fromUtf8("menuBar"));
+        menuBar->setGeometry(QRect(0, 0, 1333, 23));
+        menuFile = new QMenu(menuBar);
+        menuFile->setObjectName(QString::fromUtf8("menuFile"));
+        menuTheme = new QMenu(menuBar);
+        menuTheme->setObjectName(QString::fromUtf8("menuTheme"));
+        Download_and_ClipClass->setMenuBar(menuBar);
+
+        menuBar->addAction(menuFile->menuAction());
+        menuBar->addAction(menuTheme->menuAction());
+        menuTheme->addAction(menu_actionLight);
+        menuTheme->addAction(menu_actionDark);
 
         retranslateUi(Download_and_ClipClass);
 
-        import_toolbox->setCurrentIndex(1);
+        import_toolbox->setCurrentIndex(0);
         export_toolbox->setCurrentIndex(0);
 
 
@@ -750,16 +799,22 @@ public:
     void retranslateUi(QMainWindow *Download_and_ClipClass)
     {
         Download_and_ClipClass->setWindowTitle(QCoreApplication::translate("Download_and_ClipClass", "YesClip", nullptr));
+        actionExit->setText(QCoreApplication::translate("Download_and_ClipClass", "Exit", nullptr));
+        menu_actionLight->setText(QCoreApplication::translate("Download_and_ClipClass", "Light", nullptr));
+        menu_actionDark->setText(QCoreApplication::translate("Download_and_ClipClass", "Dark", nullptr));
+        menu_actionExit->setText(QCoreApplication::translate("Download_and_ClipClass", "Exit", nullptr));
         setup_ytdl_button->setText(QCoreApplication::translate("Download_and_ClipClass", "Browse", nullptr));
         setup_show_working_dir->setText(QCoreApplication::translate("Download_and_ClipClass", "Show Working Dir", nullptr));
         setup_show_output_dir->setText(QCoreApplication::translate("Download_and_ClipClass", "Show Output Dir", nullptr));
         setup_ytdl_label->setText(QCoreApplication::translate("Download_and_ClipClass", "YouTube-DL: ", nullptr));
         import_toolbox->setItemText(import_toolbox->indexOf(page_5), QCoreApplication::translate("Download_and_ClipClass", "Setup", nullptr));
         download_label->setText(QCoreApplication::translate("Download_and_ClipClass", "URL: ", nullptr));
-        QTableWidgetItem *___qtablewidgetitem = focus_table_2->verticalHeaderItem(0);
+        QTableWidgetItem *___qtablewidgetitem = download_table->verticalHeaderItem(0);
         ___qtablewidgetitem->setText(QCoreApplication::translate("Download_and_ClipClass", "Name", nullptr));
-        QTableWidgetItem *___qtablewidgetitem1 = focus_table_2->verticalHeaderItem(1);
+        QTableWidgetItem *___qtablewidgetitem1 = download_table->verticalHeaderItem(1);
         ___qtablewidgetitem1->setText(QCoreApplication::translate("Download_and_ClipClass", "Size", nullptr));
+        QTableWidgetItem *___qtablewidgetitem2 = download_table->verticalHeaderItem(2);
+        ___qtablewidgetitem2->setText(QCoreApplication::translate("Download_and_ClipClass", "Duration", nullptr));
         download_button->setText(QCoreApplication::translate("Download_and_ClipClass", "Download", nullptr));
         pushButton_2->setText(QCoreApplication::translate("Download_and_ClipClass", "> Focus >", nullptr));
         download_image->setText(QCoreApplication::translate("Download_and_ClipClass", "Image", nullptr));
@@ -775,10 +830,10 @@ public:
         expand_left->setText(QCoreApplication::translate("Download_and_ClipClass", "<", nullptr));
         groupBox->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Focused Media", nullptr));
         focus_image->setText(QCoreApplication::translate("Download_and_ClipClass", "Image", nullptr));
-        QTableWidgetItem *___qtablewidgetitem2 = focus_table->verticalHeaderItem(0);
-        ___qtablewidgetitem2->setText(QCoreApplication::translate("Download_and_ClipClass", "Name", nullptr));
-        QTableWidgetItem *___qtablewidgetitem3 = focus_table->verticalHeaderItem(1);
-        ___qtablewidgetitem3->setText(QCoreApplication::translate("Download_and_ClipClass", "Size", nullptr));
+        QTableWidgetItem *___qtablewidgetitem3 = focus_table->verticalHeaderItem(0);
+        ___qtablewidgetitem3->setText(QCoreApplication::translate("Download_and_ClipClass", "Name", nullptr));
+        QTableWidgetItem *___qtablewidgetitem4 = focus_table->verticalHeaderItem(1);
+        ___qtablewidgetitem4->setText(QCoreApplication::translate("Download_and_ClipClass", "Size", nullptr));
         expand_right->setText(QCoreApplication::translate("Download_and_ClipClass", ">", nullptr));
         setup_ffprobe_lineedit->setText(QString());
         setup_ffmpeg_button->setText(QCoreApplication::translate("Download_and_ClipClass", "Browse", nullptr));
@@ -800,6 +855,8 @@ public:
         encode_combo->setItemText(2, QCoreApplication::translate("Download_and_ClipClass", "gif", nullptr));
 
         export_toolbox->setItemText(export_toolbox->indexOf(page_6), QCoreApplication::translate("Download_and_ClipClass", "Encode", nullptr));
+        menuFile->setTitle(QCoreApplication::translate("Download_and_ClipClass", "File", nullptr));
+        menuTheme->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Theme", nullptr));
     } // retranslateUi
 
 };

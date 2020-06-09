@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>Chris</author>
  <class>Download_and_ClipClass</class>
  <widget class="QMainWindow" name="Download_and_ClipClass">
   <property name="enabled">
@@ -10,7 +11,7 @@
     <x>0</x>
     <y>0</y>
     <width>1333</width>
-    <height>498</height>
+    <height>521</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -156,7 +157,7 @@ width: 0px;
        </size>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page_5">
        <property name="geometry">
@@ -312,7 +313,7 @@ width: 0px;
          </spacer>
         </item>
         <item row="4" column="0" colspan="3">
-         <widget class="QTableWidget" name="focus_table_2">
+         <widget class="QTableWidget" name="download_table">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -332,8 +333,20 @@ width: 0px;
            </size>
           </property>
           <property name="alternatingRowColors">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
+          <attribute name="horizontalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="horizontalHeaderHighlightSections">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="horizontalHeaderStretchLastSection">
+           <bool>true</bool>
+          </attribute>
+          <attribute name="verticalHeaderHighlightSections">
+           <bool>false</bool>
+          </attribute>
           <row>
            <property name="text">
             <string>Name</string>
@@ -344,6 +357,16 @@ width: 0px;
             <string>Size</string>
            </property>
           </row>
+          <row>
+           <property name="text">
+            <string>Duration</string>
+           </property>
+          </row>
+          <column>
+           <property name="text">
+            <string/>
+           </property>
+          </column>
          </widget>
         </item>
         <item row="8" column="0" colspan="3">
@@ -725,8 +748,20 @@ width: 0px;
        <item>
         <widget class="QTableWidget" name="focus_table">
          <property name="alternatingRowColors">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
+         <attribute name="horizontalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="horizontalHeaderHighlightSections">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="horizontalHeaderStretchLastSection">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="verticalHeaderHighlightSections">
+          <bool>false</bool>
+         </attribute>
          <row>
           <property name="text">
            <string>Name</string>
@@ -737,6 +772,11 @@ width: 0px;
            <string>Size</string>
           </property>
          </row>
+         <column>
+          <property name="text">
+           <string/>
+          </property>
+         </column>
         </widget>
        </item>
        <item>
@@ -783,7 +823,7 @@ width: 0px;
     <item>
      <widget class="QToolBox" name="export_toolbox">
       <property name="enabled">
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
       <property name="minimumSize">
        <size>
@@ -903,7 +943,7 @@ width: 0px;
           <item>
            <widget class="QLineEdit" name="encode_starttime">
             <property name="enabled">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="text">
              <string>00:00:00.0</string>
@@ -920,7 +960,7 @@ width: 0px;
           <item>
            <widget class="QLineEdit" name="encode_endtime">
             <property name="enabled">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="text">
              <string>00:00:05.0</string>
@@ -974,7 +1014,7 @@ width: 0px;
           <item row="1" column="2">
            <widget class="QSpinBox" name="encode_spinbox">
             <property name="enabled">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="maximumSize">
              <size>
@@ -996,7 +1036,7 @@ width: 0px;
           <item row="1" column="0" colspan="2">
            <widget class="QSlider" name="encode_slider">
             <property name="enabled">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="layoutDirection">
              <enum>Qt::RightToLeft</enum>
@@ -1113,6 +1153,50 @@ width: 0px;
     </item>
    </layout>
   </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1333</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuTheme">
+    <property name="title">
+     <string>Theme</string>
+    </property>
+    <addaction name="menu_actionLight"/>
+    <addaction name="menu_actionDark"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuTheme"/>
+  </widget>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="menu_actionLight">
+   <property name="text">
+    <string>Light</string>
+   </property>
+  </action>
+  <action name="menu_actionDark">
+   <property name="text">
+    <string>Dark</string>
+   </property>
+  </action>
+  <action name="menu_actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>

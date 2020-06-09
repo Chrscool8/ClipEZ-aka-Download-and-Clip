@@ -17,6 +17,7 @@ public:
 	void set_setting(int setting, std::string value);
 	void load_downloaded_thumbnail();
 	void load_local_thumbnail();
+	std::string find_fuzzy(std::string filename);
 	void check_full_download();
 	void load_video_info();
 	void load_downloaded_video();
@@ -49,6 +50,8 @@ private slots:
 	void expand_left();
 	void expand_right();
 
+	void set_theme_dark();
+	void set_theme_light();
 
 
 	void execute_ffmpeg_encode();
@@ -78,6 +81,27 @@ private slots:
 private:
 	Ui::Download_and_ClipClass ui;
 
+protected:
+	// —— events ———————————————————————————
+	/*
+	 * this event is called when the mouse enters the widgets area during a drag/drop operation
+	 */
+	void dragEnterEvent(QDragEnterEvent* event);
+
+	/**
+	 * this event is called when the mouse moves inside the widgets area during a drag/drop operation
+	 */
+	void dragMoveEvent(QDragMoveEvent* event);
+
+	/**
+	 * this event is called when the mouse leaves the widgets area during a drag/drop operation
+	 */
+	void dragLeaveEvent(QDragLeaveEvent* event);
+
+	/**
+	 * this event is called when the drop operation is initiated at the widget
+	 */
+	void dropEvent(QDropEvent* event);
 
 
 };
