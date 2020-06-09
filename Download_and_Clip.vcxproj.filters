@@ -80,6 +80,12 @@
     <CopyFileToFolders Include="youtube-dl.exe">
       <Filter>Resource Files\included files</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="Spin-1s-200px.gif">
+      <Filter>Resource Files\included files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Spinner-1s-200px.gif">
+      <Filter>Resource Files\included files</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

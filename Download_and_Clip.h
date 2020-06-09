@@ -42,6 +42,7 @@ public:
 	QString choose_file(std::string hint, QString starting_dir, std::string exts);
 
 	QPropertyAnimation* animation;
+	QMovie* gif_loading;
 
 private slots:
 	void download_exe_ytdl();

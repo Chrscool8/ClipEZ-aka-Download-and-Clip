@@ -117,6 +117,8 @@ void Download_and_Clip::load_downloaded_thumbnail()
 				QPixmap image(file.c_str());
 				ui.download_image->setPixmap(image);
 				ui.download_check_thumb->setChecked(true);
+				ui.download_thumb_gif->clear();
+
 			}
 		}
 	}
@@ -166,6 +168,8 @@ void Download_and_Clip::check_full_download()
 	if (ui.download_check_video->isChecked() && ui.download_check_thumb->isChecked() && ui.download_check_description->isChecked() && !ui.download_check_probe->isChecked())
 	{
 		ui.download_check_probe->setChecked(true);
+		ui.download_probe_gif->clear();
+
 		// .\ffprobe.exe downloaded_video.mkv -show_streams -show_format -print_format json -pretty > probe.json.txt
 		std::string video_name = just_file_name(find_fuzzy("downloaded_video"));
 		QStringList args = { (get_setting(working_directory) + video_name).c_str(), "-show_streams", "-show_format", "-print_format", "json", "-pretty" };
@@ -183,6 +187,8 @@ void Download_and_Clip::load_video_info()
 			if (!file.empty())
 			{
 				ui.download_check_description->setChecked(true);
+				ui.download_description_gif->clear();
+
 				/*QFile inFile(file.c_str());
 				inFile.open(QIODevice::ReadOnly);
 				QByteArray data = inFile.readAll();
@@ -223,6 +229,8 @@ void Download_and_Clip::load_downloaded_video()
 	//ui.progressBar->setValue(100);
 
 	ui.download_check_video->setChecked(true);
+	ui.download_video_gif->clear();
+
 }
 
 void Download_and_Clip::encode_done()
@@ -473,6 +481,12 @@ void Download_and_Clip::execute_ytdl_download()
 	ui.download_check_thumb->setChecked(false);
 	ui.download_check_description->setChecked(false);
 	ui.download_check_probe->setChecked(false);
+
+	ui.download_video_gif->setMovie(gif_loading);
+	ui.download_description_gif->setMovie(gif_loading);
+	ui.download_probe_gif->setMovie(gif_loading);
+	ui.download_thumb_gif->setMovie(gif_loading);
+
 
 	QString video_id = ui.download_linedit->text();
 
@@ -853,6 +867,11 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 
 	dark_stylesheet = this->styleSheet();
 
+	gif_loading = new QMovie();
+	gif_loading->setCacheMode(QMovie::CacheAll);
+	gif_loading->setFileName("Spin-1s-200px.gif");
+	gif_loading->start();
+
 	// Shrink
 	this->setMaximumSize(QSize(0, 0));
 	this->setMaximumSize(QSize(16777215, 16777215));
@@ -948,5 +967,8 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 
 	ui.download_table->resizeRowsToContents();
 	ui.focus_table->resizeRowsToContents();
+
+	ui.import_toolbox->setCurrentIndex(0);
+	ui.export_toolbox->setCurrentIndex(0);
 
 }

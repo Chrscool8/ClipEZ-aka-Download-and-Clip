@@ -1,4 +1,6 @@
-﻿  uic Download_and_Clip.ui
+﻿  Reading Qt configuration (G:\Software\Qt\5.15.0\msvc2019_64\bin\qmake.exe)
+  uic Download_and_Clip.ui
+  moc Download_and_Clip.h
   Download_and_Clip.cpp
   main.cpp
   moc_Download_and_Clip.cpp
