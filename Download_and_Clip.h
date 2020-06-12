@@ -43,6 +43,7 @@ public:
 
 	QPropertyAnimation* animation;
 	QMovie* gif_loading;
+	void load_if_valid(int setting, QLineEdit* destination);
 
 private slots:
 	void download_exe_ytdl();
@@ -50,6 +51,7 @@ private slots:
 
 	void expand_left();
 	void expand_right();
+
 
 	void set_theme_dark();
 	void set_theme_light();

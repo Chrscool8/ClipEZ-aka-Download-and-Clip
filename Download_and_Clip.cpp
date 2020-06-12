@@ -686,12 +686,6 @@ void Download_and_Clip::choose_output_directory()
 	}
 
 	ui.encode_lineedit_directory->setText(str.c_str());
-
-	/*remove("config.txt");
-	std::ofstream out;
-	out.open("config.txt");
-	out << str;
-	out.close();*/
 }
 
 QString Download_and_Clip::choose_file(std::string hint, QString starting_dir, std::string exts)
@@ -791,23 +785,33 @@ void Download_and_Clip::expand_right()
 	expand_panel(ui.export_toolbox);
 }
 
+void Download_and_Clip::load_if_valid(int setting, QLineEdit* destination)
+{
+	std::string option = get_setting(setting);
+	if (fs::exists(option))
+	{
+		destination->setText(option.c_str());
+	}
+	else
+	{
+		set_setting(setting, "");
+	}
+}
+
 void Download_and_Clip::update_ui_from_settings()
 {
-	auto option = get_setting(exe_ytdl);
-	if (option != "")
-		ui.setup_ytdl_lineedit->setText(option.c_str());
+	load_if_valid(exe_ytdl, ui.setup_ytdl_lineedit);
 
-	option = get_setting(exe_ffmpeg);
-	if (option != "")
-		ui.setup_ffmpeg_lineedit->setText(option.c_str());
+	if (get_setting(exe_ytdl).length() != 0)
+		ui.import_toolbox->setCurrentIndex(1);
 
-	option = get_setting(exe_ffprobe);
-	if (option != "")
-		ui.setup_ffprobe_lineedit->setText(option.c_str());
+	load_if_valid(exe_ffmpeg, ui.setup_ffmpeg_lineedit);
+	load_if_valid(exe_ffprobe, ui.setup_ffprobe_lineedit);
 
-	option = get_setting(last_download_url);
-	if (option != "")
-		ui.download_linedit->setText(option.c_str());
+	if (get_setting(exe_ffmpeg).length() != 0 && get_setting(exe_ffprobe).length() != 0)
+		ui.export_toolbox->setCurrentIndex(1);
+
+	ui.download_linedit->setText(get_setting(last_download_url).c_str());
 }
 
 //////
@@ -844,11 +848,7 @@ void Download_and_Clip::dropEvent(QDropEvent* event)
 
 		ui.local_lineedit->setText(urlList.at(0).toLocalFile());
 
-
 		std::cout << endl;
-
-		//if (openFiles(pathList))
-		//	event->acceptProposedAction();
 	}
 }
 
@@ -867,12 +867,8 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 	gif_loading->setFileName("Spin-1s-200px.gif");
 	gif_loading->start();
 
-	// Shrink
 	this->setMaximumSize(QSize(0, 0));
 	this->setMaximumSize(QSize(16777215, 16777215));
-
-	//connect(ui.button_downloadytdl, SIGNAL(clicked()), this, SLOT(download_exe_ytdl()));
-	//connect(ui.button_downloadffmpeg, SIGNAL(clicked()), this, SLOT(download_exe_ffmpeg()));
 
 	connect(ui.download_button, SIGNAL(clicked()), this, SLOT(execute_ytdl_download()));
 	connect(ui.download_linedit, SIGNAL(returnPressed()), this, SLOT(execute_ytdl_download()));
@@ -883,11 +879,9 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 	connect(ui.expand_left, SIGNAL(clicked()), this, SLOT(expand_left()));
 	connect(ui.expand_right, SIGNAL(clicked()), this, SLOT(expand_right()));
 
-	//connect(ui.button_cleardownload, SIGNAL(clicked()), this, SLOT(clear_download()));
 	connect(ui.setup_show_working_dir, SIGNAL(clicked()), this, SLOT(show_folder_working()));
 	connect(ui.setup_show_output_dir, SIGNAL(clicked()), this, SLOT(show_folder_output()));
 
-	//connect(ui.button_choose_directory, SIGNAL(clicked()), this, SLOT(choose_output_directory()));
 	connect(ui.local_button, SIGNAL(clicked()), this, SLOT(choose_local_video()));
 
 	connect(ui.setup_ytdl_button, SIGNAL(clicked()), this, SLOT(browse_for_ytdl()));
@@ -900,19 +894,8 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 	connect(ui.menu_actionLight, SIGNAL(triggered()), this, SLOT(set_theme_light()));
 	connect(ui.menu_actionDark, SIGNAL(triggered()), this, SLOT(set_theme_dark()));
 
-	//connect(ui.menu_actionExit, SIGNAL(triggered()), this, SLOT());
-
-	//QCoreApplication::quit();
-
-
-
-	//connect(ui.checkbox_dark, SIGNAL(clicked(bool)), this, SLOT(darkmode_toggle(bool)));
-
-	//connect(ui.lineedit_outputname, SIGNAL(textChanged(QString)), this, SLOT(typing_clip_name()));
-
-	//ui.lineedit_directory->setText(working_directory.c_str());
-
-	//load_settings("config.json");
+	ui.import_toolbox->setCurrentIndex(0);
+	ui.export_toolbox->setCurrentIndex(0);
 
 	file_load_settings();
 	init_settings();
@@ -928,42 +911,22 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 		ui.download_image->setScaledContents(true);
 	}
 
-	/*if (fs::exists("config.txt"))
-	{
-		std::ifstream infile("config.txt");
-		std::string dir;
-		std::getline(infile, dir);
-		update_status(dir, ui.setup_status);
-		//ui.lineedit_directory->setText(dir.c_str());
-		infile.close();
-		ui.lineedit_directory->setText(dir.c_str());
-	}*/
-
-	//remove((working_directory + "local_thumb.png").c_str());
-
-	//check_for_ytdl();
-
 	std::string dir = get_setting(working_directory);
 	if (!(fs::exists(dir)))
 	{
 		fs::create_directory(dir);
+		std::ofstream warning(dir+"Consider this folder temporary, anything in it may be deleted at any time");
+		warning.close();
 	}
 
 	ui.export_toolbox->setMinimumWidth(0);
 	ui.export_toolbox->setMaximumWidth(0);
 
-	//collapse_panel(ui.export_toolbox, false);
-
-	/*ui.label_thumb_download->setText("");
-	ui.label_thumb_local->setText("");
-	ui.label_download_title->setText("");*/
-
-	//check_for_downloaded_files();
-
 	ui.download_table->resizeRowsToContents();
 	ui.focus_table->resizeRowsToContents();
 
-	ui.import_toolbox->setCurrentIndex(0);
-	ui.export_toolbox->setCurrentIndex(0);
+	ui.download_table->resizeColumnsToContents();
+	ui.focus_table->resizeColumnsToContents();
+
 
 }
