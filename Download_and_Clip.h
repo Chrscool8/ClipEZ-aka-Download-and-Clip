@@ -17,7 +17,7 @@ public:
 	void set_setting(int setting, std::string value);
 	void load_downloaded_thumbnail();
 	void load_local_thumbnail();
-	std::string find_fuzzy(std::string filename);
+	std::string find_fuzzy(std::string path, std::string filename);
 	void check_full_download();
 	void load_video_info();
 	void load_downloaded_video();
@@ -78,6 +78,11 @@ private slots:
 
 	void browse_for_ffprobe();
 
+	void make_focus_local();
+
+	void make_focus_download();
+
+	void load_local();
 
 	void processStateChange(std::string, QProcess::ProcessState newState, std::string tag);
 
@@ -105,6 +110,7 @@ protected:
 	 * this event is called when the drop operation is initiated at the widget
 	 */
 	void dropEvent(QDropEvent* event);
+
 
 
 };
