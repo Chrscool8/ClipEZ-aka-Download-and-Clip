@@ -1298,7 +1298,7 @@ public:
         import_toolbox->setMinimumSize(QSize(450, 500));
         page_5 = new QWidget();
         page_5->setObjectName(QString::fromUtf8("page_5"));
-        page_5->setGeometry(QRect(0, 0, 448, 417));
+        page_5->setGeometry(QRect(0, 0, 356, 107));
         gridLayout_2 = new QGridLayout(page_5);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -1506,10 +1506,16 @@ public:
         download_table->setSizePolicy(sizePolicy1);
         download_table->setMinimumSize(QSize(0, 92));
         download_table->setMaximumSize(QSize(16777215, 92));
+        download_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
         download_table->setAlternatingRowColors(false);
+        download_table->setCornerButtonEnabled(false);
         download_table->horizontalHeader()->setVisible(false);
+        download_table->horizontalHeader()->setCascadingSectionResizes(false);
         download_table->horizontalHeader()->setHighlightSections(false);
         download_table->horizontalHeader()->setStretchLastSection(true);
+        download_table->verticalHeader()->setCascadingSectionResizes(false);
+        download_table->verticalHeader()->setMinimumSectionSize(25);
+        download_table->verticalHeader()->setDefaultSectionSize(25);
         download_table->verticalHeader()->setHighlightSections(false);
 
         gridLayout->addWidget(download_table, 4, 0, 1, 3);
@@ -1659,12 +1665,12 @@ public:
 
         export_toolbox = new QToolBox(centralWidget);
         export_toolbox->setObjectName(QString::fromUtf8("export_toolbox"));
-        export_toolbox->setEnabled(false);
+        export_toolbox->setEnabled(true);
         export_toolbox->setMinimumSize(QSize(450, 450));
         export_toolbox->setMaximumSize(QSize(16777215, 16777215));
         page_8 = new QWidget();
         page_8->setObjectName(QString::fromUtf8("page_8"));
-        page_8->setGeometry(QRect(0, 0, 448, 444));
+        page_8->setGeometry(QRect(0, 0, 163, 78));
         gridLayout_6 = new QGridLayout(page_8);
         gridLayout_6->setSpacing(6);
         gridLayout_6->setContentsMargins(11, 11, 11, 11);
@@ -1708,7 +1714,7 @@ public:
         export_toolbox->addItem(page_8, QString::fromUtf8("Setup"));
         page_6 = new QWidget();
         page_6->setObjectName(QString::fromUtf8("page_6"));
-        page_6->setGeometry(QRect(0, 0, 226, 294));
+        page_6->setGeometry(QRect(0, 0, 448, 444));
         gridLayout_5 = new QGridLayout(page_6);
         gridLayout_5->setSpacing(6);
         gridLayout_5->setContentsMargins(11, 11, 11, 11);
@@ -1770,6 +1776,7 @@ public:
         encode_spinbox = new QSpinBox(page_6);
         encode_spinbox->setObjectName(QString::fromUtf8("encode_spinbox"));
         encode_spinbox->setEnabled(false);
+        encode_spinbox->setMinimumSize(QSize(0, 25));
         encode_spinbox->setMaximumSize(QSize(40, 16777215));
         encode_spinbox->setMinimum(1);
         encode_spinbox->setMaximum(64);
@@ -1826,6 +1833,7 @@ public:
         encode_combo->addItem(QString());
         encode_combo->addItem(QString());
         encode_combo->setObjectName(QString::fromUtf8("encode_combo"));
+        encode_combo->setMinimumSize(QSize(60, 25));
 
         gridLayout_5->addWidget(encode_combo, 1, 2, 1, 1);
 
@@ -1855,7 +1863,7 @@ public:
         retranslateUi(Download_and_ClipClass);
 
         import_toolbox->setCurrentIndex(1);
-        export_toolbox->setCurrentIndex(0);
+        export_toolbox->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(Download_and_ClipClass);
