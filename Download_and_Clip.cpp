@@ -52,6 +52,7 @@ enum setting
 	setting_last_download_url,
 	setting_last_local_url,
 	setting_focus_scroll,
+	setting_theme,
 	settings_num
 };
 
@@ -65,7 +66,6 @@ std::string Download_and_Clip::get_setting(int setting)
 void Download_and_Clip::set_setting(int setting, std::string value)
 {
 	settings[setting] = base64_encode(value);
-
 	file_save_settings();
 }
 
@@ -623,42 +623,27 @@ void Download_and_Clip::execute_ffmpeg_encode()
 
 }
 
-void Download_and_Clip::darkmode_toggle(bool state)
+void Download_and_Clip::uncheck_themes()
 {
-	darkmode(state);
-}
-
-void Download_and_Clip::clear_download()
-{
-	/*update_status("Clear");
-	remove(downloaded_thumb.c_str());
-	remove(downloaded_video.c_str());
-	remove(downloaded_info.c_str());
-
-	ui.button_downloadffmpeg->setEnabled(false);
-	ui.button_downloadffmpeg->setText("Download ffmpeg");
-	ui.slider_quality->setEnabled(false);
-	ui.spinbox_quality->setEnabled(false);
-	ui.lineedit_outputname->setEnabled(false);
-	ui.button_clip->setEnabled(false);*/
-}
-
-void Download_and_Clip::darkmode(bool on)
-{
-	if (on)
-		this->setStyleSheet(dark_stylesheet);
-	else
-		this->setStyleSheet("");
+	ui.menu_actionThemeDark->setChecked(false);
+	ui.menu_actionThemeLight->setChecked(false);
 }
 
 void Download_and_Clip::set_theme_dark()
 {
-	darkmode(true);
+	uncheck_themes();
+	ui.menu_actionThemeDark->setChecked(true);
+	this->setStyleSheet(dark_stylesheet);
+	set_setting(setting_theme, "dark");
+
 }
 
 void Download_and_Clip::set_theme_light()
 {
-	darkmode(false);
+	uncheck_themes();
+	ui.menu_actionThemeLight->setChecked(true);
+	this->setStyleSheet("");
+	set_setting(setting_theme, "light");
 }
 
 static char ClearForbidden(char toCheck)
@@ -864,6 +849,19 @@ void Download_and_Clip::update_ui_from_settings()
 
 	if (get_setting(setting_output_directory).length() != 0)
 		ui.encode_lineedit_directory->setText(get_setting(setting_output_directory).c_str());
+
+	//
+
+	std::string theme = get_setting(setting_theme);
+	if (theme.length() == 0 || theme == "dark")
+	{
+		set_setting(setting_theme, "dark");
+		set_theme_dark();
+	}
+	else if (theme == "light")
+	{
+		set_theme_light();
+	}
 }
 
 //////
@@ -992,6 +990,8 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 	this->setMaximumSize(QSize(0, 0));
 	this->setMaximumSize(QSize(16777215, 16777215));
 
+	connect(ui.encode_lineedit_filename, SIGNAL(textChanged()), this, SLOT(typing_clip_name()));
+
 	connect(ui.download_button, SIGNAL(clicked()), this, SLOT(execute_ytdl_download()));
 	connect(ui.download_linedit, SIGNAL(returnPressed()), this, SLOT(execute_ytdl_download()));
 
@@ -1013,8 +1013,8 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 	connect(ui.encode_slider, SIGNAL(valueChanged(int)), ui.encode_spinbox, SLOT(setValue(int)));
 	connect(ui.encode_spinbox, SIGNAL(valueChanged(int)), ui.encode_slider, SLOT(setValue(int)));
 
-	connect(ui.menu_actionLight, SIGNAL(triggered()), this, SLOT(set_theme_light()));
-	connect(ui.menu_actionDark, SIGNAL(triggered()), this, SLOT(set_theme_dark()));
+	connect(ui.menu_actionThemeLight, SIGNAL(triggered()), this, SLOT(set_theme_light()));
+	connect(ui.menu_actionThemeDark, SIGNAL(triggered()), this, SLOT(set_theme_dark()));
 	connect(ui.menu_setting_scroll_focus, SIGNAL(triggered()), this, SLOT(toggle_focus_scroll()));
 
 	connect(ui.download_button_focus, SIGNAL(clicked()), this, SLOT(make_focus_download()));

@@ -39,8 +39,8 @@ class Ui_Download_and_ClipClass
 {
 public:
     QAction *actionExit;
-    QAction *menu_actionLight;
-    QAction *menu_actionDark;
+    QAction *menu_actionThemeLight;
+    QAction *menu_actionThemeDark;
     QAction *menu_actionExit;
     QAction *menu_setting_scroll_focus;
     QWidget *centralWidget;
@@ -1296,10 +1296,12 @@ public:
 "}"));
         actionExit = new QAction(Download_and_ClipClass);
         actionExit->setObjectName(QString::fromUtf8("actionExit"));
-        menu_actionLight = new QAction(Download_and_ClipClass);
-        menu_actionLight->setObjectName(QString::fromUtf8("menu_actionLight"));
-        menu_actionDark = new QAction(Download_and_ClipClass);
-        menu_actionDark->setObjectName(QString::fromUtf8("menu_actionDark"));
+        menu_actionThemeLight = new QAction(Download_and_ClipClass);
+        menu_actionThemeLight->setObjectName(QString::fromUtf8("menu_actionThemeLight"));
+        menu_actionThemeLight->setCheckable(true);
+        menu_actionThemeDark = new QAction(Download_and_ClipClass);
+        menu_actionThemeDark->setObjectName(QString::fromUtf8("menu_actionThemeDark"));
+        menu_actionThemeDark->setCheckable(true);
         menu_actionExit = new QAction(Download_and_ClipClass);
         menu_actionExit->setObjectName(QString::fromUtf8("menu_actionExit"));
         menu_setting_scroll_focus = new QAction(Download_and_ClipClass);
@@ -1317,7 +1319,7 @@ public:
         import_toolbox->setMinimumSize(QSize(450, 500));
         page_5 = new QWidget();
         page_5->setObjectName(QString::fromUtf8("page_5"));
-        page_5->setGeometry(QRect(0, 0, 356, 107));
+        page_5->setGeometry(QRect(0, 0, 448, 447));
         gridLayout_2 = new QGridLayout(page_5);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -1559,7 +1561,7 @@ public:
         import_toolbox->addItem(page_4, QString::fromUtf8("Download Video"));
         page_3 = new QWidget();
         page_3->setObjectName(QString::fromUtf8("page_3"));
-        page_3->setGeometry(QRect(0, 0, 448, 447));
+        page_3->setGeometry(QRect(0, 0, 305, 401));
         gridLayout_4 = new QGridLayout(page_3);
         gridLayout_4->setSpacing(6);
         gridLayout_4->setContentsMargins(11, 11, 11, 11);
@@ -1823,7 +1825,7 @@ public:
         export_toolbox->setMaximumSize(QSize(16777215, 16777215));
         page_8 = new QWidget();
         page_8->setObjectName(QString::fromUtf8("page_8"));
-        page_8->setGeometry(QRect(0, 0, 163, 78));
+        page_8->setGeometry(QRect(0, 0, 448, 474));
         gridLayout_6 = new QGridLayout(page_8);
         gridLayout_6->setSpacing(6);
         gridLayout_6->setContentsMargins(11, 11, 11, 11);
@@ -1869,7 +1871,7 @@ public:
         export_toolbox->addItem(page_8, QString::fromUtf8("Setup"));
         page_6 = new QWidget();
         page_6->setObjectName(QString::fromUtf8("page_6"));
-        page_6->setGeometry(QRect(0, 0, 448, 474));
+        page_6->setGeometry(QRect(0, 0, 229, 327));
         gridLayout_5 = new QGridLayout(page_6);
         gridLayout_5->setSpacing(6);
         gridLayout_5->setContentsMargins(11, 11, 11, 11);
@@ -2024,14 +2026,14 @@ public:
         menuBar->addAction(menuFile->menuAction());
         menuBar->addAction(menuTheme->menuAction());
         menuBar->addAction(menuSettings->menuAction());
-        menuTheme->addAction(menu_actionLight);
-        menuTheme->addAction(menu_actionDark);
+        menuTheme->addAction(menu_actionThemeLight);
+        menuTheme->addAction(menu_actionThemeDark);
         menuSettings->addAction(menu_setting_scroll_focus);
 
         retranslateUi(Download_and_ClipClass);
 
-        import_toolbox->setCurrentIndex(2);
-        export_toolbox->setCurrentIndex(1);
+        import_toolbox->setCurrentIndex(0);
+        export_toolbox->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(Download_and_ClipClass);
@@ -2041,8 +2043,8 @@ public:
     {
         Download_and_ClipClass->setWindowTitle(QCoreApplication::translate("Download_and_ClipClass", "YesClip", nullptr));
         actionExit->setText(QCoreApplication::translate("Download_and_ClipClass", "Exit", nullptr));
-        menu_actionLight->setText(QCoreApplication::translate("Download_and_ClipClass", "Light", nullptr));
-        menu_actionDark->setText(QCoreApplication::translate("Download_and_ClipClass", "Dark", nullptr));
+        menu_actionThemeLight->setText(QCoreApplication::translate("Download_and_ClipClass", "Light", nullptr));
+        menu_actionThemeDark->setText(QCoreApplication::translate("Download_and_ClipClass", "Dark", nullptr));
         menu_actionExit->setText(QCoreApplication::translate("Download_and_ClipClass", "Exit", nullptr));
         menu_setting_scroll_focus->setText(QCoreApplication::translate("Download_and_ClipClass", "Auto-Scroll When Focus", nullptr));
         setup_ytdl_button->setText(QCoreApplication::translate("Download_and_ClipClass", "Browse", nullptr));

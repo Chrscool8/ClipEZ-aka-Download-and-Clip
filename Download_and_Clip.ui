@@ -1152,15 +1152,15 @@ QToolBox
        </size>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page_5">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>356</width>
-         <height>107</height>
+         <width>448</width>
+         <height>447</height>
         </rect>
        </property>
        <attribute name="label">
@@ -1687,8 +1687,8 @@ QToolBox
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>448</width>
-         <height>447</height>
+         <width>305</width>
+         <height>401</height>
         </rect>
        </property>
        <attribute name="label">
@@ -2248,15 +2248,15 @@ QToolBox
        </size>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page_8">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>163</width>
-         <height>78</height>
+         <width>448</width>
+         <height>474</height>
         </rect>
        </property>
        <attribute name="label">
@@ -2340,8 +2340,8 @@ QToolBox
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>448</width>
-         <height>474</height>
+         <width>229</width>
+         <height>327</height>
         </rect>
        </property>
        <attribute name="label">
@@ -2621,8 +2621,8 @@ QToolBox
     <property name="title">
      <string>Theme</string>
     </property>
-    <addaction name="menu_actionLight"/>
-    <addaction name="menu_actionDark"/>
+    <addaction name="menu_actionThemeLight"/>
+    <addaction name="menu_actionThemeDark"/>
    </widget>
    <widget class="QMenu" name="menuSettings">
     <property name="title">
@@ -2639,12 +2639,18 @@ QToolBox
     <string>Exit</string>
    </property>
   </action>
-  <action name="menu_actionLight">
+  <action name="menu_actionThemeLight">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Light</string>
    </property>
   </action>
-  <action name="menu_actionDark">
+  <action name="menu_actionThemeDark">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Dark</string>
    </property>

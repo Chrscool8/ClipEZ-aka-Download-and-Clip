@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Download_and_Clip_t {
-    QByteArrayData data[31];
-    char stringdata0[476];
+    QByteArrayData data[28];
+    char stringdata0[439];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -41,35 +41,31 @@ QT_MOC_LITERAL(5, 71, 12), // "expand_right"
 QT_MOC_LITERAL(6, 84, 14), // "set_theme_dark"
 QT_MOC_LITERAL(7, 99, 15), // "set_theme_light"
 QT_MOC_LITERAL(8, 115, 21), // "execute_ffmpeg_encode"
-QT_MOC_LITERAL(9, 137, 15), // "darkmode_toggle"
-QT_MOC_LITERAL(10, 153, 5), // "state"
-QT_MOC_LITERAL(11, 159, 14), // "clear_download"
-QT_MOC_LITERAL(12, 174, 16), // "typing_clip_name"
-QT_MOC_LITERAL(13, 191, 19), // "show_folder_working"
-QT_MOC_LITERAL(14, 211, 18), // "show_folder_output"
-QT_MOC_LITERAL(15, 230, 23), // "choose_output_directory"
-QT_MOC_LITERAL(16, 254, 18), // "choose_local_video"
-QT_MOC_LITERAL(17, 273, 15), // "browse_for_ytdl"
-QT_MOC_LITERAL(18, 289, 17), // "browse_for_ffmpeg"
-QT_MOC_LITERAL(19, 307, 18), // "browse_for_ffprobe"
-QT_MOC_LITERAL(20, 326, 16), // "make_focus_local"
-QT_MOC_LITERAL(21, 343, 19), // "make_focus_download"
-QT_MOC_LITERAL(22, 363, 10), // "load_local"
-QT_MOC_LITERAL(23, 374, 19), // "toggle_focus_scroll"
-QT_MOC_LITERAL(24, 394, 18), // "processStateChange"
-QT_MOC_LITERAL(25, 413, 11), // "std::string"
-QT_MOC_LITERAL(26, 425, 22), // "QProcess::ProcessState"
-QT_MOC_LITERAL(27, 448, 8), // "newState"
-QT_MOC_LITERAL(28, 457, 3), // "tag"
-QT_MOC_LITERAL(29, 461, 10), // "QTextEdit*"
-QT_MOC_LITERAL(30, 472, 3) // "box"
+QT_MOC_LITERAL(9, 137, 16), // "typing_clip_name"
+QT_MOC_LITERAL(10, 154, 19), // "show_folder_working"
+QT_MOC_LITERAL(11, 174, 18), // "show_folder_output"
+QT_MOC_LITERAL(12, 193, 23), // "choose_output_directory"
+QT_MOC_LITERAL(13, 217, 18), // "choose_local_video"
+QT_MOC_LITERAL(14, 236, 15), // "browse_for_ytdl"
+QT_MOC_LITERAL(15, 252, 17), // "browse_for_ffmpeg"
+QT_MOC_LITERAL(16, 270, 18), // "browse_for_ffprobe"
+QT_MOC_LITERAL(17, 289, 16), // "make_focus_local"
+QT_MOC_LITERAL(18, 306, 19), // "make_focus_download"
+QT_MOC_LITERAL(19, 326, 10), // "load_local"
+QT_MOC_LITERAL(20, 337, 19), // "toggle_focus_scroll"
+QT_MOC_LITERAL(21, 357, 18), // "processStateChange"
+QT_MOC_LITERAL(22, 376, 11), // "std::string"
+QT_MOC_LITERAL(23, 388, 22), // "QProcess::ProcessState"
+QT_MOC_LITERAL(24, 411, 8), // "newState"
+QT_MOC_LITERAL(25, 420, 3), // "tag"
+QT_MOC_LITERAL(26, 424, 10), // "QTextEdit*"
+QT_MOC_LITERAL(27, 435, 3) // "box"
 
     },
     "Download_and_Clip\0download_exe_ytdl\0"
     "\0execute_ytdl_download\0expand_left\0"
     "expand_right\0set_theme_dark\0set_theme_light\0"
-    "execute_ffmpeg_encode\0darkmode_toggle\0"
-    "state\0clear_download\0typing_clip_name\0"
+    "execute_ffmpeg_encode\0typing_clip_name\0"
     "show_folder_working\0show_folder_output\0"
     "choose_output_directory\0choose_local_video\0"
     "browse_for_ytdl\0browse_for_ffmpeg\0"
@@ -87,7 +83,7 @@ static const uint qt_meta_data_Download_and_Clip[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      22,   14, // methods
+      20,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -95,28 +91,26 @@ static const uint qt_meta_data_Download_and_Clip[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  124,    2, 0x08 /* Private */,
-       3,    0,  125,    2, 0x08 /* Private */,
-       4,    0,  126,    2, 0x08 /* Private */,
-       5,    0,  127,    2, 0x08 /* Private */,
-       6,    0,  128,    2, 0x08 /* Private */,
-       7,    0,  129,    2, 0x08 /* Private */,
-       8,    0,  130,    2, 0x08 /* Private */,
-       9,    1,  131,    2, 0x08 /* Private */,
-      11,    0,  134,    2, 0x08 /* Private */,
-      12,    0,  135,    2, 0x08 /* Private */,
-      13,    0,  136,    2, 0x08 /* Private */,
-      14,    0,  137,    2, 0x08 /* Private */,
-      15,    0,  138,    2, 0x08 /* Private */,
-      16,    0,  139,    2, 0x08 /* Private */,
-      17,    0,  140,    2, 0x08 /* Private */,
-      18,    0,  141,    2, 0x08 /* Private */,
-      19,    0,  142,    2, 0x08 /* Private */,
-      20,    0,  143,    2, 0x08 /* Private */,
-      21,    0,  144,    2, 0x08 /* Private */,
-      22,    0,  145,    2, 0x08 /* Private */,
-      23,    0,  146,    2, 0x08 /* Private */,
-      24,    4,  147,    2, 0x08 /* Private */,
+       1,    0,  114,    2, 0x08 /* Private */,
+       3,    0,  115,    2, 0x08 /* Private */,
+       4,    0,  116,    2, 0x08 /* Private */,
+       5,    0,  117,    2, 0x08 /* Private */,
+       6,    0,  118,    2, 0x08 /* Private */,
+       7,    0,  119,    2, 0x08 /* Private */,
+       8,    0,  120,    2, 0x08 /* Private */,
+       9,    0,  121,    2, 0x08 /* Private */,
+      10,    0,  122,    2, 0x08 /* Private */,
+      11,    0,  123,    2, 0x08 /* Private */,
+      12,    0,  124,    2, 0x08 /* Private */,
+      13,    0,  125,    2, 0x08 /* Private */,
+      14,    0,  126,    2, 0x08 /* Private */,
+      15,    0,  127,    2, 0x08 /* Private */,
+      16,    0,  128,    2, 0x08 /* Private */,
+      17,    0,  129,    2, 0x08 /* Private */,
+      18,    0,  130,    2, 0x08 /* Private */,
+      19,    0,  131,    2, 0x08 /* Private */,
+      20,    0,  132,    2, 0x08 /* Private */,
+      21,    4,  133,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -126,7 +120,6 @@ static const uint qt_meta_data_Download_and_Clip[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Bool,   10,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -139,8 +132,7 @@ static const uint qt_meta_data_Download_and_Clip[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 25, 0x80000000 | 26, 0x80000000 | 25, 0x80000000 | 29,    2,   27,   28,   30,
+    QMetaType::Void, 0x80000000 | 22, 0x80000000 | 23, 0x80000000 | 22, 0x80000000 | 26,    2,   24,   25,   27,
 
        0        // eod
 };
@@ -158,27 +150,25 @@ void Download_and_Clip::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         case 4: _t->set_theme_dark(); break;
         case 5: _t->set_theme_light(); break;
         case 6: _t->execute_ffmpeg_encode(); break;
-        case 7: _t->darkmode_toggle((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 8: _t->clear_download(); break;
-        case 9: _t->typing_clip_name(); break;
-        case 10: _t->show_folder_working(); break;
-        case 11: _t->show_folder_output(); break;
-        case 12: _t->choose_output_directory(); break;
-        case 13: _t->choose_local_video(); break;
-        case 14: _t->browse_for_ytdl(); break;
-        case 15: _t->browse_for_ffmpeg(); break;
-        case 16: _t->browse_for_ffprobe(); break;
-        case 17: _t->make_focus_local(); break;
-        case 18: _t->make_focus_download(); break;
-        case 19: _t->load_local(); break;
-        case 20: _t->toggle_focus_scroll(); break;
-        case 21: _t->processStateChange((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< QProcess::ProcessState(*)>(_a[2])),(*reinterpret_cast< std::string(*)>(_a[3])),(*reinterpret_cast< QTextEdit*(*)>(_a[4]))); break;
+        case 7: _t->typing_clip_name(); break;
+        case 8: _t->show_folder_working(); break;
+        case 9: _t->show_folder_output(); break;
+        case 10: _t->choose_output_directory(); break;
+        case 11: _t->choose_local_video(); break;
+        case 12: _t->browse_for_ytdl(); break;
+        case 13: _t->browse_for_ffmpeg(); break;
+        case 14: _t->browse_for_ffprobe(); break;
+        case 15: _t->make_focus_local(); break;
+        case 16: _t->make_focus_download(); break;
+        case 17: _t->load_local(); break;
+        case 18: _t->toggle_focus_scroll(); break;
+        case 19: _t->processStateChange((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< QProcess::ProcessState(*)>(_a[2])),(*reinterpret_cast< std::string(*)>(_a[3])),(*reinterpret_cast< QTextEdit*(*)>(_a[4]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
         default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-        case 21:
+        case 19:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 3:
@@ -218,13 +208,13 @@ int Download_and_Clip::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 22)
+        if (_id < 20)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 22;
+        _id -= 20;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 22)
+        if (_id < 20)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 22;
+        _id -= 20;
     }
     return _id;
 }

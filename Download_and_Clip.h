@@ -29,7 +29,7 @@ public:
 	void check_for_ffmpeg();
 	void download_exe_ffmpeg();
 	void remove_fuzzy(std::string file);
-	void darkmode(bool on);
+	void uncheck_themes();
 	std::string get_ext();
 	QString Download_and_Clip::choose_directory(std::string hint, QString starting_dir);
 	void collapse_panel(QToolBox* toolbox);
@@ -51,34 +51,24 @@ private slots:
 	void expand_left();
 	void expand_right();
 
-
 	void set_theme_dark();
 	void set_theme_light();
 
-
 	void execute_ffmpeg_encode();
 
-	void darkmode_toggle(bool state);
-
-	void clear_download();
 	void typing_clip_name();
 
 	void show_folder_working();
 	void show_folder_output();
 
 	void choose_output_directory();
-
-
 	void choose_local_video();
 
 	void browse_for_ytdl();
-
 	void browse_for_ffmpeg();
-
 	void browse_for_ffprobe();
 
 	void make_focus_local();
-
 	void make_focus_download();
 
 	void load_local();
