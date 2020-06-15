@@ -911,7 +911,8 @@ void Download_and_Clip::make_focus_local()
 
 	ui.encode_endtime->setText(ui.local_table->item(2, 0)->text());
 
-	expand_right();
+	if (get_setting(focus_scroll) == "true")
+		expand_right();
 }
 
 void Download_and_Clip::make_focus_download()
@@ -925,7 +926,8 @@ void Download_and_Clip::make_focus_download()
 
 	ui.encode_endtime->setText(ui.focus_table->item(2, 0)->text());
 
-	expand_right();
+	if (get_setting(focus_scroll) == "true")
+		expand_right();
 }
 
 void Download_and_Clip::load_local()
@@ -953,7 +955,18 @@ void Download_and_Clip::load_local()
 
 void Download_and_Clip::toggle_focus_scroll()
 {
-
+	if (get_setting(focus_scroll) == "true")
+	{
+		set_setting(focus_scroll, "false");
+		ui.menu_setting_scroll_focus->setChecked(false);
+		update_status("Auto-Scroll when Focus Off", ui.setup_status);
+	}
+	else
+	{
+		set_setting(focus_scroll, "true");
+		ui.menu_setting_scroll_focus->setChecked(true);
+		update_status("Auto-Scroll when Focus On", ui.setup_status);
+	}
 }
 
 //Init
@@ -997,6 +1010,7 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 
 	connect(ui.menu_actionLight, SIGNAL(triggered()), this, SLOT(set_theme_light()));
 	connect(ui.menu_actionDark, SIGNAL(triggered()), this, SLOT(set_theme_dark()));
+	connect(ui.menu_setting_scroll_focus, SIGNAL(triggered()), this, SLOT(toggle_focus_scroll()));
 
 	connect(ui.download_button_focus, SIGNAL(clicked()), this, SLOT(make_focus_download()));
 	connect(ui.local_button_focus, SIGNAL(clicked()), this, SLOT(make_focus_local()));
