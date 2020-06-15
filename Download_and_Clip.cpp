@@ -1,8 +1,6 @@
 #include "Download_and_Clip.h"
 #include "qwidget.h"
-#include "curl/curl.h"
 #include <fstream>
-#include "zlib.h"
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -22,15 +20,9 @@
 #include <filesystem>
 namespace fs = std::filesystem;
 
-std::string status = "";
 QString dark_stylesheet;
 
-//std::string local_video;
-//std::string local_thumb;
-
 std::vector<QProcess*> QProcesses;
-
-std::map<std::string, std::string> probe_info;
 
 enum focus_type
 {
@@ -171,8 +163,6 @@ void Download_and_Clip::check_full_download()
 		ui.download_check_probe->setChecked(true);
 		ui.download_probe_gif->clear();
 
-
-		// .\ffprobe.exe downloaded_video.mkv -show_streams -show_format -print_format json -pretty > probe.json.txt
 		std::string video_name = just_file_name(find_fuzzy(get_setting(setting_working_directory), "downloaded_video"));
 		QStringList args = { (get_setting(setting_working_directory) + video_name).c_str(), "-show_streams", "-show_format", "-print_format", "json", "-pretty" };
 		start_new_process(get_setting(setting_exe_ffprobe), args, "probe download video", (get_setting(setting_working_directory) + "probe.txt").c_str(), ui.download_status);
@@ -190,24 +180,6 @@ void Download_and_Clip::load_video_info()
 			{
 				ui.download_check_description->setChecked(true);
 				ui.download_description_gif->clear();
-
-				/*QFile inFile(file.c_str());
-				inFile.open(QIODevice::ReadOnly);
-				QByteArray data = inFile.readAll();
-				inFile.close();
-				QJsonParseError errorPtr;
-				QJsonDocument doc = QJsonDocument::fromJson(data, &errorPtr);
-				if (doc.isNull())
-				{
-					update_status("Parse failed", ui.setup_status);
-				}
-				QJsonObject rootObj = doc.object();
-				//ui.label_download_title->setText(rootObj.value("title").toString());
-				ui.focus_table->setItem(0, 0, new QTableWidgetItem(rootObj.value("title").toString()));
-				//ui.lineedit_videoid->setText(rootObj.value("webpage_url").toString());
-				//downloaded_info = file;
-				//check_for_ffmpeg();
-				*/
 			}
 		}
 	}
@@ -215,25 +187,9 @@ void Download_and_Clip::load_video_info()
 
 void Download_and_Clip::load_downloaded_video()
 {
-	//downloaded_video = "";
-
-	/*for (auto& p : fs::directory_iterator(get_setting(working_directory)))
-	{
-		std::string file = p.path().string();
-
-		if (file.find("downloaded_video") != std::string::npos)
-		{
-			downloaded_video = file;
-		}
-	}*/
-	//ui.button_download->setEnabled(true);
-	//check_for_ffmpeg();
-	//ui.progressBar->setValue(100);
-
 	ui.download_check_video->setChecked(true);
 	ui.download_video_gif->clear();
-
-}
+	}
 
 void Download_and_Clip::encode_done()
 {
@@ -306,7 +262,6 @@ void Download_and_Clip::processStateChange(std::string program, QProcess::Proces
 			QString _duration = duration.c_str();
 			ui.download_table->setItem(0, 2, new QTableWidgetItem(_duration));
 
-
 			std::string file2 = get_setting(setting_working_directory) + "downloaded_info.info.json";
 			std::ifstream i2(file2);
 			nlohmann::json ytdesc;
@@ -316,14 +271,6 @@ void Download_and_Clip::processStateChange(std::string program, QProcess::Proces
 
 			QString valueText = this->locale().formattedDataSize(fs::file_size(find_fuzzy(get_setting(setting_working_directory), "downloaded_video")));
 			ui.download_table->setItem(0, 1, new QTableWidgetItem(valueText));
-
-			//std::string size = ytdesc["size"];
-			//QString valueText = this->locale().formattedDataSize(fs::file_size(size));
-			//ui.download_table->setItem(0, 1, new QTableWidgetItem(valueText));
-
-			std::cout << endl;
-
-			//ui.focus_table->setItem(0, 0, new QTableWidgetItem(rootObj.value("title").toString()));
 		}
 		else if (tag == "probe local video")
 		{
@@ -332,29 +279,16 @@ void Download_and_Clip::processStateChange(std::string program, QProcess::Proces
 			nlohmann::json ffprobe;
 			i >> ffprobe;
 
-			std::string duration = ffprobe["format"]["duration"];
-			QString _duration = duration.c_str();
-			ui.local_table->setItem(0, 2, new QTableWidgetItem(_duration));
-
-
-			/*std::string file2 = get_setting(working_directory) + "downloaded_info.info.json";
-			std::ifstream i2(file2);
-			nlohmann::json ytdesc;
-			i2 >> ytdesc;*/
-
 			ui.local_table->setItem(0, 0, new QTableWidgetItem(just_file_name(ui.local_lineedit->text().toStdString()).c_str()));
 
 			QString valueText = this->locale().formattedDataSize(fs::file_size(ui.local_lineedit->text().toStdString()));
 			ui.local_table->setItem(0, 1, new QTableWidgetItem(valueText));
 
-			//std::string size = ytdesc["size"];
-			//QString valueText = this->locale().formattedDataSize(fs::file_size(size));
-			//ui.download_table->setItem(0, 1, new QTableWidgetItem(valueText));
-
-			std::cout << endl;
+			std::string duration = ffprobe["format"]["duration"];
+			QString _duration = duration.c_str();
+			ui.local_table->setItem(0, 2, new QTableWidgetItem(_duration));
 
 			ui.local_check_probe->setChecked(true);
-			//ui.focus_table->setItem(0, 0, new QTableWidgetItem(rootObj.value("title").toString()));
 		}
 	}
 	break;
@@ -393,80 +327,19 @@ void Download_and_Clip::update_status(std::string str, QTextEdit* box)
 	box->setTextCursor(c);
 }
 
-static size_t write_data(void* ptr, size_t size, size_t nmemb, void* stream)
-{
-	size_t written = fwrite(ptr, size, nmemb, (FILE*)stream);
-	return written;
-}
-
 int Download_and_Clip::download_file(std::string _url, std::string _file)
 {
-	/*CURL* curl;
-	FILE* fp;
-
-	curl = curl_easy_init();
-	if (curl)
-	{
-		fp = fopen(_file.c_str(), "wb");
-		curl_easy_setopt(curl, CURLOPT_URL, _url);
-		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
-		curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
-		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, FALSE);
-		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1);
-		update_status("Started downloading from: ");
-		update_status(_url);
-		curl_easy_perform(curl);
-		update_status("Done.");
-		curl_easy_cleanup(curl);
-		fclose(fp);
-	}*/
 	return 0;
 }
 
 void Download_and_Clip::check_for_ytdl()
 {
-	/*if (fs::exists(fs::path("youtube-dl.exe")))
-	{
-		update_status("youtube-dl.exe found.");
-		ui.lineedit_videoid->setEnabled(true);
-		ui.button_download->setEnabled(true);
-		//ui.button_downloadytdl->setEnabled(true);
-		ui.button_downloadytdl->setText("Update Youtube-DL");
-	}
-	else
-	{
-		update_status("youtube-dl.exe not found.");
-		ui.lineedit_videoid->setEnabled(false);
-		ui.button_download->setEnabled(false);
-		//ui.button_downloadytdl->setEnabled(true);
-		ui.button_downloadytdl->setText("Download Youtube-DL");
-	}*/
+
 }
 
 void Download_and_Clip::check_for_ffmpeg()
 {
-	/*if (fs::exists(fs::path("ffmpeg.exe")))
-	{
-		update_status("ffmpeg.exe found.");
-		ui.button_downloadffmpeg->setEnabled(false);
-		ui.button_downloadffmpeg->setText("Update ffmpeg");
-		ui.lineedit_starttime->setEnabled(true);
-		ui.lineedit_endtime->setEnabled(true);
-		ui.slider_quality->setEnabled(true);
-		ui.spinbox_quality->setEnabled(true);
-		ui.lineedit_outputname->setEnabled(true);
-		ui.button_clip->setEnabled(true);
-	}
-	else
-	{
-		update_status("ffmpeg.exe not found.");
-		ui.button_downloadffmpeg->setEnabled(false);
-		ui.button_downloadffmpeg->setText("Download ffmpeg");
-		ui.slider_quality->setEnabled(false);
-		ui.spinbox_quality->setEnabled(false);
-		ui.lineedit_outputname->setEnabled(false);
-		ui.button_clip->setEnabled(false);
-	}*/
+
 }
 
 void Download_and_Clip::download_exe_ytdl()
@@ -512,7 +385,6 @@ void Download_and_Clip::execute_ytdl_download()
 	ui.download_description_gif->setMovie(gif_loading);
 	ui.download_probe_gif->setMovie(gif_loading);
 	ui.download_thumb_gif->setMovie(gif_loading);
-
 
 	QString video_id = ui.download_linedit->text();
 
@@ -584,16 +456,7 @@ void Download_and_Clip::execute_ffmpeg_encode()
 
 				if (!ripcord)
 				{
-					//remove(outfile.c_str());
-
-					std::string source_video;
-
-					/*if (focus == enum_focus_local)
-						source_video = ui.local_lineedit->text().toStdString();
-					else
-						source_video = find_fuzzy(get_setting(working_directory), "downloaded_video");*/
-
-					source_video = ui.focus_lineedit->text().toStdString();
+					std::string source_video = ui.focus_lineedit->text().toStdString();
 
 					std::string type = ui.encode_combo->currentText().toStdString();
 
@@ -611,11 +474,6 @@ void Download_and_Clip::execute_ffmpeg_encode()
 					}
 					else
 						update_status("Unknown type???", ui.encode_status);
-
-					//ui.button_download->setEnabled(false);
-					//ui.button_clip->setEnabled(false);
-					//ui.progressBar->setValue(0);
-
 				}
 			}
 			else
