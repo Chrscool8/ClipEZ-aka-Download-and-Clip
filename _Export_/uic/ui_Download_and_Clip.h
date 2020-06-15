@@ -104,12 +104,14 @@ public:
     QPushButton *local_button;
     QPushButton *local_button_focus;
     QPushButton *expand_left;
+    QVBoxLayout *verticalLayout_6;
     QGroupBox *groupBox;
     QVBoxLayout *verticalLayout;
     QLabel *focus_image;
     QLineEdit *focus_lineedit;
     QTableWidget *focus_table;
     QTextEdit *setup_status;
+    QPushButton *expand_both;
     QPushButton *expand_right;
     QToolBox *export_toolbox;
     QWidget *page_8;
@@ -154,7 +156,7 @@ public:
         if (Download_and_ClipClass->objectName().isEmpty())
             Download_and_ClipClass->setObjectName(QString::fromUtf8("Download_and_ClipClass"));
         Download_and_ClipClass->setEnabled(true);
-        Download_and_ClipClass->resize(1332, 571);
+        Download_and_ClipClass->resize(1334, 633);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -1319,7 +1321,7 @@ public:
         import_toolbox->setMinimumSize(QSize(450, 500));
         page_5 = new QWidget();
         page_5->setObjectName(QString::fromUtf8("page_5"));
-        page_5->setGeometry(QRect(0, 0, 448, 447));
+        page_5->setGeometry(QRect(0, 0, 448, 509));
         gridLayout_2 = new QGridLayout(page_5);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -1372,7 +1374,7 @@ public:
         import_toolbox->addItem(page_5, QString::fromUtf8("Setup"));
         page_4 = new QWidget();
         page_4->setObjectName(QString::fromUtf8("page_4"));
-        page_4->setGeometry(QRect(0, 0, 448, 447));
+        page_4->setGeometry(QRect(0, 0, 305, 385));
         gridLayout = new QGridLayout(page_4);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
@@ -1532,6 +1534,7 @@ public:
         download_table->setSizePolicy(sizePolicy1);
         download_table->setMinimumSize(QSize(0, 92));
         download_table->setMaximumSize(QSize(16777215, 16777215));
+        download_table->setInputMethodHints(Qt::ImhNoEditMenu);
         download_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
         download_table->setAlternatingRowColors(false);
         download_table->setCornerButtonEnabled(false);
@@ -1562,7 +1565,7 @@ public:
         import_toolbox->addItem(page_4, QString::fromUtf8("Download Video"));
         page_3 = new QWidget();
         page_3->setObjectName(QString::fromUtf8("page_3"));
-        page_3->setGeometry(QRect(0, 0, 448, 447));
+        page_3->setGeometry(QRect(0, 0, 305, 401));
         gridLayout_4 = new QGridLayout(page_3);
         gridLayout_4->setSpacing(6);
         gridLayout_4->setContentsMargins(11, 11, 11, 11);
@@ -1749,6 +1752,9 @@ public:
 
         horizontalLayout_2->addWidget(expand_left);
 
+        verticalLayout_6 = new QVBoxLayout();
+        verticalLayout_6->setSpacing(6);
+        verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
         QSizePolicy sizePolicy3(QSizePolicy::Fixed, QSizePolicy::Preferred);
@@ -1794,6 +1800,7 @@ public:
         QTableWidgetItem *__qtablewidgetitem11 = new QTableWidgetItem();
         focus_table->setVerticalHeaderItem(2, __qtablewidgetitem11);
         focus_table->setObjectName(QString::fromUtf8("focus_table"));
+        focus_table->setInputMethodHints(Qt::ImhNoEditMenu);
         focus_table->setAlternatingRowColors(false);
         focus_table->horizontalHeader()->setVisible(false);
         focus_table->horizontalHeader()->setHighlightSections(false);
@@ -1811,7 +1818,16 @@ public:
         verticalLayout->addWidget(setup_status);
 
 
-        horizontalLayout_2->addWidget(groupBox);
+        verticalLayout_6->addWidget(groupBox);
+
+        expand_both = new QPushButton(centralWidget);
+        expand_both->setObjectName(QString::fromUtf8("expand_both"));
+        expand_both->setMaximumSize(QSize(16777215, 23));
+
+        verticalLayout_6->addWidget(expand_both);
+
+
+        horizontalLayout_2->addLayout(verticalLayout_6);
 
         expand_right = new QPushButton(centralWidget);
         expand_right->setObjectName(QString::fromUtf8("expand_right"));
@@ -1829,7 +1845,7 @@ public:
         export_toolbox->setMaximumSize(QSize(16777215, 16777215));
         page_8 = new QWidget();
         page_8->setObjectName(QString::fromUtf8("page_8"));
-        page_8->setGeometry(QRect(0, 0, 448, 474));
+        page_8->setGeometry(QRect(0, 0, 448, 536));
         gridLayout_6 = new QGridLayout(page_8);
         gridLayout_6->setSpacing(6);
         gridLayout_6->setContentsMargins(11, 11, 11, 11);
@@ -1875,7 +1891,7 @@ public:
         export_toolbox->addItem(page_8, QString::fromUtf8("Setup"));
         page_6 = new QWidget();
         page_6->setObjectName(QString::fromUtf8("page_6"));
-        page_6->setGeometry(QRect(0, 0, 448, 474));
+        page_6->setGeometry(QRect(0, 0, 229, 327));
         gridLayout_5 = new QGridLayout(page_6);
         gridLayout_5->setSpacing(6);
         gridLayout_5->setContentsMargins(11, 11, 11, 11);
@@ -2019,7 +2035,7 @@ public:
         Download_and_ClipClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Download_and_ClipClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1332, 23));
+        menuBar->setGeometry(QRect(0, 0, 1334, 23));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QString::fromUtf8("menuFile"));
         menuTheme = new QMenu(menuBar);
@@ -2037,8 +2053,8 @@ public:
 
         retranslateUi(Download_and_ClipClass);
 
-        import_toolbox->setCurrentIndex(2);
-        export_toolbox->setCurrentIndex(1);
+        import_toolbox->setCurrentIndex(0);
+        export_toolbox->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(Download_and_ClipClass);
@@ -2103,6 +2119,7 @@ public:
         ___qtablewidgetitem7->setText(QCoreApplication::translate("Download_and_ClipClass", "Size", nullptr));
         QTableWidgetItem *___qtablewidgetitem8 = focus_table->verticalHeaderItem(2);
         ___qtablewidgetitem8->setText(QCoreApplication::translate("Download_and_ClipClass", "Duration", nullptr));
+        expand_both->setText(QCoreApplication::translate("Download_and_ClipClass", "<                                                                                                         >", nullptr));
         expand_right->setText(QCoreApplication::translate("Download_and_ClipClass", ">", nullptr));
         setup_ffmpeg_label->setText(QCoreApplication::translate("Download_and_ClipClass", "FFmpeg: ", nullptr));
         setup_ffmpeg_button->setText(QCoreApplication::translate("Download_and_ClipClass", "Browse", nullptr));

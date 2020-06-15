@@ -671,6 +671,12 @@ void Download_and_Clip::expand_right()
 	expand_panel(ui.export_toolbox);
 }
 
+void Download_and_Clip::expand_both()
+{
+	expand_panel(ui.import_toolbox);
+	expand_panel(ui.export_toolbox);
+}
+
 void Download_and_Clip::load_if_valid(int setting, QLineEdit* destination)
 {
 	std::string option = get_setting(setting);
@@ -858,6 +864,7 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 
 	connect(ui.expand_left, SIGNAL(clicked()), this, SLOT(expand_left()));
 	connect(ui.expand_right, SIGNAL(clicked()), this, SLOT(expand_right()));
+	connect(ui.expand_both, SIGNAL(clicked()), this, SLOT(expand_both()));
 
 	connect(ui.setup_show_working_dir, SIGNAL(clicked()), this, SLOT(show_folder_working()));
 	connect(ui.setup_show_output_dir, SIGNAL(clicked()), this, SLOT(show_folder_output()));

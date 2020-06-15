@@ -10,8 +10,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1332</width>
-    <height>571</height>
+    <width>1334</width>
+    <height>633</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -1160,7 +1160,7 @@ QToolBox
          <x>0</x>
          <y>0</y>
          <width>448</width>
-         <height>447</height>
+         <height>509</height>
         </rect>
        </property>
        <attribute name="label">
@@ -1264,8 +1264,8 @@ QToolBox
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>448</width>
-         <height>447</height>
+         <width>305</width>
+         <height>385</height>
         </rect>
        </property>
        <attribute name="label">
@@ -1693,8 +1693,8 @@ QToolBox
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>448</width>
-         <height>447</height>
+         <width>305</width>
+         <height>401</height>
         </rect>
        </property>
        <attribute name="label">
@@ -2101,127 +2101,144 @@ QToolBox
      </widget>
     </item>
     <item>
-     <widget class="QGroupBox" name="groupBox">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>350</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="title">
-       <string>Focused Media</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <property name="topMargin">
-        <number>20</number>
-       </property>
-       <item>
-        <widget class="QLabel" name="focus_image">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
+     <layout class="QVBoxLayout" name="verticalLayout_6">
+      <item>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>350</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="title">
+         <string>Focused Media</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="topMargin">
+          <number>20</number>
          </property>
-         <property name="minimumSize">
-          <size>
-           <width>330</width>
-           <height>185</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>330</width>
-           <height>185</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Image</string>
-         </property>
-         <property name="scaledContents">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="focus_lineedit">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QTableWidget" name="focus_table">
-         <property name="inputMethodHints">
-          <set>Qt::ImhNoEditMenu</set>
-         </property>
-         <property name="alternatingRowColors">
-          <bool>false</bool>
-         </property>
-         <attribute name="horizontalHeaderVisible">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="horizontalHeaderHighlightSections">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="horizontalHeaderStretchLastSection">
-          <bool>true</bool>
-         </attribute>
-         <attribute name="verticalHeaderHighlightSections">
-          <bool>false</bool>
-         </attribute>
-         <row>
-          <property name="text">
-           <string>Name</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>Size</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>Duration</string>
-          </property>
-         </row>
-         <column>
-          <property name="text">
-           <string/>
-          </property>
-         </column>
-        </widget>
-       </item>
-       <item>
-        <widget class="QTextEdit" name="setup_status">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
+         <item>
+          <widget class="QLabel" name="focus_image">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>330</width>
+             <height>185</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>330</width>
+             <height>185</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Image</string>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="focus_lineedit">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTableWidget" name="focus_table">
+           <property name="inputMethodHints">
+            <set>Qt::ImhNoEditMenu</set>
+           </property>
+           <property name="alternatingRowColors">
+            <bool>false</bool>
+           </property>
+           <attribute name="horizontalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="horizontalHeaderHighlightSections">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="verticalHeaderHighlightSections">
+            <bool>false</bool>
+           </attribute>
+           <row>
+            <property name="text">
+             <string>Name</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Size</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Duration</string>
+            </property>
+           </row>
+           <column>
+            <property name="text">
+             <string/>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTextEdit" name="setup_status">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>60</height>
+            </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="expand_both">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>&lt;                                                                                                         &gt;</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
      <widget class="QPushButton" name="expand_right">
@@ -2274,7 +2291,7 @@ QToolBox
          <x>0</x>
          <y>0</y>
          <width>448</width>
-         <height>474</height>
+         <height>536</height>
         </rect>
        </property>
        <attribute name="label">
@@ -2358,8 +2375,8 @@ QToolBox
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>448</width>
-         <height>474</height>
+         <width>229</width>
+         <height>327</height>
         </rect>
        </property>
        <attribute name="label">
@@ -2629,7 +2646,7 @@ QToolBox
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1332</width>
+     <width>1334</width>
      <height>23</height>
     </rect>
    </property>

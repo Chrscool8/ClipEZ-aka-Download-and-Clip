@@ -50,6 +50,7 @@ private slots:
 
 	void expand_left();
 	void expand_right();
+	void expand_both();
 
 	void set_theme_dark();
 	void set_theme_light();
