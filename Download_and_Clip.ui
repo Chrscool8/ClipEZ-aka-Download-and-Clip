@@ -10,8 +10,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1334</width>
-    <height>633</height>
+    <width>1332</width>
+    <height>598</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -24,123 +24,7 @@
    <string>YesClip</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">/*QWidget
-{
-	background-color: rgba(40, 40, 40, 100%); 
-	color: rgb(200, 200, 200);
-	border: 1px solid rgb(70, 70, 70); 
-}
-
-QWidget:disabled
-{	
-	background-color: rgba(40, 40, 40, 25%); 
-	color: rgba(80, 80, 80, 50%);
-}
-
-QLabel, QGroupBox
-{
-	background-color: rgb(42,42,42);
-	color: rgb(180, 180, 180);
-}
-
-QLabel
-{
-border: 0px;
-}
-
-QGroupBox
-{
-	color: rgb(200, 200, 200);
-}
-
-QLabel:disabled, QGroupBox:disabled
-{
-color: rgb(180, 180, 180);
-}
-
-QTextEdit, QPlainTextEdit
-{
-	background-color:  rgb(59,59,59);
-}
-
-QTextEdit:disabled, QPlainTextEdit:disabled
-{
-	background-color:  rgba(59,59,59,25%);
-}
-
-QSlider::groove:horizontal:disabled 
-{ 
-	background-color: rgb(59,59,59);
-	border: 0px solid #424242; 
-	height: 10px; 
-	border-radius: 0px;
-}
-
-QSlider::handle:horizontal:disabled 
-{ 
-	background-color:  rgb(59,59,59); 
-	border: 2px solid  rgb(59,59,59); 
-	width: 16px; 
-	height: 20px; 
-	line-height: 20px; 
-	margin-top: -5px; 
-	margin-bottom: -5px; 
-	border-radius: 10px; 
-}
-
-QSlider::handle:horizontal:hover:disabled 
-{ 
-	border-radius: 6px;
-}
-
-QSlider::groove:horizontal 
-{ 
-	background-color: rgb(80, 80, 80);
-	border: 0px solid #424242; 
-	height: 10px; 
-	border-radius: 0px;
-}
-
-QSlider::handle:horizontal 
-{ 
-	background-color:  rgb(110, 110, 110);
-	border: 2px solid rgb(110, 110, 110);
-	width: 16px; 
-	height: 20px; 
-	line-height: 20px; 
-	margin-top: -5px; 
-	margin-bottom: -5px; 
-	border-radius: 10px; 
-}
-
-QSlider::handle:horizontal:hover 
-{ 
-	border-radius: 6px;
-}
-
-QHeaderView::section 
-{
-    background-color: rgb(110, 110, 110);
-}
-
-QHeaderView::section:horizontal
-{
-}
-
-QHeaderView::section:vertical
-{
-}
-
-@QScrollBar:horizontal {
-height: 0px;
-width: 0px;
-}
-
-QScrollBar:vertical {
-height: 0px;
-width: 0px;
-}
-*/
+   <string notr="true">/* Dark Theme */
 
 /*Copyright (c) DevSec Studio. All rights reserved.
 
@@ -323,14 +207,15 @@ QToolButton:checked
 /*-----QPushButton-----*/
 QPushButton
 {
-	background-color: qlineargradient(spread:repeat, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(84, 84, 84, 255),stop:1 rgba(59, 59, 59, 255));
-	color: #ffffff;
+ background-color: qlineargradient(spread:repeat, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(84, 84, 84, 255),stop:1 rgba(59, 59, 59, 255));
+	/*background-color: qlineargradient(spread:repeat, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(84, 84, 84, 255),stop:1 rgba(59, 59, 59, 255));*/
+	/*background-color: #222222;*/
 	/*min-width: 80px;*/
 	border-style: solid;
 	border-width: 1px;
-	border-radius: 3px;
-	border-color: #051a39;
-	padding: 5px;
+	border-radius: 2px;
+	border-color: #555555;
+	/*padding: 5px;*/
 
 }
 
@@ -521,7 +406,7 @@ QComboBox::drop-down
 
 QComboBox::down-arrow
 {
-    image: url(://arrow-down.png);
+    /*image: url(://arrow-down.png);*/
     /*width: 8px;
     height: 8px;*/
 }
@@ -1135,16 +1020,22 @@ QToolBox
 	border-style: solid;
 	border-width: 1px;
 	border-radius: 3px;
-	border-color: #2d2d2d;
+	border-color: #666666;
 }</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="enabled">
     <bool>true</bool>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <layout class="QHBoxLayout" name="horizontalLayout_6">
     <item>
      <widget class="QToolBox" name="import_toolbox">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="minimumSize">
        <size>
         <width>450</width>
@@ -1152,15 +1043,15 @@ QToolBox
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="page_5">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>448</width>
-         <height>509</height>
+         <width>349</width>
+         <height>106</height>
         </rect>
        </property>
        <attribute name="label">
@@ -1171,8 +1062,8 @@ QToolBox
          <widget class="QPushButton" name="setup_ytdl_button">
           <property name="minimumSize">
            <size>
-            <width>0</width>
-            <height>18</height>
+            <width>60</width>
+            <height>24</height>
            </size>
           </property>
           <property name="text">
@@ -1207,6 +1098,12 @@ QToolBox
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QPushButton" name="setup_show_working_dir">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>24</height>
+             </size>
+            </property>
             <property name="text">
              <string>Show Working Dir</string>
             </property>
@@ -1230,6 +1127,12 @@ QToolBox
           </item>
           <item>
            <widget class="QPushButton" name="setup_show_output_dir">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>24</height>
+             </size>
+            </property>
             <property name="text">
              <string>Show Output Dir</string>
             </property>
@@ -1265,7 +1168,7 @@ QToolBox
          <x>0</x>
          <y>0</y>
          <width>305</width>
-         <height>385</height>
+         <height>384</height>
         </rect>
        </property>
        <attribute name="label">
@@ -1331,8 +1234,8 @@ QToolBox
          <widget class="QPushButton" name="download_button">
           <property name="minimumSize">
            <size>
-            <width>0</width>
-            <height>18</height>
+            <width>65</width>
+            <height>24</height>
            </size>
           </property>
           <property name="text">
@@ -1671,8 +1574,8 @@ QToolBox
           </property>
           <property name="minimumSize">
            <size>
-            <width>0</width>
-            <height>25</height>
+            <width>60</width>
+            <height>24</height>
            </size>
           </property>
           <property name="maximumSize">
@@ -1693,8 +1596,8 @@ QToolBox
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>305</width>
-         <height>401</height>
+         <width>448</width>
+         <height>474</height>
         </rect>
        </property>
        <attribute name="label">
@@ -1826,8 +1729,8 @@ QToolBox
          <widget class="QPushButton" name="local_load">
           <property name="minimumSize">
            <size>
-            <width>62</width>
-            <height>25</height>
+            <width>60</width>
+            <height>24</height>
            </size>
           </property>
           <property name="text">
@@ -2034,8 +1937,8 @@ QToolBox
          <widget class="QPushButton" name="local_button">
           <property name="minimumSize">
            <size>
-            <width>62</width>
-            <height>25</height>
+            <width>60</width>
+            <height>24</height>
            </size>
           </property>
           <property name="text">
@@ -2053,8 +1956,8 @@ QToolBox
           </property>
           <property name="minimumSize">
            <size>
-            <width>62</width>
-            <height>25</height>
+            <width>60</width>
+            <height>24</height>
            </size>
           </property>
           <property name="maximumSize">
@@ -2073,202 +1976,233 @@ QToolBox
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="expand_left">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>20</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::RightToLeft</enum>
-      </property>
-      <property name="text">
-       <string>&lt;</string>
-      </property>
-     </widget>
-    </item>
-    <item>
      <layout class="QVBoxLayout" name="verticalLayout_6">
+      <property name="spacing">
+       <number>5</number>
+      </property>
       <item>
-       <widget class="QGroupBox" name="groupBox">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QPushButton" name="expand_left">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>18</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>20</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="layoutDirection">
+           <enum>Qt::RightToLeft</enum>
+          </property>
+          <property name="text">
+           <string>&lt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>350</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>Focused Media</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <property name="topMargin">
+            <number>20</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="focus_image">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>330</width>
+               <height>185</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>330</width>
+               <height>185</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Image</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="focus_lineedit">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTableWidget" name="focus_table">
+             <property name="inputMethodHints">
+              <set>Qt::ImhNoEditMenu</set>
+             </property>
+             <property name="alternatingRowColors">
+              <bool>false</bool>
+             </property>
+             <attribute name="horizontalHeaderVisible">
+              <bool>false</bool>
+             </attribute>
+             <attribute name="horizontalHeaderHighlightSections">
+              <bool>false</bool>
+             </attribute>
+             <attribute name="horizontalHeaderStretchLastSection">
+              <bool>true</bool>
+             </attribute>
+             <attribute name="verticalHeaderHighlightSections">
+              <bool>false</bool>
+             </attribute>
+             <row>
+              <property name="text">
+               <string>Name</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>Size</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>Duration</string>
+              </property>
+             </row>
+             <column>
+              <property name="text">
+               <string/>
+              </property>
+             </column>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="setup_status">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>60</height>
+              </size>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="expand_right">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>18</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>20</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>&gt;</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="expand_both">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
         <property name="minimumSize">
          <size>
-          <width>350</width>
-          <height>0</height>
+          <width>0</width>
+          <height>18</height>
          </size>
         </property>
-        <property name="title">
-         <string>Focused Media</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <property name="topMargin">
-          <number>20</number>
-         </property>
-         <item>
-          <widget class="QLabel" name="focus_image">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>330</width>
-             <height>185</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>330</width>
-             <height>185</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Image</string>
-           </property>
-           <property name="scaledContents">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="focus_lineedit">
-           <property name="enabled">
-            <bool>true</bool>
-           </property>
-           <property name="readOnly">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTableWidget" name="focus_table">
-           <property name="inputMethodHints">
-            <set>Qt::ImhNoEditMenu</set>
-           </property>
-           <property name="alternatingRowColors">
-            <bool>false</bool>
-           </property>
-           <attribute name="horizontalHeaderVisible">
-            <bool>false</bool>
-           </attribute>
-           <attribute name="horizontalHeaderHighlightSections">
-            <bool>false</bool>
-           </attribute>
-           <attribute name="horizontalHeaderStretchLastSection">
-            <bool>true</bool>
-           </attribute>
-           <attribute name="verticalHeaderHighlightSections">
-            <bool>false</bool>
-           </attribute>
-           <row>
-            <property name="text">
-             <string>Name</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>Size</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>Duration</string>
-            </property>
-           </row>
-           <column>
-            <property name="text">
-             <string/>
-            </property>
-           </column>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextEdit" name="setup_status">
-           <property name="enabled">
-            <bool>true</bool>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>60</height>
-            </size>
-           </property>
-           <property name="readOnly">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="expand_both">
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>23</height>
+          <height>16777215</height>
          </size>
         </property>
         <property name="text">
-         <string>&lt;                                                                                                         &gt;</string>
+         <string>&lt;                                                                                                                           &gt;</string>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
         </property>
        </widget>
       </item>
      </layout>
     </item>
     <item>
-     <widget class="QPushButton" name="expand_right">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>20</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>&gt;</string>
-      </property>
-     </widget>
-    </item>
-    <item>
      <widget class="QToolBox" name="export_toolbox">
       <property name="enabled">
        <bool>true</bool>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
       <property name="minimumSize">
        <size>
@@ -2283,15 +2217,15 @@ QToolBox
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_8">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>448</width>
-         <height>536</height>
+         <width>176</width>
+         <height>78</height>
         </rect>
        </property>
        <attribute name="label">
@@ -2316,8 +2250,8 @@ QToolBox
          <widget class="QPushButton" name="setup_ffmpeg_button">
           <property name="minimumSize">
            <size>
-            <width>0</width>
-            <height>18</height>
+            <width>60</width>
+            <height>24</height>
            </size>
           </property>
           <property name="text">
@@ -2346,8 +2280,8 @@ QToolBox
          <widget class="QPushButton" name="setup_ffprobe_button">
           <property name="minimumSize">
            <size>
-            <width>0</width>
-            <height>18</height>
+            <width>60</width>
+            <height>24</height>
            </size>
           </property>
           <property name="text">
@@ -2375,72 +2309,14 @@ QToolBox
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>229</width>
-         <height>327</height>
+         <width>448</width>
+         <height>501</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Encode</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_5">
-        <item row="5" column="0" colspan="3">
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>Start Time: </string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="encode_starttime">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="text">
-             <string>00:00:00.0</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>End Time: </string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="encode_endtime">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="text">
-             <string>00:00:05.0</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item row="0" column="2">
-         <widget class="QPushButton" name="encode_browse">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>18</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Browse</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="encode_label">
-          <property name="text">
-           <string>Output Directory: </string>
-          </property>
-         </widget>
-        </item>
         <item row="3" column="0" colspan="3">
          <layout class="QGridLayout" name="gridLayout_3">
           <item row="2" column="0">
@@ -2515,62 +2391,6 @@ QToolBox
           </item>
          </layout>
         </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="encode_lineedit_filename">
-          <property name="readOnly">
-           <bool>false</bool>
-          </property>
-          <property name="clearButtonEnabled">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="encode_label_2">
-          <property name="text">
-           <string>Filename: </string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="encode_lineedit_directory">
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-          <property name="clearButtonEnabled">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="1">
-         <spacer name="verticalSpacer_10">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="8" column="0" colspan="3">
-         <widget class="QTextEdit" name="encode_status">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>100</height>
-           </size>
-          </property>
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="1">
          <spacer name="verticalSpacer_11">
           <property name="orientation">
@@ -2587,12 +2407,54 @@ QToolBox
           </property>
          </spacer>
         </item>
+        <item row="9" column="0" colspan="3">
+         <widget class="QTextEdit" name="encode_status">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>100</height>
+           </size>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
+         <widget class="QPushButton" name="encode_go">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Encode!</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="1">
+         <spacer name="verticalSpacer_10">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
         <item row="1" column="2">
          <widget class="QComboBox" name="encode_combo">
           <property name="minimumSize">
            <size>
             <width>60</width>
-            <height>25</height>
+            <height>24</height>
            </size>
           </property>
           <item>
@@ -2612,6 +2474,91 @@ QToolBox
           </item>
          </widget>
         </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="encode_label_2">
+          <property name="text">
+           <string>Filename: </string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0" colspan="3">
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Start Time: </string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="encode_starttime">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="text">
+             <string>00:00:00.0</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>End Time: </string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="encode_endtime">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="text">
+             <string>00:00:05.0</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="encode_lineedit_filename">
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
+          <property name="clearButtonEnabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QPushButton" name="encode_browse">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Browse</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="encode_label">
+          <property name="text">
+           <string>Output Directory: </string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="encode_lineedit_directory">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="clearButtonEnabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
         <item row="4" column="1">
          <spacer name="verticalSpacer_12">
           <property name="orientation">
@@ -2629,11 +2576,20 @@ QToolBox
          </spacer>
         </item>
         <item row="6" column="1">
-         <widget class="QPushButton" name="encode_go">
-          <property name="text">
-           <string>Encode!</string>
+         <spacer name="verticalSpacer_7">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
           </property>
-         </widget>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </widget>
@@ -2646,7 +2602,7 @@ QToolBox
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1334</width>
+     <width>1332</width>
      <height>23</height>
     </rect>
    </property>
@@ -2667,6 +2623,7 @@ QToolBox
      <string>Settings</string>
     </property>
     <addaction name="menu_setting_scroll_focus"/>
+    <addaction name="menu_setting_expand_default"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuTheme"/>
@@ -2704,6 +2661,14 @@ QToolBox
    </property>
    <property name="text">
     <string>Auto-Scroll When Focus</string>
+   </property>
+  </action>
+  <action name="menu_setting_expand_default">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Expand Both Panels by Default</string>
    </property>
   </action>
  </widget>
