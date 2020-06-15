@@ -76,6 +76,8 @@ private slots:
 
 	void toggle_focus_scroll();
 
+	void toggle_default_expand();
+
 	void processStateChange(std::string, QProcess::ProcessState newState, std::string tag, QTextEdit* box);
 
 private:

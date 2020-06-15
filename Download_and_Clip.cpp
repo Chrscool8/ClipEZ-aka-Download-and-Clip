@@ -45,6 +45,7 @@ enum setting
 	setting_last_local_url,
 	setting_focus_scroll,
 	setting_theme,
+	setting_expand_by_default,
 	settings_num
 };
 
@@ -189,7 +190,7 @@ void Download_and_Clip::load_downloaded_video()
 {
 	ui.download_check_video->setChecked(true);
 	ui.download_video_gif->clear();
-	}
+}
 
 void Download_and_Clip::encode_done()
 {
@@ -634,13 +635,13 @@ void Download_and_Clip::collapse_panel(QToolBox* toolbox)
 	animation = new QPropertyAnimation(toolbox, "maximumSize");
 	animation->setDuration(animation_time);
 	animation->setStartValue(toolbox->size());
-	animation->setEndValue(QSize(0, toolbox->size().height()));
+	animation->setEndValue(QSize(0, 16777215));
 	animation->start();
 
 	animation = new QPropertyAnimation(toolbox, "minimumSize");
 	animation->setDuration(animation_time);
 	animation->setStartValue(toolbox->size());
-	animation->setEndValue(QSize(0, toolbox->size().height()));
+	animation->setEndValue(QSize(0, 500));
 	animation->start();
 }
 
@@ -649,13 +650,13 @@ void Download_and_Clip::expand_panel(QToolBox* toolbox)
 	animation = new QPropertyAnimation(toolbox, "maximumSize");
 	animation->setDuration(animation_time);
 	animation->setStartValue(toolbox->size());
-	animation->setEndValue(QSize(16777215, toolbox->size().height()));
+	animation->setEndValue(QSize(16777215, 16777215));
 	animation->start();
 
 	animation = new QPropertyAnimation(toolbox, "minimumSize");
 	animation->setDuration(animation_time);
 	animation->setStartValue(toolbox->size());
-	animation->setEndValue(QSize(450, toolbox->size().height()));
+	animation->setEndValue(QSize(450, 500));
 	animation->start();
 }
 
@@ -725,6 +726,14 @@ void Download_and_Clip::update_ui_from_settings()
 	else if (theme == "light")
 	{
 		set_theme_light();
+	}
+
+	//
+
+	if (get_setting(setting_expand_by_default) == "true")
+	{
+		//expand_both();
+		ui.menu_setting_expand_default->setChecked(true);
 	}
 }
 
@@ -836,6 +845,22 @@ void Download_and_Clip::toggle_focus_scroll()
 	}
 }
 
+void Download_and_Clip::toggle_default_expand()
+{
+	if (get_setting(setting_expand_by_default) == "true")
+	{
+		set_setting(setting_expand_by_default, "false");
+		ui.menu_setting_expand_default->setChecked(false);
+		update_status("Default Expand Off", ui.setup_status);
+	}
+	else
+	{
+		set_setting(setting_expand_by_default, "true");
+		ui.menu_setting_expand_default->setChecked(true);
+		update_status("Default Expand On", ui.setup_status);
+			}
+}
+
 //Init
 Download_and_Clip::Download_and_Clip(QWidget* parent)
 	: QMainWindow(parent)
@@ -881,6 +906,7 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 	connect(ui.menu_actionThemeLight, SIGNAL(triggered()), this, SLOT(set_theme_light()));
 	connect(ui.menu_actionThemeDark, SIGNAL(triggered()), this, SLOT(set_theme_dark()));
 	connect(ui.menu_setting_scroll_focus, SIGNAL(triggered()), this, SLOT(toggle_focus_scroll()));
+	connect(ui.menu_setting_expand_default, SIGNAL(triggered()), this, SLOT(toggle_default_expand()));
 
 	connect(ui.download_button_focus, SIGNAL(clicked()), this, SLOT(make_focus_download()));
 	connect(ui.local_button_focus, SIGNAL(clicked()), this, SLOT(make_focus_local()));
@@ -912,8 +938,11 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 		warning.close();
 	}
 
-	ui.export_toolbox->setMinimumWidth(0);
-	ui.export_toolbox->setMaximumWidth(0);
+	if (!(get_setting(setting_expand_by_default) == "true"))
+	{
+		ui.export_toolbox->setMinimumWidth(0);
+		ui.export_toolbox->setMaximumWidth(0);
+	}
 
 	ui.download_table->resizeRowsToContents();
 	ui.focus_table->resizeRowsToContents();
