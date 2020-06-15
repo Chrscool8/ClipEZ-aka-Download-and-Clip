@@ -41,18 +41,17 @@ enum focus_type
 
 int focus = enum_focus_none;
 
-
 // Settings //
 enum setting
 {
 	setting_exe_ytdl,
 	setting_exe_ffmpeg,
-	settings_exe_ffprobe,
-	settings_working_directory,
-	settings_output_directory,
-	settings_last_download_url,
-	settings_last_local_url,
-	settings_focus_scroll,
+	setting_exe_ffprobe,
+	setting_working_directory,
+	setting_output_directory,
+	setting_last_download_url,
+	setting_last_local_url,
+	setting_focus_scroll,
 	settings_num
 };
 
@@ -72,9 +71,9 @@ void Download_and_Clip::set_setting(int setting, std::string value)
 
 void Download_and_Clip::init_settings()
 {
-	if (get_setting(settings_working_directory) == "")
+	if (get_setting(setting_working_directory) == "")
 	{
-		set_setting(settings_working_directory, (QDir::currentPath().toStdString() + "/working_directory/").c_str());
+		set_setting(setting_working_directory, (QDir::currentPath().toStdString() + "/working_directory/").c_str());
 	}
 }
 
@@ -120,7 +119,7 @@ void Download_and_Clip::file_save_settings()
 
 void Download_and_Clip::load_downloaded_thumbnail()
 {
-	for (auto& p : fs::directory_iterator(get_setting(settings_working_directory)))
+	for (auto& p : fs::directory_iterator(get_setting(setting_working_directory)))
 	{
 		std::string file = p.path().string();
 		if (file.find("downloaded_thumb") != std::string::npos)
@@ -140,7 +139,7 @@ void Download_and_Clip::load_downloaded_thumbnail()
 void Download_and_Clip::load_local_thumbnail()
 {
 	ui.local_check_thumb->setChecked(true);
-	std::string file = find_fuzzy(get_setting(settings_working_directory), "local_thumb");
+	std::string file = find_fuzzy(get_setting(setting_working_directory), "local_thumb");
 	QPixmap image(file.c_str());
 	ui.local_image->setPixmap(image);
 }
@@ -174,15 +173,15 @@ void Download_and_Clip::check_full_download()
 
 
 		// .\ffprobe.exe downloaded_video.mkv -show_streams -show_format -print_format json -pretty > probe.json.txt
-		std::string video_name = just_file_name(find_fuzzy(get_setting(settings_working_directory), "downloaded_video"));
-		QStringList args = { (get_setting(settings_working_directory) + video_name).c_str(), "-show_streams", "-show_format", "-print_format", "json", "-pretty" };
-		start_new_process(get_setting(settings_exe_ffprobe), args, "probe download video", (get_setting(settings_working_directory) + "probe.txt").c_str(), ui.download_status);
+		std::string video_name = just_file_name(find_fuzzy(get_setting(setting_working_directory), "downloaded_video"));
+		QStringList args = { (get_setting(setting_working_directory) + video_name).c_str(), "-show_streams", "-show_format", "-print_format", "json", "-pretty" };
+		start_new_process(get_setting(setting_exe_ffprobe), args, "probe download video", (get_setting(setting_working_directory) + "probe.txt").c_str(), ui.download_status);
 	}
 }
 
 void Download_and_Clip::load_video_info()
 {
-	for (auto& p : fs::directory_iterator(get_setting(settings_working_directory)))
+	for (auto& p : fs::directory_iterator(get_setting(setting_working_directory)))
 	{
 		std::string file = p.path().string();
 		if (file.find("downloaded_info") != std::string::npos)
@@ -298,7 +297,7 @@ void Download_and_Clip::processStateChange(std::string program, QProcess::Proces
 		}
 		else if (tag == "probe download video")
 		{
-			std::string file = get_setting(settings_working_directory) + "probe.txt";
+			std::string file = get_setting(setting_working_directory) + "probe.txt";
 			std::ifstream i(file);
 			nlohmann::json ffprobe;
 			i >> ffprobe;
@@ -308,14 +307,14 @@ void Download_and_Clip::processStateChange(std::string program, QProcess::Proces
 			ui.download_table->setItem(0, 2, new QTableWidgetItem(_duration));
 
 
-			std::string file2 = get_setting(settings_working_directory) + "downloaded_info.info.json";
+			std::string file2 = get_setting(setting_working_directory) + "downloaded_info.info.json";
 			std::ifstream i2(file2);
 			nlohmann::json ytdesc;
 			i2 >> ytdesc;
 
 			ui.download_table->setItem(0, 0, new QTableWidgetItem(ytdesc["title"].get<std::string>().c_str()));
 
-			QString valueText = this->locale().formattedDataSize(fs::file_size(find_fuzzy(get_setting(settings_working_directory), "downloaded_video")));
+			QString valueText = this->locale().formattedDataSize(fs::file_size(find_fuzzy(get_setting(setting_working_directory), "downloaded_video")));
 			ui.download_table->setItem(0, 1, new QTableWidgetItem(valueText));
 
 			//std::string size = ytdesc["size"];
@@ -328,7 +327,7 @@ void Download_and_Clip::processStateChange(std::string program, QProcess::Proces
 		}
 		else if (tag == "probe local video")
 		{
-			std::string file = get_setting(settings_working_directory) + "local_probe.txt";
+			std::string file = get_setting(setting_working_directory) + "local_probe.txt";
 			std::ifstream i(file);
 			nlohmann::json ffprobe;
 			i >> ffprobe;
@@ -486,7 +485,7 @@ void Download_and_Clip::download_exe_ffmpeg()
 
 void Download_and_Clip::remove_fuzzy(std::string filename)
 {
-	for (auto& p : fs::directory_iterator(get_setting(settings_working_directory)))
+	for (auto& p : fs::directory_iterator(get_setting(setting_working_directory)))
 	{
 		std::string file = p.path().string();
 		if (file.find(filename) != std::string::npos)
@@ -517,15 +516,15 @@ void Download_and_Clip::execute_ytdl_download()
 
 	QString video_id = ui.download_linedit->text();
 
-	set_setting(settings_last_download_url, video_id.toStdString());
+	set_setting(setting_last_download_url, video_id.toStdString());
 
-	QStringList args = { video_id, "-o", (get_setting(settings_working_directory) + "downloaded_info").c_str(), "--skip-download", "--no-playlist", "--write-info-json" };
+	QStringList args = { video_id, "-o", (get_setting(setting_working_directory) + "downloaded_info").c_str(), "--skip-download", "--no-playlist", "--write-info-json" };
 	start_new_process(get_setting(setting_exe_ytdl), args, "download video info", "stdout.txt", ui.download_status);
 
-	QStringList args2 = { video_id, "-o", (get_setting(settings_working_directory) + "downloaded_thumb").c_str(), "--write-thumbnail", "--skip-download", "--no-playlist" };
+	QStringList args2 = { video_id, "-o", (get_setting(setting_working_directory) + "downloaded_thumb").c_str(), "--write-thumbnail", "--skip-download", "--no-playlist" };
 	start_new_process(get_setting(setting_exe_ytdl), args2, "download video thumbnail", "stdout.txt", ui.download_status);
 
-	QStringList args3 = { video_id, "-o", (get_setting(settings_working_directory) + "downloaded_video").c_str(), "-f", "bestvideo+bestaudio/best", "--no-playlist" };
+	QStringList args3 = { video_id, "-o", (get_setting(setting_working_directory) + "downloaded_video").c_str(), "-f", "bestvideo+bestaudio/best", "--no-playlist" };
 	start_new_process(get_setting(setting_exe_ytdl), args3, "download video", "stdout.txt", ui.download_status);
 }
 
@@ -697,16 +696,19 @@ static char fix_slashes(char toCheck)
 
 void Download_and_Clip::show_folder_working()
 {
-	std::string str = get_setting(settings_working_directory);
+	std::string str = get_setting(setting_working_directory);
 	std::transform(str.begin(), str.end(), str.begin(), fix_slashes);
 	system(("explorer \"" + str + "\"").c_str());
 }
 
 void Download_and_Clip::show_folder_output()
 {
-	/*std::string str = ui.lineedit_directory->text().toStdString();
-	std::transform(str.begin(), str.end(), str.begin(), fix_slashes);
-	system(("explorer \"" + str + "\"").c_str());*/
+	if (get_setting(setting_output_directory).length() != 0)
+	{
+		std::string str = ui.encode_lineedit_directory->text().toStdString();
+		std::transform(str.begin(), str.end(), str.begin(), fix_slashes);
+		system(("explorer \"" + str + "\"").c_str());
+	}
 }
 
 QString Download_and_Clip::choose_directory(std::string hint, QString starting_dir)
@@ -729,7 +731,7 @@ void Download_and_Clip::choose_output_directory()
 
 		ui.encode_lineedit_directory->setText(str.c_str());
 
-		set_setting(settings_output_directory, str);
+		set_setting(setting_output_directory, str);
 	}
 }
 
@@ -779,7 +781,7 @@ void Download_and_Clip::browse_for_ffprobe()
 	if (!dir.isEmpty())
 	{
 		ui.setup_ffprobe_lineedit->setText(dir);
-		set_setting(settings_exe_ffprobe, dir.toStdString());
+		set_setting(setting_exe_ffprobe, dir.toStdString());
 	}
 }
 
@@ -847,21 +849,21 @@ void Download_and_Clip::update_ui_from_settings()
 		ui.import_toolbox->setCurrentIndex(1);
 
 	load_if_valid(setting_exe_ffmpeg, ui.setup_ffmpeg_lineedit);
-	load_if_valid(settings_exe_ffprobe, ui.setup_ffprobe_lineedit);
+	load_if_valid(setting_exe_ffprobe, ui.setup_ffprobe_lineedit);
 
-	if (get_setting(setting_exe_ffmpeg).length() != 0 && get_setting(settings_exe_ffprobe).length() != 0)
+	if (get_setting(setting_exe_ffmpeg).length() != 0 && get_setting(setting_exe_ffprobe).length() != 0)
 		ui.export_toolbox->setCurrentIndex(1);
 
-	ui.download_linedit->setText(get_setting(settings_last_download_url).c_str());
-	ui.local_lineedit->setText(get_setting(settings_last_local_url).c_str());
+	ui.download_linedit->setText(get_setting(setting_last_download_url).c_str());
+	ui.local_lineedit->setText(get_setting(setting_last_local_url).c_str());
 
-	if (get_setting(settings_focus_scroll) == "true")
+	if (get_setting(setting_focus_scroll) == "true")
 	{
 		ui.menu_setting_scroll_focus->setChecked(true);
 	}
 
-	if (get_setting(settings_output_directory).length() != 0)
-		ui.encode_lineedit_directory->setText(get_setting(settings_output_directory).c_str());
+	if (get_setting(setting_output_directory).length() != 0)
+		ui.encode_lineedit_directory->setText(get_setting(setting_output_directory).c_str());
 }
 
 //////
@@ -914,13 +916,13 @@ void Download_and_Clip::make_focus_local()
 
 	ui.encode_endtime->setText(ui.local_table->item(2, 0)->text());
 
-	if (get_setting(settings_focus_scroll) == "true")
+	if (get_setting(setting_focus_scroll) == "true")
 		expand_right();
 }
 
 void Download_and_Clip::make_focus_download()
 {
-	ui.focus_lineedit->setText(find_fuzzy(get_setting(settings_working_directory), "downloaded_video").c_str());
+	ui.focus_lineedit->setText(find_fuzzy(get_setting(setting_working_directory), "downloaded_video").c_str());
 	ui.focus_image->setPixmap(ui.download_image->pixmap()->copy());
 	focus = enum_focus_downloaded;
 
@@ -929,7 +931,7 @@ void Download_and_Clip::make_focus_download()
 
 	ui.encode_endtime->setText(ui.focus_table->item(2, 0)->text());
 
-	if (get_setting(settings_focus_scroll) == "true")
+	if (get_setting(setting_focus_scroll) == "true")
 		expand_right();
 }
 
@@ -944,29 +946,29 @@ void Download_and_Clip::load_local()
 		ui.local_check_video->setChecked(true);
 	}
 
-	set_setting(settings_last_local_url, ui.local_lineedit->text().toStdString());
+	set_setting(setting_last_local_url, ui.local_lineedit->text().toStdString());
 
 	remove_fuzzy("local_thumb");
-	QStringList args = { "-i", ui.local_lineedit->text(), "-ss", "00:00:05.01", "-frames:v", "1", (get_setting(settings_working_directory) + "local_thumb.png").c_str(), "-y" };
+	QStringList args = { "-i", ui.local_lineedit->text(), "-ss", "00:00:05.01", "-frames:v", "1", (get_setting(setting_working_directory) + "local_thumb.png").c_str(), "-y" };
 	start_new_process(get_setting(setting_exe_ffmpeg), args, "local thumb", "stdout.txt", ui.local_status);
 
 	remove_fuzzy("local_probe");
 	std::string video_name = ui.local_lineedit->text().toStdString();
 	QStringList args2 = { (video_name).c_str(), "-show_streams", "-show_format", "-print_format", "json", "-pretty" };
-	start_new_process(get_setting(settings_exe_ffprobe), args2, "probe local video", (get_setting(settings_working_directory) + "local_probe.txt").c_str(), ui.local_status);
+	start_new_process(get_setting(setting_exe_ffprobe), args2, "probe local video", (get_setting(setting_working_directory) + "local_probe.txt").c_str(), ui.local_status);
 }
 
 void Download_and_Clip::toggle_focus_scroll()
 {
-	if (get_setting(settings_focus_scroll) == "true")
+	if (get_setting(setting_focus_scroll) == "true")
 	{
-		set_setting(settings_focus_scroll, "false");
+		set_setting(setting_focus_scroll, "false");
 		ui.menu_setting_scroll_focus->setChecked(false);
 		update_status("Auto-Scroll when Focus Off", ui.setup_status);
 	}
 	else
 	{
-		set_setting(settings_focus_scroll, "true");
+		set_setting(setting_focus_scroll, "true");
 		ui.menu_setting_scroll_focus->setChecked(true);
 		update_status("Auto-Scroll when Focus On", ui.setup_status);
 	}
@@ -1037,7 +1039,7 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 		ui.download_image->setPixmap(image);
 	}
 
-	std::string dir = get_setting(settings_working_directory);
+	std::string dir = get_setting(setting_working_directory);
 	if (!(fs::exists(dir)))
 	{
 		fs::create_directory(dir);
