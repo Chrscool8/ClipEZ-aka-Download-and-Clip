@@ -52,6 +52,7 @@ enum setting
 	output_directory,
 	last_download_url,
 	last_local_url,
+	focus_scroll,
 	settings_num
 };
 
@@ -853,6 +854,11 @@ void Download_and_Clip::update_ui_from_settings()
 
 	ui.download_linedit->setText(get_setting(last_download_url).c_str());
 	ui.local_lineedit->setText(get_setting(last_local_url).c_str());
+
+	if (get_setting(focus_scroll) == "true")
+	{
+		ui.menu_setting_scroll_focus->setChecked(true);
+	}
 }
 
 //////
@@ -945,6 +951,11 @@ void Download_and_Clip::load_local()
 	start_new_process(get_setting(exe_ffprobe), args2, "probe local video", (get_setting(working_directory) + "local_probe.txt").c_str(), ui.local_status);
 }
 
+void Download_and_Clip::toggle_focus_scroll()
+{
+
+}
+
 //Init
 Download_and_Clip::Download_and_Clip(QWidget* parent)
 	: QMainWindow(parent)
@@ -993,9 +1004,6 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 	connect(ui.local_load, SIGNAL(clicked()), this, SLOT(load_local()));
 
 	connect(ui.encode_browse, SIGNAL(clicked()), this, SLOT(choose_output_directory()));
-
-
-
 
 	ui.import_toolbox->setCurrentIndex(0);
 	ui.export_toolbox->setCurrentIndex(0);

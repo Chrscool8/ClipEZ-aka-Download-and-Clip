@@ -83,6 +83,8 @@ private slots:
 
 	void load_local();
 
+	void toggle_focus_scroll();
+
 	void processStateChange(std::string, QProcess::ProcessState newState, std::string tag, QTextEdit* box);
 
 private:

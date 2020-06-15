@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Download_and_Clip_t {
-    QByteArrayData data[30];
-    char stringdata0[456];
+    QByteArrayData data[31];
+    char stringdata0[476];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -55,13 +55,14 @@ QT_MOC_LITERAL(19, 307, 18), // "browse_for_ffprobe"
 QT_MOC_LITERAL(20, 326, 16), // "make_focus_local"
 QT_MOC_LITERAL(21, 343, 19), // "make_focus_download"
 QT_MOC_LITERAL(22, 363, 10), // "load_local"
-QT_MOC_LITERAL(23, 374, 18), // "processStateChange"
-QT_MOC_LITERAL(24, 393, 11), // "std::string"
-QT_MOC_LITERAL(25, 405, 22), // "QProcess::ProcessState"
-QT_MOC_LITERAL(26, 428, 8), // "newState"
-QT_MOC_LITERAL(27, 437, 3), // "tag"
-QT_MOC_LITERAL(28, 441, 10), // "QTextEdit*"
-QT_MOC_LITERAL(29, 452, 3) // "box"
+QT_MOC_LITERAL(23, 374, 19), // "toggle_focus_scroll"
+QT_MOC_LITERAL(24, 394, 18), // "processStateChange"
+QT_MOC_LITERAL(25, 413, 11), // "std::string"
+QT_MOC_LITERAL(26, 425, 22), // "QProcess::ProcessState"
+QT_MOC_LITERAL(27, 448, 8), // "newState"
+QT_MOC_LITERAL(28, 457, 3), // "tag"
+QT_MOC_LITERAL(29, 461, 10), // "QTextEdit*"
+QT_MOC_LITERAL(30, 472, 3) // "box"
 
     },
     "Download_and_Clip\0download_exe_ytdl\0"
@@ -74,9 +75,9 @@ QT_MOC_LITERAL(29, 452, 3) // "box"
     "browse_for_ytdl\0browse_for_ffmpeg\0"
     "browse_for_ffprobe\0make_focus_local\0"
     "make_focus_download\0load_local\0"
-    "processStateChange\0std::string\0"
-    "QProcess::ProcessState\0newState\0tag\0"
-    "QTextEdit*\0box"
+    "toggle_focus_scroll\0processStateChange\0"
+    "std::string\0QProcess::ProcessState\0"
+    "newState\0tag\0QTextEdit*\0box"
 };
 #undef QT_MOC_LITERAL
 
@@ -86,7 +87,7 @@ static const uint qt_meta_data_Download_and_Clip[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      21,   14, // methods
+      22,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -94,27 +95,28 @@ static const uint qt_meta_data_Download_and_Clip[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  119,    2, 0x08 /* Private */,
-       3,    0,  120,    2, 0x08 /* Private */,
-       4,    0,  121,    2, 0x08 /* Private */,
-       5,    0,  122,    2, 0x08 /* Private */,
-       6,    0,  123,    2, 0x08 /* Private */,
-       7,    0,  124,    2, 0x08 /* Private */,
-       8,    0,  125,    2, 0x08 /* Private */,
-       9,    1,  126,    2, 0x08 /* Private */,
-      11,    0,  129,    2, 0x08 /* Private */,
-      12,    0,  130,    2, 0x08 /* Private */,
-      13,    0,  131,    2, 0x08 /* Private */,
-      14,    0,  132,    2, 0x08 /* Private */,
-      15,    0,  133,    2, 0x08 /* Private */,
-      16,    0,  134,    2, 0x08 /* Private */,
-      17,    0,  135,    2, 0x08 /* Private */,
-      18,    0,  136,    2, 0x08 /* Private */,
-      19,    0,  137,    2, 0x08 /* Private */,
-      20,    0,  138,    2, 0x08 /* Private */,
-      21,    0,  139,    2, 0x08 /* Private */,
-      22,    0,  140,    2, 0x08 /* Private */,
-      23,    4,  141,    2, 0x08 /* Private */,
+       1,    0,  124,    2, 0x08 /* Private */,
+       3,    0,  125,    2, 0x08 /* Private */,
+       4,    0,  126,    2, 0x08 /* Private */,
+       5,    0,  127,    2, 0x08 /* Private */,
+       6,    0,  128,    2, 0x08 /* Private */,
+       7,    0,  129,    2, 0x08 /* Private */,
+       8,    0,  130,    2, 0x08 /* Private */,
+       9,    1,  131,    2, 0x08 /* Private */,
+      11,    0,  134,    2, 0x08 /* Private */,
+      12,    0,  135,    2, 0x08 /* Private */,
+      13,    0,  136,    2, 0x08 /* Private */,
+      14,    0,  137,    2, 0x08 /* Private */,
+      15,    0,  138,    2, 0x08 /* Private */,
+      16,    0,  139,    2, 0x08 /* Private */,
+      17,    0,  140,    2, 0x08 /* Private */,
+      18,    0,  141,    2, 0x08 /* Private */,
+      19,    0,  142,    2, 0x08 /* Private */,
+      20,    0,  143,    2, 0x08 /* Private */,
+      21,    0,  144,    2, 0x08 /* Private */,
+      22,    0,  145,    2, 0x08 /* Private */,
+      23,    0,  146,    2, 0x08 /* Private */,
+      24,    4,  147,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -137,7 +139,8 @@ static const uint qt_meta_data_Download_and_Clip[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 24, 0x80000000 | 25, 0x80000000 | 24, 0x80000000 | 28,    2,   26,   27,   29,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 25, 0x80000000 | 26, 0x80000000 | 25, 0x80000000 | 29,    2,   27,   28,   30,
 
        0        // eod
 };
@@ -168,13 +171,14 @@ void Download_and_Clip::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         case 17: _t->make_focus_local(); break;
         case 18: _t->make_focus_download(); break;
         case 19: _t->load_local(); break;
-        case 20: _t->processStateChange((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< QProcess::ProcessState(*)>(_a[2])),(*reinterpret_cast< std::string(*)>(_a[3])),(*reinterpret_cast< QTextEdit*(*)>(_a[4]))); break;
+        case 20: _t->toggle_focus_scroll(); break;
+        case 21: _t->processStateChange((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< QProcess::ProcessState(*)>(_a[2])),(*reinterpret_cast< std::string(*)>(_a[3])),(*reinterpret_cast< QTextEdit*(*)>(_a[4]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
         default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-        case 20:
+        case 21:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 3:
@@ -214,13 +218,13 @@ int Download_and_Clip::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 21)
+        if (_id < 22)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 21;
+        _id -= 22;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 21)
+        if (_id < 22)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 21;
+        _id -= 22;
     }
     return _id;
 }

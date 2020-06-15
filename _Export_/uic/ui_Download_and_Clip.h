@@ -42,6 +42,7 @@ public:
     QAction *menu_actionLight;
     QAction *menu_actionDark;
     QAction *menu_actionExit;
+    QAction *menu_setting_scroll_focus;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout_2;
     QToolBox *import_toolbox;
@@ -146,6 +147,7 @@ public:
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuTheme;
+    QMenu *menuSettings;
 
     void setupUi(QMainWindow *Download_and_ClipClass)
     {
@@ -1300,6 +1302,9 @@ public:
         menu_actionDark->setObjectName(QString::fromUtf8("menu_actionDark"));
         menu_actionExit = new QAction(Download_and_ClipClass);
         menu_actionExit->setObjectName(QString::fromUtf8("menu_actionExit"));
+        menu_setting_scroll_focus = new QAction(Download_and_ClipClass);
+        menu_setting_scroll_focus->setObjectName(QString::fromUtf8("menu_setting_scroll_focus"));
+        menu_setting_scroll_focus->setCheckable(true);
         centralWidget = new QWidget(Download_and_ClipClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         centralWidget->setEnabled(true);
@@ -1312,7 +1317,7 @@ public:
         import_toolbox->setMinimumSize(QSize(450, 500));
         page_5 = new QWidget();
         page_5->setObjectName(QString::fromUtf8("page_5"));
-        page_5->setGeometry(QRect(0, 0, 448, 447));
+        page_5->setGeometry(QRect(0, 0, 356, 107));
         gridLayout_2 = new QGridLayout(page_5);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -1365,7 +1370,7 @@ public:
         import_toolbox->addItem(page_5, QString::fromUtf8("Setup"));
         page_4 = new QWidget();
         page_4->setObjectName(QString::fromUtf8("page_4"));
-        page_4->setGeometry(QRect(0, 0, 448, 447));
+        page_4->setGeometry(QRect(0, 0, 305, 385));
         gridLayout = new QGridLayout(page_4);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
@@ -1818,7 +1823,7 @@ public:
         export_toolbox->setMaximumSize(QSize(16777215, 16777215));
         page_8 = new QWidget();
         page_8->setObjectName(QString::fromUtf8("page_8"));
-        page_8->setGeometry(QRect(0, 0, 448, 474));
+        page_8->setGeometry(QRect(0, 0, 163, 78));
         gridLayout_6 = new QGridLayout(page_8);
         gridLayout_6->setSpacing(6);
         gridLayout_6->setContentsMargins(11, 11, 11, 11);
@@ -1925,7 +1930,7 @@ public:
 
         encode_spinbox = new QSpinBox(page_6);
         encode_spinbox->setObjectName(QString::fromUtf8("encode_spinbox"));
-        encode_spinbox->setEnabled(false);
+        encode_spinbox->setEnabled(true);
         encode_spinbox->setMinimumSize(QSize(0, 25));
         encode_spinbox->setMaximumSize(QSize(40, 16777215));
         encode_spinbox->setMinimum(1);
@@ -1936,7 +1941,7 @@ public:
 
         encode_slider = new QSlider(page_6);
         encode_slider->setObjectName(QString::fromUtf8("encode_slider"));
-        encode_slider->setEnabled(false);
+        encode_slider->setEnabled(true);
         encode_slider->setLayoutDirection(Qt::RightToLeft);
         encode_slider->setMinimum(0);
         encode_slider->setMaximum(51);
@@ -2012,12 +2017,16 @@ public:
         menuFile->setObjectName(QString::fromUtf8("menuFile"));
         menuTheme = new QMenu(menuBar);
         menuTheme->setObjectName(QString::fromUtf8("menuTheme"));
+        menuSettings = new QMenu(menuBar);
+        menuSettings->setObjectName(QString::fromUtf8("menuSettings"));
         Download_and_ClipClass->setMenuBar(menuBar);
 
         menuBar->addAction(menuFile->menuAction());
         menuBar->addAction(menuTheme->menuAction());
+        menuBar->addAction(menuSettings->menuAction());
         menuTheme->addAction(menu_actionLight);
         menuTheme->addAction(menu_actionDark);
+        menuSettings->addAction(menu_setting_scroll_focus);
 
         retranslateUi(Download_and_ClipClass);
 
@@ -2035,6 +2044,7 @@ public:
         menu_actionLight->setText(QCoreApplication::translate("Download_and_ClipClass", "Light", nullptr));
         menu_actionDark->setText(QCoreApplication::translate("Download_and_ClipClass", "Dark", nullptr));
         menu_actionExit->setText(QCoreApplication::translate("Download_and_ClipClass", "Exit", nullptr));
+        menu_setting_scroll_focus->setText(QCoreApplication::translate("Download_and_ClipClass", "Auto-Scroll When Focus", nullptr));
         setup_ytdl_button->setText(QCoreApplication::translate("Download_and_ClipClass", "Browse", nullptr));
         setup_show_working_dir->setText(QCoreApplication::translate("Download_and_ClipClass", "Show Working Dir", nullptr));
         setup_show_output_dir->setText(QCoreApplication::translate("Download_and_ClipClass", "Show Output Dir", nullptr));
@@ -2110,6 +2120,7 @@ public:
         export_toolbox->setItemText(export_toolbox->indexOf(page_6), QCoreApplication::translate("Download_and_ClipClass", "Encode", nullptr));
         menuFile->setTitle(QCoreApplication::translate("Download_and_ClipClass", "File", nullptr));
         menuTheme->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Theme", nullptr));
+        menuSettings->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Settings", nullptr));
     } // retranslateUi
 
 };
