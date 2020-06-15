@@ -1372,15 +1372,16 @@ public:
         import_toolbox->addItem(page_5, QString::fromUtf8("Setup"));
         page_4 = new QWidget();
         page_4->setObjectName(QString::fromUtf8("page_4"));
-        page_4->setGeometry(QRect(0, 0, 305, 385));
+        page_4->setGeometry(QRect(0, 0, 448, 447));
         gridLayout = new QGridLayout(page_4);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         download_status = new QTextEdit(page_4);
         download_status->setObjectName(QString::fromUtf8("download_status"));
-        download_status->setEnabled(false);
+        download_status->setEnabled(true);
         download_status->setMaximumSize(QSize(16777215, 100));
+        download_status->setReadOnly(true);
 
         gridLayout->addWidget(download_status, 8, 0, 1, 3);
 
@@ -1561,7 +1562,7 @@ public:
         import_toolbox->addItem(page_4, QString::fromUtf8("Download Video"));
         page_3 = new QWidget();
         page_3->setObjectName(QString::fromUtf8("page_3"));
-        page_3->setGeometry(QRect(0, 0, 305, 401));
+        page_3->setGeometry(QRect(0, 0, 448, 447));
         gridLayout_4 = new QGridLayout(page_3);
         gridLayout_4->setSpacing(6);
         gridLayout_4->setContentsMargins(11, 11, 11, 11);
@@ -1603,6 +1604,7 @@ public:
         local_table->setSizePolicy(sizePolicy1);
         local_table->setMinimumSize(QSize(0, 92));
         local_table->setMaximumSize(QSize(16777215, 16777215));
+        local_table->setInputMethodHints(Qt::ImhNoEditMenu);
         local_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
         local_table->setAlternatingRowColors(false);
         local_table->setCornerButtonEnabled(false);
@@ -1711,6 +1713,7 @@ public:
         local_status = new QTextEdit(page_3);
         local_status->setObjectName(QString::fromUtf8("local_status"));
         local_status->setMaximumSize(QSize(16777215, 100));
+        local_status->setReadOnly(true);
 
         gridLayout_4->addWidget(local_status, 8, 0, 1, 3);
 
@@ -1801,8 +1804,9 @@ public:
 
         setup_status = new QTextEdit(groupBox);
         setup_status->setObjectName(QString::fromUtf8("setup_status"));
-        setup_status->setEnabled(false);
+        setup_status->setEnabled(true);
         setup_status->setMaximumSize(QSize(16777215, 60));
+        setup_status->setReadOnly(true);
 
         verticalLayout->addWidget(setup_status);
 
@@ -1871,7 +1875,7 @@ public:
         export_toolbox->addItem(page_8, QString::fromUtf8("Setup"));
         page_6 = new QWidget();
         page_6->setObjectName(QString::fromUtf8("page_6"));
-        page_6->setGeometry(QRect(0, 0, 229, 327));
+        page_6->setGeometry(QRect(0, 0, 448, 474));
         gridLayout_5 = new QGridLayout(page_6);
         gridLayout_5->setSpacing(6);
         gridLayout_5->setContentsMargins(11, 11, 11, 11);
@@ -1980,8 +1984,9 @@ public:
 
         encode_status = new QTextEdit(page_6);
         encode_status->setObjectName(QString::fromUtf8("encode_status"));
-        encode_status->setEnabled(false);
+        encode_status->setEnabled(true);
         encode_status->setMaximumSize(QSize(16777215, 100));
+        encode_status->setReadOnly(true);
 
         gridLayout_5->addWidget(encode_status, 8, 0, 1, 3);
 
@@ -2032,8 +2037,8 @@ public:
 
         retranslateUi(Download_and_ClipClass);
 
-        import_toolbox->setCurrentIndex(0);
-        export_toolbox->setCurrentIndex(0);
+        import_toolbox->setCurrentIndex(2);
+        export_toolbox->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(Download_and_ClipClass);

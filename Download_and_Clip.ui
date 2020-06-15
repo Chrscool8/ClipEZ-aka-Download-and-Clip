@@ -1264,8 +1264,8 @@ QToolBox
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>305</width>
-         <height>385</height>
+         <width>448</width>
+         <height>447</height>
         </rect>
        </property>
        <attribute name="label">
@@ -1275,13 +1275,16 @@ QToolBox
         <item row="8" column="0" colspan="3">
          <widget class="QTextEdit" name="download_status">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
             <height>100</height>
            </size>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -1584,6 +1587,9 @@ QToolBox
             <height>16777215</height>
            </size>
           </property>
+          <property name="inputMethodHints">
+           <set>Qt::ImhNoEditMenu</set>
+          </property>
           <property name="editTriggers">
            <set>QAbstractItemView::NoEditTriggers</set>
           </property>
@@ -1687,8 +1693,8 @@ QToolBox
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>305</width>
-         <height>401</height>
+         <width>448</width>
+         <height>447</height>
         </rect>
        </property>
        <attribute name="label">
@@ -1757,6 +1763,9 @@ QToolBox
             <width>16777215</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="inputMethodHints">
+           <set>Qt::ImhNoEditMenu</set>
           </property>
           <property name="editTriggers">
            <set>QAbstractItemView::NoEditTriggers</set>
@@ -2016,6 +2025,9 @@ QToolBox
             <height>100</height>
            </size>
           </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
         <item row="1" column="2">
@@ -2152,6 +2164,9 @@ QToolBox
        </item>
        <item>
         <widget class="QTableWidget" name="focus_table">
+         <property name="inputMethodHints">
+          <set>Qt::ImhNoEditMenu</set>
+         </property>
          <property name="alternatingRowColors">
           <bool>false</bool>
          </property>
@@ -2192,13 +2207,16 @@ QToolBox
        <item>
         <widget class="QTextEdit" name="setup_status">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="maximumSize">
           <size>
            <width>16777215</width>
            <height>60</height>
           </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -2340,8 +2358,8 @@ QToolBox
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>229</width>
-         <height>327</height>
+         <width>448</width>
+         <height>474</height>
         </rect>
        </property>
        <attribute name="label">
@@ -2523,13 +2541,16 @@ QToolBox
         <item row="8" column="0" colspan="3">
          <widget class="QTextEdit" name="encode_status">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
             <height>100</height>
            </size>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
