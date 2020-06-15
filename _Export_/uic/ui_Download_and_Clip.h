@@ -1554,7 +1554,7 @@ public:
         import_toolbox->addItem(page_4, QString::fromUtf8("Download Video"));
         page_3 = new QWidget();
         page_3->setObjectName(QString::fromUtf8("page_3"));
-        page_3->setGeometry(QRect(0, 0, 448, 447));
+        page_3->setGeometry(QRect(0, 0, 305, 401));
         gridLayout_4 = new QGridLayout(page_3);
         gridLayout_4->setSpacing(6);
         gridLayout_4->setContentsMargins(11, 11, 11, 11);
@@ -2098,10 +2098,10 @@ public:
         label_2->setText(QCoreApplication::translate("Download_and_ClipClass", "End Time: ", nullptr));
         encode_endtime->setText(QCoreApplication::translate("Download_and_ClipClass", "00:00:05.0", nullptr));
         encode_browse->setText(QCoreApplication::translate("Download_and_ClipClass", "Browse", nullptr));
-        encode_label->setText(QCoreApplication::translate("Download_and_ClipClass", "Directory: ", nullptr));
+        encode_label->setText(QCoreApplication::translate("Download_and_ClipClass", "Output Directory: ", nullptr));
         label_quality_smallest->setText(QCoreApplication::translate("Download_and_ClipClass", "Smallest", nullptr));
         label_7->setText(QCoreApplication::translate("Download_and_ClipClass", "Biggest", nullptr));
-        encode_label_2->setText(QCoreApplication::translate("Download_and_ClipClass", "File: ", nullptr));
+        encode_label_2->setText(QCoreApplication::translate("Download_and_ClipClass", "Filename: ", nullptr));
         encode_combo->setItemText(0, QCoreApplication::translate("Download_and_ClipClass", "x264", nullptr));
         encode_combo->setItemText(1, QCoreApplication::translate("Download_and_ClipClass", "x265", nullptr));
         encode_combo->setItemText(2, QCoreApplication::translate("Download_and_ClipClass", "gif", nullptr));

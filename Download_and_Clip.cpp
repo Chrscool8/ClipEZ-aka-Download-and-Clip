@@ -241,7 +241,7 @@ void Download_and_Clip::encode_done()
 
 	if (fs::exists(ui.encode_lineedit_directory->text().toStdString() + s))
 	{
-		std::string full = working_directory + s.c_str();
+		std::string full = get_setting(working_directory) + s.c_str();
 
 		update_status("Your clip was saved to: ", ui.setup_status);
 		update_status(full, ui.setup_status);
@@ -550,64 +550,75 @@ void Download_and_Clip::execute_ffmpeg_encode()
 	QString directory_name = ui.encode_lineedit_directory->text();
 	QString output_name = ui.encode_lineedit_filename->text();
 
-	if (output_name.length() > 0)
+	if (focus == enum_focus_none)
 	{
-		std::string outfile = (directory_name + output_name).toStdString();
-		outfile += get_ext();
-
-		update_status(outfile, ui.encode_status);
-
-		bool ripcord = false;
-
-		if (fs::exists(outfile))
-		{
-			QMessageBox::StandardButton reply;
-			reply = QMessageBox::question(this, "File Exists!", (outfile + "\nWant to overwrite?").c_str(), QMessageBox::Yes | QMessageBox::No);
-			if (reply == QMessageBox::Yes)
-			{
-
-			}
-			else
-			{
-				ripcord = true;
-			}
-		}
-
-		if (!ripcord)
-		{
-			/*remove(outfile.c_str());
-
-			std::string source_video;
-			if (ui.tabs_source->currentIndex() == 0)
-				source_video = downloaded_video;
-			else
-				source_video = local_video;
-
-			std::string type = ui.combo_encoder->currentText().toStdString();
-
-			if (type.compare("x264") == 0 || type.compare("x265") == 0)
-			{
-				QStringList args = { "-i", source_video.c_str(), "-c:v", ("lib" + ui.combo_encoder->currentText().toStdString()).c_str(), "-crf", std::to_string(ui.slider_quality->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
-					"-b:a", "192k", "-ss", ui.lineedit_starttime->text(), "-to", ui.lineedit_endtime->text(), "-ac", "2", outfile.c_str() };
-				start_new_process("ffmpeg.exe", args, "encode");
-			}
-			else if (type.compare("gif") == 0)
-			{
-				QStringList args = { "-i", source_video.c_str(), "-crf", std::to_string(ui.slider_quality->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
-					"-b:a", "192k", "-ss", ui.lineedit_starttime->text(), "-to", ui.lineedit_endtime->text(), "-ac", "2", (outfile).c_str() };
-				start_new_process("ffmpeg.exe", args, "encode");
-			}
-			else
-				update_status("Unknown type???");
-
-			//ui.button_download->setEnabled(false);
-			//ui.button_clip->setEnabled(false);
-			//ui.progressBar->setValue(0);
-			*/
-		}
+		update_status("No focused video", ui.encode_status);
 	}
 	else
-		update_status("Clip Name Too Short", ui.encode_status);
+		if (directory_name.length() == 0)
+		{
+			update_status("Directory Name Too Short", ui.encode_status);
+		}
+		else
+			if (output_name.length() > 0)
+			{
+				std::string outfile = (directory_name + output_name).toStdString();
+				outfile += get_ext();
+
+				update_status(outfile, ui.encode_status);
+
+				bool ripcord = false;
+
+				if (fs::exists(outfile))
+				{
+					QMessageBox::StandardButton reply;
+					reply = QMessageBox::question(this, "File Exists!", (outfile + "\nWant to overwrite?").c_str(), QMessageBox::Yes | QMessageBox::No);
+					if (reply == QMessageBox::Yes)
+					{
+
+					}
+					else
+					{
+						ripcord = true;
+					}
+				}
+
+				if (!ripcord)
+				{
+					//remove(outfile.c_str());
+
+					std::string source_video;
+
+					if (focus == enum_focus_local)
+						source_video = ui.local_lineedit->text().toStdString();
+					else
+						source_video = find_fuzzy(get_setting(working_directory), "downloaded_video");
+
+					std::string type = ui.encode_combo->currentText().toStdString();
+
+					if (type.compare("x264") == 0 || type.compare("x265") == 0)
+					{
+						QStringList args = { "-i", source_video.c_str(), "-c:v", ("lib" + ui.encode_combo->currentText().toStdString()).c_str(), "-crf", std::to_string(ui.encode_slider->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
+							"-b:a", "192k", "-ss", ui.encode_starttime->text(), "-to", ui.encode_endtime->text(), "-ac", "2", outfile.c_str(), "-y" };
+						start_new_process("ffmpeg.exe", args, "encode", "encodeout.txt");
+					}
+					else if (type.compare("gif") == 0)
+					{
+						QStringList args = { "-i", source_video.c_str(), "-crf", std::to_string(ui.encode_slider->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
+							"-b:a", "192k", "-ss", ui.encode_starttime->text(), "-to", ui.encode_endtime->text(), "-ac", "2", (outfile).c_str(), "-y" };
+						start_new_process("ffmpeg.exe", args, "encode", "encodeout.txt");
+					}
+					else
+						update_status("Unknown type???", ui.encode_status);
+
+					//ui.button_download->setEnabled(false);
+					//ui.button_clip->setEnabled(false);
+					//ui.progressBar->setValue(0);
+
+				}
+			}
+			else
+				update_status("Clip Name Too Short", ui.encode_status);
 
 }
 
@@ -890,6 +901,10 @@ void Download_and_Clip::make_focus_local()
 
 	for (int i = 0; i < ui.focus_table->rowCount(); i++)
 		ui.focus_table->setItem(i, 0, ui.local_table->item(i, 0)->clone());
+
+	ui.encode_endtime->setText(ui.local_table->item(2, 0)->text());
+
+	expand_right();
 }
 
 void Download_and_Clip::make_focus_download()
@@ -900,6 +915,10 @@ void Download_and_Clip::make_focus_download()
 
 	for (int i = 0; i < ui.focus_table->rowCount(); i++)
 		ui.focus_table->setItem(i, 0, ui.download_table->item(i, 0)->clone());
+
+	ui.encode_endtime->setText(ui.focus_table->item(2, 0)->text());
+
+	expand_right();
 }
 
 void Download_and_Clip::load_local()
@@ -945,7 +964,7 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 	connect(ui.download_button, SIGNAL(clicked()), this, SLOT(execute_ytdl_download()));
 	connect(ui.download_linedit, SIGNAL(returnPressed()), this, SLOT(execute_ytdl_download()));
 
-	//connect(ui.encode_button, SIGNAL(clicked()), this, SLOT(execute_ffmpeg_encode()));
+	connect(ui.encode_go, SIGNAL(clicked()), this, SLOT(execute_ffmpeg_encode()));
 	connect(ui.encode_lineedit_filename, SIGNAL(returnPressed()), this, SLOT(execute_ffmpeg_encode()));
 
 	connect(ui.expand_left, SIGNAL(clicked()), this, SLOT(expand_left()));

@@ -1687,8 +1687,8 @@ QToolBox
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>448</width>
-         <height>447</height>
+         <width>305</width>
+         <height>401</height>
         </rect>
        </property>
        <attribute name="label">
@@ -2402,7 +2402,7 @@ QToolBox
         <item row="0" column="0">
          <widget class="QLabel" name="encode_label">
           <property name="text">
-           <string>Directory: </string>
+           <string>Output Directory: </string>
           </property>
          </widget>
         </item>
@@ -2493,7 +2493,7 @@ QToolBox
         <item row="1" column="0">
          <widget class="QLabel" name="encode_label_2">
           <property name="text">
-           <string>File: </string>
+           <string>Filename: </string>
           </property>
          </widget>
         </item>
