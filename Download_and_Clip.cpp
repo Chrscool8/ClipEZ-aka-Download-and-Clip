@@ -175,7 +175,7 @@ void Download_and_Clip::check_full_download()
 		// .\ffprobe.exe downloaded_video.mkv -show_streams -show_format -print_format json -pretty > probe.json.txt
 		std::string video_name = just_file_name(find_fuzzy(get_setting(working_directory), "downloaded_video"));
 		QStringList args = { (get_setting(working_directory) + video_name).c_str(), "-show_streams", "-show_format", "-print_format", "json", "-pretty" };
-		start_new_process(get_setting(exe_ffprobe), args, "probe download video", (get_setting(working_directory) + "probe.txt").c_str());
+		start_new_process(get_setting(exe_ffprobe), args, "probe download video", (get_setting(working_directory) + "probe.txt").c_str(), ui.download_status);
 	}
 }
 
@@ -254,23 +254,23 @@ void Download_and_Clip::encode_done()
 	}
 }
 
-void Download_and_Clip::processStateChange(std::string program, QProcess::ProcessState newState, std::string tag)
+void Download_and_Clip::processStateChange(std::string program, QProcess::ProcessState newState, std::string tag, QTextEdit* box)
 {
 	switch (newState)
 	{
 	case QProcess::Starting:
 	{
-		update_status(tag + " Starting", ui.setup_status);
+		update_status(tag + " Starting", box);
 	}
 	break;
 	case QProcess::Running:
 	{
-		update_status(tag + " Running", ui.setup_status);
+		update_status(tag + " Running", box);
 	}
 	break;
 	case QProcess::NotRunning:
 	{
-		update_status(tag + " Done", ui.setup_status);
+		update_status(tag + " Done", box);
 
 		if (tag == "download video thumbnail")
 		{
@@ -361,7 +361,7 @@ void Download_and_Clip::processStateChange(std::string program, QProcess::Proces
 	};
 }
 
-void Download_and_Clip::start_new_process(std::string program, QStringList args, std::string tag, QString out)
+void Download_and_Clip::start_new_process(std::string program, QStringList args, std::string tag, QString out, QTextEdit* box)
 {
 	QProcess* info = new QProcess(this);
 	QProcesses.push_back(info);
@@ -372,7 +372,7 @@ void Download_and_Clip::start_new_process(std::string program, QStringList args,
 
 	connect(info, &QProcess::stateChanged, [=](QProcess::ProcessState newState)
 	{
-		processStateChange(program, newState, tag);
+		processStateChange(program, newState, tag, box);
 	});
 
 	info->start();
@@ -519,13 +519,13 @@ void Download_and_Clip::execute_ytdl_download()
 	set_setting(last_download_url, video_id.toStdString());
 
 	QStringList args = { video_id, "-o", (get_setting(working_directory) + "downloaded_info").c_str(), "--skip-download", "--no-playlist", "--write-info-json" };
-	start_new_process(get_setting(exe_ytdl), args, "download video info", "stdout.txt");
+	start_new_process(get_setting(exe_ytdl), args, "download video info", "stdout.txt", ui.download_status);
 
 	QStringList args2 = { video_id, "-o", (get_setting(working_directory) + "downloaded_thumb").c_str(), "--write-thumbnail", "--skip-download", "--no-playlist" };
-	start_new_process(get_setting(exe_ytdl), args2, "download video thumbnail", "stdout.txt");
+	start_new_process(get_setting(exe_ytdl), args2, "download video thumbnail", "stdout.txt", ui.download_status);
 
 	QStringList args3 = { video_id, "-o", (get_setting(working_directory) + "downloaded_video").c_str(), "-f", "bestvideo+bestaudio/best", "--no-playlist" };
-	start_new_process(get_setting(exe_ytdl), args3, "download video", "stdout.txt");
+	start_new_process(get_setting(exe_ytdl), args3, "download video", "stdout.txt", ui.download_status);
 }
 
 std::string Download_and_Clip::get_ext()
@@ -601,13 +601,13 @@ void Download_and_Clip::execute_ffmpeg_encode()
 					{
 						QStringList args = { "-i", source_video.c_str(), "-c:v", ("lib" + ui.encode_combo->currentText().toStdString()).c_str(), "-crf", std::to_string(ui.encode_slider->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
 							"-b:a", "192k", "-ss", ui.encode_starttime->text(), "-to", ui.encode_endtime->text(), "-ac", "2", outfile.c_str(), "-y" };
-						start_new_process(get_setting(exe_ffmpeg), args, "encode", "encodeout.txt");
+						start_new_process(get_setting(exe_ffmpeg), args, "encode", "encodeout.txt", ui.encode_status);
 					}
 					else if (type.compare("gif") == 0)
 					{
 						QStringList args = { "-i", source_video.c_str(), "-crf", std::to_string(ui.encode_slider->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
 							"-b:a", "192k", "-ss", ui.encode_starttime->text(), "-to", ui.encode_endtime->text(), "-ac", "2", (outfile).c_str(), "-y" };
-						start_new_process(get_setting(exe_ffmpeg), args, "encode", "encodeout.txt");
+						start_new_process(get_setting(exe_ffmpeg), args, "encode", "encodeout.txt", ui.encode_status);
 					}
 					else
 						update_status("Unknown type???", ui.encode_status);
@@ -937,11 +937,12 @@ void Download_and_Clip::load_local()
 
 	remove_fuzzy("local_thumb");
 	QStringList args = { "-i", ui.local_lineedit->text(), "-ss", "00:00:05.01", "-frames:v", "1", (get_setting(working_directory) + "local_thumb.png").c_str(), "-y" };
-	start_new_process(get_setting(exe_ffprobe), args, "local thumb", "stdout.txt");
+	start_new_process(get_setting(exe_ffmpeg), args, "local thumb", "stdout.txt", ui.local_status);
 
+	remove_fuzzy("local_probe");
 	std::string video_name = ui.local_lineedit->text().toStdString();
 	QStringList args2 = { (video_name).c_str(), "-show_streams", "-show_format", "-print_format", "json", "-pretty" };
-	start_new_process(get_setting(exe_ffprobe), args2, "probe local video", (get_setting(working_directory) + "local_probe.txt").c_str());
+	start_new_process(get_setting(exe_ffprobe), args2, "probe local video", (get_setting(working_directory) + "local_probe.txt").c_str(), ui.local_status);
 }
 
 //Init

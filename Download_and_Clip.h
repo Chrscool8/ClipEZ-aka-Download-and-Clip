@@ -12,7 +12,6 @@ class Download_and_Clip : public QMainWindow
 public:
 	Download_and_Clip(QWidget* parent = Q_NULLPTR);
 
-	void init_elements();
 	std::string get_setting(int setting);
 	void set_setting(int setting, std::string value);
 	void load_downloaded_thumbnail();
@@ -22,7 +21,7 @@ public:
 	void load_video_info();
 	void load_downloaded_video();
 	void encode_done();
-	void start_new_process(std::string program, QStringList args, std::string tag, QString out);
+	void start_new_process(std::string program, QStringList args, std::string tag, QString out, QTextEdit* box);
 	void check_for_downloaded_files();
 	void update_status(std::string str, QTextEdit* box);
 	int download_file(std::string _url, std::string _file);
@@ -84,7 +83,7 @@ private slots:
 
 	void load_local();
 
-	void processStateChange(std::string, QProcess::ProcessState newState, std::string tag);
+	void processStateChange(std::string, QProcess::ProcessState newState, std::string tag, QTextEdit* box);
 
 private:
 	Ui::Download_and_ClipClass ui;

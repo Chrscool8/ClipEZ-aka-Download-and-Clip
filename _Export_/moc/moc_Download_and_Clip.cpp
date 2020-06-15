@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Download_and_Clip_t {
-    QByteArrayData data[28];
-    char stringdata0[441];
+    QByteArrayData data[30];
+    char stringdata0[456];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -59,7 +59,9 @@ QT_MOC_LITERAL(23, 374, 18), // "processStateChange"
 QT_MOC_LITERAL(24, 393, 11), // "std::string"
 QT_MOC_LITERAL(25, 405, 22), // "QProcess::ProcessState"
 QT_MOC_LITERAL(26, 428, 8), // "newState"
-QT_MOC_LITERAL(27, 437, 3) // "tag"
+QT_MOC_LITERAL(27, 437, 3), // "tag"
+QT_MOC_LITERAL(28, 441, 10), // "QTextEdit*"
+QT_MOC_LITERAL(29, 452, 3) // "box"
 
     },
     "Download_and_Clip\0download_exe_ytdl\0"
@@ -73,7 +75,8 @@ QT_MOC_LITERAL(27, 437, 3) // "tag"
     "browse_for_ffprobe\0make_focus_local\0"
     "make_focus_download\0load_local\0"
     "processStateChange\0std::string\0"
-    "QProcess::ProcessState\0newState\0tag"
+    "QProcess::ProcessState\0newState\0tag\0"
+    "QTextEdit*\0box"
 };
 #undef QT_MOC_LITERAL
 
@@ -111,7 +114,7 @@ static const uint qt_meta_data_Download_and_Clip[] = {
       20,    0,  138,    2, 0x08 /* Private */,
       21,    0,  139,    2, 0x08 /* Private */,
       22,    0,  140,    2, 0x08 /* Private */,
-      23,    3,  141,    2, 0x08 /* Private */,
+      23,    4,  141,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -134,7 +137,7 @@ static const uint qt_meta_data_Download_and_Clip[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 24, 0x80000000 | 25, 0x80000000 | 24,    2,   26,   27,
+    QMetaType::Void, 0x80000000 | 24, 0x80000000 | 25, 0x80000000 | 24, 0x80000000 | 28,    2,   26,   27,   29,
 
        0        // eod
 };
@@ -165,8 +168,19 @@ void Download_and_Clip::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         case 17: _t->make_focus_local(); break;
         case 18: _t->make_focus_download(); break;
         case 19: _t->load_local(); break;
-        case 20: _t->processStateChange((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< QProcess::ProcessState(*)>(_a[2])),(*reinterpret_cast< std::string(*)>(_a[3]))); break;
+        case 20: _t->processStateChange((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< QProcess::ProcessState(*)>(_a[2])),(*reinterpret_cast< std::string(*)>(_a[3])),(*reinterpret_cast< QTextEdit*(*)>(_a[4]))); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        switch (_id) {
+        default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+        case 20:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 3:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< QTextEdit* >(); break;
+            }
+            break;
         }
     }
 }
@@ -205,7 +219,7 @@ int Download_and_Clip::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         _id -= 21;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 21)
-            *reinterpret_cast<int*>(_a[0]) = -1;
+            qt_static_metacall(this, _c, _id, _a);
         _id -= 21;
     }
     return _id;

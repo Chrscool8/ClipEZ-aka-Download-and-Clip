@@ -1,7 +1,4 @@
-﻿  uic Download_and_Clip.ui
-  Download_and_Clip.cpp
-  main.cpp
-  moc_Download_and_Clip.cpp
+﻿  Download_and_Clip.cpp
   Download_and_Clip.vcxproj -> G:\Documents\GitHub\Download-and-Clip\x64\Release\Download_and_Clip.exe
   Add Qt Libraries to exe
   G:\Documents\GitHub\Download-and-Clip\x64\Release\Download_and_Clip.exe 64 bit, release executable
