@@ -1152,15 +1152,15 @@ QToolBox
        </size>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="page_5">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>356</width>
-         <height>107</height>
+         <width>448</width>
+         <height>447</height>
         </rect>
        </property>
        <attribute name="label">
@@ -1687,8 +1687,8 @@ QToolBox
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>305</width>
-         <height>401</height>
+         <width>448</width>
+         <height>447</height>
         </rect>
        </property>
        <attribute name="label">
@@ -2255,8 +2255,8 @@ QToolBox
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>163</width>
-         <height>78</height>
+         <width>448</width>
+         <height>474</height>
         </rect>
        </property>
        <attribute name="label">
@@ -2360,7 +2360,7 @@ QToolBox
           <item>
            <widget class="QLineEdit" name="encode_starttime">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="text">
              <string>00:00:00.0</string>
@@ -2377,7 +2377,7 @@ QToolBox
           <item>
            <widget class="QLineEdit" name="encode_endtime">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="text">
              <string>00:00:05.0</string>

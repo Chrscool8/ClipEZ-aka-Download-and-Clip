@@ -237,16 +237,15 @@ void Download_and_Clip::load_downloaded_video()
 
 void Download_and_Clip::encode_done()
 {
-	std::string s = ui.encode_lineedit_filename->text().toStdString() + get_ext();
-
-	if (fs::exists(ui.encode_lineedit_directory->text().toStdString() + s))
+	std::string outed = find_fuzzy(ui.encode_lineedit_directory->text().toStdString(), ui.encode_lineedit_filename->text().toStdString());
+	if (outed.length() != 0)
 	{
-		std::string full = get_setting(working_directory) + s.c_str();
+		//std::string full = get_setting(working_directory) + s.c_str();
 
-		update_status("Your clip was saved to: ", ui.setup_status);
-		update_status(full, ui.setup_status);
+		update_status("Your clip was saved to: ", ui.encode_status);
+		update_status(outed, ui.encode_status);
 
-		QString valueText = this->locale().formattedDataSize(fs::file_size(full));
+		QString valueText = this->locale().formattedDataSize(fs::file_size(outed));
 		update_status(valueText.toStdString(), ui.encode_status);
 	}
 	else

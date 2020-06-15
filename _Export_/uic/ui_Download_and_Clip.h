@@ -1312,7 +1312,7 @@ public:
         import_toolbox->setMinimumSize(QSize(450, 500));
         page_5 = new QWidget();
         page_5->setObjectName(QString::fromUtf8("page_5"));
-        page_5->setGeometry(QRect(0, 0, 356, 107));
+        page_5->setGeometry(QRect(0, 0, 448, 447));
         gridLayout_2 = new QGridLayout(page_5);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -1554,7 +1554,7 @@ public:
         import_toolbox->addItem(page_4, QString::fromUtf8("Download Video"));
         page_3 = new QWidget();
         page_3->setObjectName(QString::fromUtf8("page_3"));
-        page_3->setGeometry(QRect(0, 0, 305, 401));
+        page_3->setGeometry(QRect(0, 0, 448, 447));
         gridLayout_4 = new QGridLayout(page_3);
         gridLayout_4->setSpacing(6);
         gridLayout_4->setContentsMargins(11, 11, 11, 11);
@@ -1818,7 +1818,7 @@ public:
         export_toolbox->setMaximumSize(QSize(16777215, 16777215));
         page_8 = new QWidget();
         page_8->setObjectName(QString::fromUtf8("page_8"));
-        page_8->setGeometry(QRect(0, 0, 163, 78));
+        page_8->setGeometry(QRect(0, 0, 448, 474));
         gridLayout_6 = new QGridLayout(page_8);
         gridLayout_6->setSpacing(6);
         gridLayout_6->setContentsMargins(11, 11, 11, 11);
@@ -1879,7 +1879,7 @@ public:
 
         encode_starttime = new QLineEdit(page_6);
         encode_starttime->setObjectName(QString::fromUtf8("encode_starttime"));
-        encode_starttime->setEnabled(false);
+        encode_starttime->setEnabled(true);
 
         horizontalLayout_3->addWidget(encode_starttime);
 
@@ -1890,7 +1890,7 @@ public:
 
         encode_endtime = new QLineEdit(page_6);
         encode_endtime->setObjectName(QString::fromUtf8("encode_endtime"));
-        encode_endtime->setEnabled(false);
+        encode_endtime->setEnabled(true);
 
         horizontalLayout_3->addWidget(encode_endtime);
 
@@ -2021,7 +2021,7 @@ public:
 
         retranslateUi(Download_and_ClipClass);
 
-        import_toolbox->setCurrentIndex(1);
+        import_toolbox->setCurrentIndex(2);
         export_toolbox->setCurrentIndex(1);
 
 
