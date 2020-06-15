@@ -175,7 +175,7 @@ void Download_and_Clip::check_full_download()
 		// .\ffprobe.exe downloaded_video.mkv -show_streams -show_format -print_format json -pretty > probe.json.txt
 		std::string video_name = just_file_name(find_fuzzy(get_setting(working_directory), "downloaded_video"));
 		QStringList args = { (get_setting(working_directory) + video_name).c_str(), "-show_streams", "-show_format", "-print_format", "json", "-pretty" };
-		start_new_process("ffprobe.exe", args, "probe download video", (get_setting(working_directory) + "probe.txt").c_str());
+		start_new_process(get_setting(exe_ffprobe), args, "probe download video", (get_setting(working_directory) + "probe.txt").c_str());
 	}
 }
 
@@ -520,13 +520,13 @@ void Download_and_Clip::execute_ytdl_download()
 	set_setting(last_download_url, video_id.toStdString());
 
 	QStringList args = { video_id, "-o", (get_setting(working_directory) + "downloaded_info").c_str(), "--skip-download", "--no-playlist", "--write-info-json" };
-	start_new_process("youtube-dl.exe", args, "download video info", "stdout.txt");
+	start_new_process(get_setting(exe_ytdl), args, "download video info", "stdout.txt");
 
 	QStringList args2 = { video_id, "-o", (get_setting(working_directory) + "downloaded_thumb").c_str(), "--write-thumbnail", "--skip-download", "--no-playlist" };
-	start_new_process("youtube-dl.exe", args2, "download video thumbnail", "stdout.txt");
+	start_new_process(get_setting(exe_ytdl), args2, "download video thumbnail", "stdout.txt");
 
 	QStringList args3 = { video_id, "-o", (get_setting(working_directory) + "downloaded_video").c_str(), "-f", "bestvideo+bestaudio/best", "--no-playlist" };
-	start_new_process("youtube-dl.exe", args3, "download video", "stdout.txt");
+	start_new_process(get_setting(exe_ytdl), args3, "download video", "stdout.txt");
 }
 
 std::string Download_and_Clip::get_ext()
@@ -589,10 +589,12 @@ void Download_and_Clip::execute_ffmpeg_encode()
 
 					std::string source_video;
 
-					if (focus == enum_focus_local)
+					/*if (focus == enum_focus_local)
 						source_video = ui.local_lineedit->text().toStdString();
 					else
-						source_video = find_fuzzy(get_setting(working_directory), "downloaded_video");
+						source_video = find_fuzzy(get_setting(working_directory), "downloaded_video");*/
+
+					source_video = ui.focus_lineedit->text().toStdString();
 
 					std::string type = ui.encode_combo->currentText().toStdString();
 
@@ -600,13 +602,13 @@ void Download_and_Clip::execute_ffmpeg_encode()
 					{
 						QStringList args = { "-i", source_video.c_str(), "-c:v", ("lib" + ui.encode_combo->currentText().toStdString()).c_str(), "-crf", std::to_string(ui.encode_slider->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
 							"-b:a", "192k", "-ss", ui.encode_starttime->text(), "-to", ui.encode_endtime->text(), "-ac", "2", outfile.c_str(), "-y" };
-						start_new_process("ffmpeg.exe", args, "encode", "encodeout.txt");
+						start_new_process(get_setting(exe_ffmpeg), args, "encode", "encodeout.txt");
 					}
 					else if (type.compare("gif") == 0)
 					{
 						QStringList args = { "-i", source_video.c_str(), "-crf", std::to_string(ui.encode_slider->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
 							"-b:a", "192k", "-ss", ui.encode_starttime->text(), "-to", ui.encode_endtime->text(), "-ac", "2", (outfile).c_str(), "-y" };
-						start_new_process("ffmpeg.exe", args, "encode", "encodeout.txt");
+						start_new_process(get_setting(exe_ffmpeg), args, "encode", "encodeout.txt");
 					}
 					else
 						update_status("Unknown type???", ui.encode_status);
@@ -936,11 +938,11 @@ void Download_and_Clip::load_local()
 
 	remove_fuzzy("local_thumb");
 	QStringList args = { "-i", ui.local_lineedit->text(), "-ss", "00:00:05.01", "-frames:v", "1", (get_setting(working_directory) + "local_thumb.png").c_str(), "-y" };
-	start_new_process("ffmpeg.exe", args, "local thumb", "stdout.txt");
+	start_new_process(get_setting(exe_ffprobe), args, "local thumb", "stdout.txt");
 
 	std::string video_name = ui.local_lineedit->text().toStdString();
 	QStringList args2 = { (video_name).c_str(), "-show_streams", "-show_format", "-print_format", "json", "-pretty" };
-	start_new_process("ffprobe.exe", args2, "probe local video", (get_setting(working_directory) + "local_probe.txt").c_str());
+	start_new_process(get_setting(exe_ffprobe), args2, "probe local video", (get_setting(working_directory) + "local_probe.txt").c_str());
 }
 
 //Init

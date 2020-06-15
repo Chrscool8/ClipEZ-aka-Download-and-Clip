@@ -8,3 +8,4 @@ config.txt
 .vs/
 *.tlog
 *.ipch
+encodeout.txt
