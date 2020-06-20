@@ -1043,21 +1043,35 @@ QToolBox
        </size>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page_5">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>349</width>
-         <height>106</height>
+         <width>448</width>
+         <height>474</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Setup</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0" colspan="2">
+         <widget class="QLabel" name="setup_ytdl_label">
+          <property name="text">
+           <string>YouTube-DL: </string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLineEdit" name="setup_ytdl_lineedit">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="3">
          <widget class="QPushButton" name="setup_ytdl_button">
           <property name="minimumSize">
@@ -1071,7 +1085,27 @@ QToolBox
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
+        <item row="1" column="0">
+         <widget class="QLabel" name="setup_ffprobe_label">
+          <property name="text">
+           <string>ffprobe: </string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QPushButton" name="setup_ffprobe_button">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Browse</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
          <spacer name="verticalSpacer_8">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -1087,14 +1121,7 @@ QToolBox
           </property>
          </spacer>
         </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="setup_ytdl_lineedit">
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
+        <item row="3" column="2">
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QPushButton" name="setup_show_working_dir">
@@ -1140,14 +1167,7 @@ QToolBox
           </item>
          </layout>
         </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="setup_ytdl_label">
-          <property name="text">
-           <string>YouTube-DL: </string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
+        <item row="4" column="2">
          <spacer name="verticalSpacer">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -1159,6 +1179,16 @@ QToolBox
            </size>
           </property>
          </spacer>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLineEdit" name="setup_ffprobe_lineedit">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -2217,35 +2247,21 @@ QToolBox
        </size>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page_8">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>176</width>
-         <height>78</height>
+         <width>448</width>
+         <height>501</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Setup</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_6">
-        <item row="0" column="0">
-         <widget class="QLabel" name="setup_ffmpeg_label">
-          <property name="text">
-           <string>FFmpeg: </string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="setup_ffmpeg_lineedit">
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="2">
          <widget class="QPushButton" name="setup_ffmpeg_button">
           <property name="minimumSize">
@@ -2259,37 +2275,14 @@ QToolBox
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="setup_ffprobe_label">
+        <item row="0" column="0">
+         <widget class="QLabel" name="setup_ffmpeg_label">
           <property name="text">
-           <string>ffprobe: </string>
+           <string>FFmpeg: </string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="setup_ffprobe_lineedit">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QPushButton" name="setup_ffprobe_button">
-          <property name="minimumSize">
-           <size>
-            <width>60</width>
-            <height>24</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Browse</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
          <spacer name="verticalSpacer_9">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -2301,6 +2294,13 @@ QToolBox
            </size>
           </property>
          </spacer>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="setup_ffmpeg_lineedit">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
