@@ -197,8 +197,6 @@ void Download_and_Clip::encode_done()
 	std::string outed = find_fuzzy(ui.encode_lineedit_directory->text().toStdString(), ui.encode_lineedit_filename->text().toStdString());
 	if (outed.length() != 0)
 	{
-		//std::string full = get_setting(working_directory) + s.c_str();
-
 		update_status("Your clip was saved to: ", ui.encode_status);
 		update_status(outed, ui.encode_status);
 
@@ -213,21 +211,23 @@ void Download_and_Clip::encode_done()
 
 void Download_and_Clip::processStateChange(std::string program, QProcess::ProcessState newState, std::string tag, QTextEdit* box)
 {
+	//process->readAllStandardOutput();
+
 	switch (newState)
 	{
 	case QProcess::Starting:
 	{
-		update_status(tag + " Starting", box);
+		//update_status(tag + " Starting", box);
 	}
 	break;
 	case QProcess::Running:
 	{
-		update_status(tag + " Running", box);
+		//update_status(tag + " Running", box);
 	}
 	break;
 	case QProcess::NotRunning:
 	{
-		update_status(tag + " Done", box);
+		//update_status(tag + " Done", box);
 
 		if (tag == "download video thumbnail")
 		{
@@ -301,9 +301,12 @@ void Download_and_Clip::start_new_process(std::string program, QStringList args,
 	QProcess* info = new QProcess(this);
 	QProcesses.push_back(info);
 	info->setProgram(program.c_str());
-	info->setStandardErrorFile("stderr.txt");
-	info->setStandardOutputFile(out);
 	info->setArguments(args);
+
+	connect(info, &QProcess::readyReadStandardOutput, [=]()
+	{
+		processOutput(tag, info, box);
+	});
 
 	connect(info, &QProcess::stateChanged, [=](QProcess::ProcessState newState)
 	{
@@ -311,6 +314,14 @@ void Download_and_Clip::start_new_process(std::string program, QStringList args,
 	});
 
 	info->start();
+}
+
+void Download_and_Clip::processOutput(std::string tag, QProcess* proc, QTextEdit* box)
+{
+	std::string out = proc->readAllStandardOutput().toStdString();
+	out.erase(std::remove(out.begin(), out.end(), '\r'), out.end());
+	out.erase(std::remove(out.begin(), out.end(), '\n'), out.end());
+	update_status(tag + ": " + out, box);
 }
 
 void Download_and_Clip::check_for_downloaded_files()
@@ -326,6 +337,7 @@ void Download_and_Clip::update_status(std::string str, QTextEdit* box)
 	QTextCursor c = box->textCursor();
 	c.movePosition(QTextCursor::End);
 	box->setTextCursor(c);
+	box->horizontalScrollBar()->setValue(0);
 }
 
 int Download_and_Clip::download_file(std::string _url, std::string _file)

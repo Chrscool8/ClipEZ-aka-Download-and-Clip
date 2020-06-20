@@ -47,6 +47,7 @@ public:
 private slots:
 	void download_exe_ytdl();
 	void execute_ytdl_download();
+	void processOutput(std::string tag, QProcess* proc, QTextEdit* box);
 
 	void expand_left();
 	void expand_right();

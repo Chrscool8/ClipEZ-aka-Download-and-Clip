@@ -49,15 +49,18 @@ public:
     QToolBox *import_toolbox;
     QWidget *page_5;
     QGridLayout *gridLayout_2;
-    QPushButton *setup_ytdl_button;
-    QSpacerItem *verticalSpacer_8;
+    QLabel *setup_ytdl_label;
     QLineEdit *setup_ytdl_lineedit;
+    QPushButton *setup_ytdl_button;
+    QLabel *setup_ffprobe_label;
+    QPushButton *setup_ffprobe_button;
+    QSpacerItem *verticalSpacer_8;
     QHBoxLayout *horizontalLayout;
     QPushButton *setup_show_working_dir;
     QSpacerItem *horizontalSpacer;
     QPushButton *setup_show_output_dir;
-    QLabel *setup_ytdl_label;
     QSpacerItem *verticalSpacer;
+    QLineEdit *setup_ffprobe_lineedit;
     QWidget *page_4;
     QGridLayout *gridLayout;
     QTextEdit *download_status;
@@ -118,13 +121,10 @@ public:
     QToolBox *export_toolbox;
     QWidget *page_8;
     QGridLayout *gridLayout_6;
-    QLabel *setup_ffmpeg_label;
-    QLineEdit *setup_ffmpeg_lineedit;
     QPushButton *setup_ffmpeg_button;
-    QLabel *setup_ffprobe_label;
-    QLineEdit *setup_ffprobe_lineedit;
-    QPushButton *setup_ffprobe_button;
+    QLabel *setup_ffmpeg_label;
     QSpacerItem *verticalSpacer_9;
+    QLineEdit *setup_ffmpeg_lineedit;
     QWidget *page_6;
     QGridLayout *gridLayout_5;
     QGridLayout *gridLayout_3;
@@ -1215,26 +1215,42 @@ public:
         import_toolbox->setMinimumSize(QSize(450, 500));
         page_5 = new QWidget();
         page_5->setObjectName(QString::fromUtf8("page_5"));
-        page_5->setGeometry(QRect(0, 0, 349, 106));
+        page_5->setGeometry(QRect(0, 0, 448, 474));
         gridLayout_2 = new QGridLayout(page_5);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        setup_ytdl_label = new QLabel(page_5);
+        setup_ytdl_label->setObjectName(QString::fromUtf8("setup_ytdl_label"));
+
+        gridLayout_2->addWidget(setup_ytdl_label, 0, 0, 1, 2);
+
+        setup_ytdl_lineedit = new QLineEdit(page_5);
+        setup_ytdl_lineedit->setObjectName(QString::fromUtf8("setup_ytdl_lineedit"));
+        setup_ytdl_lineedit->setReadOnly(true);
+
+        gridLayout_2->addWidget(setup_ytdl_lineedit, 0, 2, 1, 1);
+
         setup_ytdl_button = new QPushButton(page_5);
         setup_ytdl_button->setObjectName(QString::fromUtf8("setup_ytdl_button"));
         setup_ytdl_button->setMinimumSize(QSize(60, 24));
 
         gridLayout_2->addWidget(setup_ytdl_button, 0, 3, 1, 1);
 
+        setup_ffprobe_label = new QLabel(page_5);
+        setup_ffprobe_label->setObjectName(QString::fromUtf8("setup_ffprobe_label"));
+
+        gridLayout_2->addWidget(setup_ffprobe_label, 1, 0, 1, 1);
+
+        setup_ffprobe_button = new QPushButton(page_5);
+        setup_ffprobe_button->setObjectName(QString::fromUtf8("setup_ffprobe_button"));
+        setup_ffprobe_button->setMinimumSize(QSize(60, 24));
+
+        gridLayout_2->addWidget(setup_ffprobe_button, 1, 3, 1, 1);
+
         verticalSpacer_8 = new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Fixed);
 
-        gridLayout_2->addItem(verticalSpacer_8, 1, 1, 1, 1);
-
-        setup_ytdl_lineedit = new QLineEdit(page_5);
-        setup_ytdl_lineedit->setObjectName(QString::fromUtf8("setup_ytdl_lineedit"));
-        setup_ytdl_lineedit->setReadOnly(true);
-
-        gridLayout_2->addWidget(setup_ytdl_lineedit, 0, 1, 1, 1);
+        gridLayout_2->addItem(verticalSpacer_8, 2, 2, 1, 1);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
@@ -1256,21 +1272,22 @@ public:
         horizontalLayout->addWidget(setup_show_output_dir);
 
 
-        gridLayout_2->addLayout(horizontalLayout, 3, 1, 1, 1);
-
-        setup_ytdl_label = new QLabel(page_5);
-        setup_ytdl_label->setObjectName(QString::fromUtf8("setup_ytdl_label"));
-
-        gridLayout_2->addWidget(setup_ytdl_label, 0, 0, 1, 1);
+        gridLayout_2->addLayout(horizontalLayout, 3, 2, 1, 1);
 
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        gridLayout_2->addItem(verticalSpacer, 5, 1, 1, 1);
+        gridLayout_2->addItem(verticalSpacer, 4, 2, 1, 1);
+
+        setup_ffprobe_lineedit = new QLineEdit(page_5);
+        setup_ffprobe_lineedit->setObjectName(QString::fromUtf8("setup_ffprobe_lineedit"));
+        setup_ffprobe_lineedit->setReadOnly(true);
+
+        gridLayout_2->addWidget(setup_ffprobe_lineedit, 1, 2, 1, 1);
 
         import_toolbox->addItem(page_5, QString::fromUtf8("Setup"));
         page_4 = new QWidget();
         page_4->setObjectName(QString::fromUtf8("page_4"));
-        page_4->setGeometry(QRect(0, 0, 305, 384));
+        page_4->setGeometry(QRect(0, 0, 448, 474));
         gridLayout = new QGridLayout(page_4);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
@@ -1279,6 +1296,7 @@ public:
         download_status->setObjectName(QString::fromUtf8("download_status"));
         download_status->setEnabled(true);
         download_status->setMaximumSize(QSize(16777215, 100));
+        download_status->setLineWrapMode(QTextEdit::NoWrap);
         download_status->setReadOnly(true);
 
         gridLayout->addWidget(download_status, 8, 0, 1, 3);
@@ -1612,6 +1630,7 @@ public:
         local_status = new QTextEdit(page_3);
         local_status->setObjectName(QString::fromUtf8("local_status"));
         local_status->setMaximumSize(QSize(16777215, 100));
+        local_status->setLineWrapMode(QTextEdit::NoWrap);
         local_status->setReadOnly(true);
 
         gridLayout_4->addWidget(local_status, 8, 0, 1, 3);
@@ -1712,6 +1731,7 @@ public:
         setup_status->setObjectName(QString::fromUtf8("setup_status"));
         setup_status->setEnabled(true);
         setup_status->setMaximumSize(QSize(16777215, 60));
+        setup_status->setLineWrapMode(QTextEdit::NoWrap);
         setup_status->setReadOnly(true);
 
         verticalLayout->addWidget(setup_status);
@@ -1756,48 +1776,31 @@ public:
         export_toolbox->setMaximumSize(QSize(16777215, 16777215));
         page_8 = new QWidget();
         page_8->setObjectName(QString::fromUtf8("page_8"));
-        page_8->setGeometry(QRect(0, 0, 176, 78));
+        page_8->setGeometry(QRect(0, 0, 448, 501));
         gridLayout_6 = new QGridLayout(page_8);
         gridLayout_6->setSpacing(6);
         gridLayout_6->setContentsMargins(11, 11, 11, 11);
         gridLayout_6->setObjectName(QString::fromUtf8("gridLayout_6"));
-        setup_ffmpeg_label = new QLabel(page_8);
-        setup_ffmpeg_label->setObjectName(QString::fromUtf8("setup_ffmpeg_label"));
-
-        gridLayout_6->addWidget(setup_ffmpeg_label, 0, 0, 1, 1);
-
-        setup_ffmpeg_lineedit = new QLineEdit(page_8);
-        setup_ffmpeg_lineedit->setObjectName(QString::fromUtf8("setup_ffmpeg_lineedit"));
-        setup_ffmpeg_lineedit->setReadOnly(true);
-
-        gridLayout_6->addWidget(setup_ffmpeg_lineedit, 0, 1, 1, 1);
-
         setup_ffmpeg_button = new QPushButton(page_8);
         setup_ffmpeg_button->setObjectName(QString::fromUtf8("setup_ffmpeg_button"));
         setup_ffmpeg_button->setMinimumSize(QSize(60, 24));
 
         gridLayout_6->addWidget(setup_ffmpeg_button, 0, 2, 1, 1);
 
-        setup_ffprobe_label = new QLabel(page_8);
-        setup_ffprobe_label->setObjectName(QString::fromUtf8("setup_ffprobe_label"));
+        setup_ffmpeg_label = new QLabel(page_8);
+        setup_ffmpeg_label->setObjectName(QString::fromUtf8("setup_ffmpeg_label"));
 
-        gridLayout_6->addWidget(setup_ffprobe_label, 1, 0, 1, 1);
-
-        setup_ffprobe_lineedit = new QLineEdit(page_8);
-        setup_ffprobe_lineedit->setObjectName(QString::fromUtf8("setup_ffprobe_lineedit"));
-        setup_ffprobe_lineedit->setReadOnly(true);
-
-        gridLayout_6->addWidget(setup_ffprobe_lineedit, 1, 1, 1, 1);
-
-        setup_ffprobe_button = new QPushButton(page_8);
-        setup_ffprobe_button->setObjectName(QString::fromUtf8("setup_ffprobe_button"));
-        setup_ffprobe_button->setMinimumSize(QSize(60, 24));
-
-        gridLayout_6->addWidget(setup_ffprobe_button, 1, 2, 1, 1);
+        gridLayout_6->addWidget(setup_ffmpeg_label, 0, 0, 1, 1);
 
         verticalSpacer_9 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        gridLayout_6->addItem(verticalSpacer_9, 2, 1, 1, 1);
+        gridLayout_6->addItem(verticalSpacer_9, 1, 1, 1, 1);
+
+        setup_ffmpeg_lineedit = new QLineEdit(page_8);
+        setup_ffmpeg_lineedit->setObjectName(QString::fromUtf8("setup_ffmpeg_lineedit"));
+        setup_ffmpeg_lineedit->setReadOnly(true);
+
+        gridLayout_6->addWidget(setup_ffmpeg_lineedit, 0, 1, 1, 1);
 
         export_toolbox->addItem(page_8, QString::fromUtf8("Setup"));
         page_6 = new QWidget();
@@ -1855,6 +1858,7 @@ public:
         encode_status->setObjectName(QString::fromUtf8("encode_status"));
         encode_status->setEnabled(true);
         encode_status->setMaximumSize(QSize(16777215, 100));
+        encode_status->setLineWrapMode(QTextEdit::NoWrap);
         encode_status->setReadOnly(true);
 
         gridLayout_5->addWidget(encode_status, 9, 0, 1, 3);
@@ -1987,10 +1991,13 @@ public:
         menu_actionExit->setText(QCoreApplication::translate("Download_and_ClipClass", "Exit", nullptr));
         menu_setting_scroll_focus->setText(QCoreApplication::translate("Download_and_ClipClass", "Auto-Scroll When Focus", nullptr));
         menu_setting_expand_default->setText(QCoreApplication::translate("Download_and_ClipClass", "Expand Both Panels by Default", nullptr));
+        setup_ytdl_label->setText(QCoreApplication::translate("Download_and_ClipClass", "YouTube-DL: ", nullptr));
         setup_ytdl_button->setText(QCoreApplication::translate("Download_and_ClipClass", "Browse", nullptr));
+        setup_ffprobe_label->setText(QCoreApplication::translate("Download_and_ClipClass", "ffprobe: ", nullptr));
+        setup_ffprobe_button->setText(QCoreApplication::translate("Download_and_ClipClass", "Browse", nullptr));
         setup_show_working_dir->setText(QCoreApplication::translate("Download_and_ClipClass", "Show Working Dir", nullptr));
         setup_show_output_dir->setText(QCoreApplication::translate("Download_and_ClipClass", "Show Output Dir", nullptr));
-        setup_ytdl_label->setText(QCoreApplication::translate("Download_and_ClipClass", "YouTube-DL: ", nullptr));
+        setup_ffprobe_lineedit->setText(QString());
         import_toolbox->setItemText(import_toolbox->indexOf(page_5), QCoreApplication::translate("Download_and_ClipClass", "Setup", nullptr));
         download_button->setText(QCoreApplication::translate("Download_and_ClipClass", "Download", nullptr));
         download_image->setText(QCoreApplication::translate("Download_and_ClipClass", "Image", nullptr));
@@ -2040,11 +2047,8 @@ public:
         ___qtablewidgetitem8->setText(QCoreApplication::translate("Download_and_ClipClass", "Duration", nullptr));
         expand_right->setText(QCoreApplication::translate("Download_and_ClipClass", ">", nullptr));
         expand_both->setText(QCoreApplication::translate("Download_and_ClipClass", "<                                                                                                                           >", nullptr));
-        setup_ffmpeg_label->setText(QCoreApplication::translate("Download_and_ClipClass", "FFmpeg: ", nullptr));
         setup_ffmpeg_button->setText(QCoreApplication::translate("Download_and_ClipClass", "Browse", nullptr));
-        setup_ffprobe_label->setText(QCoreApplication::translate("Download_and_ClipClass", "ffprobe: ", nullptr));
-        setup_ffprobe_lineedit->setText(QString());
-        setup_ffprobe_button->setText(QCoreApplication::translate("Download_and_ClipClass", "Browse", nullptr));
+        setup_ffmpeg_label->setText(QCoreApplication::translate("Download_and_ClipClass", "FFmpeg: ", nullptr));
         export_toolbox->setItemText(export_toolbox->indexOf(page_8), QCoreApplication::translate("Download_and_ClipClass", "Setup", nullptr));
         label_quality_smallest->setText(QCoreApplication::translate("Download_and_ClipClass", "Smallest", nullptr));
         label_7->setText(QCoreApplication::translate("Download_and_ClipClass", "Biggest", nullptr));
