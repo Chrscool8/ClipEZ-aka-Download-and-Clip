@@ -61,15 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon1.ico" />
-    <Image Include="assets\Spin-1s-200px.gif">
-      <Filter>Resource Files\included files\assets</Filter>
-    </Image>
-    <Image Include="assets\Spinner-1s-200px.gif">
-      <Filter>Resource Files\included files\assets</Filter>
-    </Image>
-    <Image Include="assets\16x9.png">
-      <Filter>Resource Files\included files\assets</Filter>
-    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -81,17 +72,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="programs\ffmpeg.exe">
-      <Filter>Resource Files\included files\programs</Filter>
-    </None>
-    <None Include="programs\ffplay.exe">
-      <Filter>Resource Files\included files\programs</Filter>
-    </None>
-    <None Include="programs\ffprobe.exe">
-      <Filter>Resource Files\included files\programs</Filter>
-    </None>
-    <None Include="programs\youtube-dl.exe">
-      <Filter>Resource Files\included files\programs</Filter>
-    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="assets\16x9.png" />
+    <CopyFileToFolders Include="assets\Spin-1s-200px.gif" />
+    <CopyFileToFolders Include="assets\Spinner-1s-200px.gif" />
+    <CopyFileToFolders Include="programs\ffmpeg.exe" />
+    <CopyFileToFolders Include="programs\ffplay.exe" />
+    <CopyFileToFolders Include="programs\ffprobe.exe" />
+    <CopyFileToFolders Include="programs\youtube-dl.exe" />
   </ItemGroup>
 </Project>
