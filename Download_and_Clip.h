@@ -21,7 +21,7 @@ public:
 	void load_video_info();
 	void load_downloaded_video();
 	void encode_done();
-	void start_new_process(std::string program, QStringList args, std::string tag, QString out, QTextEdit* box);
+	void start_new_process(std::string program, QStringList args, std::string tag, QTextEdit* box, QString out, bool to_file);
 	void check_for_downloaded_files();
 	void update_status(std::string str, QTextEdit* box);
 	int download_file(std::string _url, std::string _file);
@@ -48,6 +48,7 @@ private slots:
 	void download_exe_ytdl();
 	void execute_ytdl_download();
 	void processOutput(std::string tag, QProcess* proc, QTextEdit* box);
+	void processErrOutput(std::string tag, QProcess* proc, QTextEdit* box);
 
 	void expand_left();
 	void expand_right();
