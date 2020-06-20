@@ -318,10 +318,13 @@ void Download_and_Clip::start_new_process(std::string program, QStringList args,
 
 void Download_and_Clip::processOutput(std::string tag, QProcess* proc, QTextEdit* box)
 {
-	std::string out = proc->readAllStandardOutput().toStdString();
-	out.erase(std::remove(out.begin(), out.end(), '\r'), out.end());
-	out.erase(std::remove(out.begin(), out.end(), '\n'), out.end());
-	update_status(tag + ": " + out, box);
+	if (proc != NULL)
+	{
+		std::string out = proc->readAllStandardOutput().toStdString();
+		out.erase(std::remove(out.begin(), out.end(), '\r'), out.end());
+		out.erase(std::remove(out.begin(), out.end(), '\n'), out.end());
+		update_status(tag + ": " + out, box);
+	}
 }
 
 void Download_and_Clip::check_for_downloaded_files()
