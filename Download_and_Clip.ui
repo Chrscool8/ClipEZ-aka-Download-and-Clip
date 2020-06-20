@@ -1043,7 +1043,7 @@ QToolBox
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="page_5">
        <property name="geometry">
@@ -1197,8 +1197,8 @@ QToolBox
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>305</width>
-         <height>384</height>
+         <width>448</width>
+         <height>474</height>
         </rect>
        </property>
        <attribute name="label">
@@ -1215,6 +1215,9 @@ QToolBox
             <width>16777215</width>
             <height>100</height>
            </size>
+          </property>
+          <property name="lineWrapMode">
+           <enum>QTextEdit::NoWrap</enum>
           </property>
           <property name="readOnly">
            <bool>true</bool>
@@ -1958,6 +1961,9 @@ QToolBox
             <height>100</height>
            </size>
           </property>
+          <property name="lineWrapMode">
+           <enum>QTextEdit::NoWrap</enum>
+          </property>
           <property name="readOnly">
            <bool>true</bool>
           </property>
@@ -2155,6 +2161,9 @@ QToolBox
                <height>60</height>
               </size>
              </property>
+             <property name="lineWrapMode">
+              <enum>QTextEdit::NoWrap</enum>
+             </property>
              <property name="readOnly">
               <bool>true</bool>
              </property>
@@ -2247,7 +2256,7 @@ QToolBox
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_8">
        <property name="geometry">
@@ -2417,6 +2426,9 @@ QToolBox
             <width>16777215</width>
             <height>100</height>
            </size>
+          </property>
+          <property name="lineWrapMode">
+           <enum>QTextEdit::NoWrap</enum>
           </property>
           <property name="readOnly">
            <bool>true</bool>
