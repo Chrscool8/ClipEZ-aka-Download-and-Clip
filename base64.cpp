@@ -3,9 +3,8 @@
 #include <QtCore\qstring.h>
 
 /////// base64 courtesy of random internet place
-static std::string base64_encode(const std::string& in) 
+static std::string base64_encode(const std::string& in)
 {
-
 	std::string out;
 
 	int val = 0, valb = -6;
