@@ -26,6 +26,12 @@
     <Filter Include="Resource Files\included files">
       <UniqueIdentifier>{bf2c4dca-aa0a-4b02-919d-5d5d17fc59df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\included files\assets">
+      <UniqueIdentifier>{6107dfb3-1330-48b5-a8cb-9e0f4bd56c22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\included files\programs">
+      <UniqueIdentifier>{0d21f0a8-92a0-461c-8c17-ab8ea9fc8ef8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -55,6 +61,15 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon1.ico" />
+    <Image Include="assets\Spin-1s-200px.gif">
+      <Filter>Resource Files\included files\assets</Filter>
+    </Image>
+    <Image Include="assets\Spinner-1s-200px.gif">
+      <Filter>Resource Files\included files\assets</Filter>
+    </Image>
+    <Image Include="assets\16x9.png">
+      <Filter>Resource Files\included files\assets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -65,29 +80,18 @@
     <ResourceCompile Include="Download_and_Clip.rc" />
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="16x9.png">
-      <Filter>Resource Files\included files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="ffmpeg.exe">
-      <Filter>Resource Files\included files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="ffplay.exe">
-      <Filter>Resource Files\included files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="ffprobe.exe">
-      <Filter>Resource Files\included files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="youtube-dl.exe">
-      <Filter>Resource Files\included files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Spin-1s-200px.gif">
-      <Filter>Resource Files\included files</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Spinner-1s-200px.gif">
-      <Filter>Resource Files\included files</Filter>
-    </CopyFileToFolders>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
+    <None Include="programs\ffmpeg.exe">
+      <Filter>Resource Files\included files\programs</Filter>
+    </None>
+    <None Include="programs\ffplay.exe">
+      <Filter>Resource Files\included files\programs</Filter>
+    </None>
+    <None Include="programs\ffprobe.exe">
+      <Filter>Resource Files\included files\programs</Filter>
+    </None>
+    <None Include="programs\youtube-dl.exe">
+      <Filter>Resource Files\included files\programs</Filter>
+    </None>
   </ItemGroup>
 </Project>

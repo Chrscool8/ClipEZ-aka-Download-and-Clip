@@ -858,7 +858,7 @@ void Download_and_Clip::toggle_default_expand()
 		set_setting(setting_expand_by_default, "true");
 		ui.menu_setting_expand_default->setChecked(true);
 		update_status("Default Expand On", ui.setup_status);
-			}
+	}
 }
 
 //Init
@@ -873,7 +873,7 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 
 	gif_loading = new QMovie();
 	gif_loading->setCacheMode(QMovie::CacheAll);
-	gif_loading->setFileName("Spin-1s-200px.gif");
+	gif_loading->setFileName("assets/Spin-1s-200px.gif");
 	gif_loading->start();
 
 	this->setMaximumSize(QSize(0, 0));
@@ -924,7 +924,7 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 	update_ui_from_settings();
 
 	{
-		QPixmap image("16x9.png");
+		QPixmap image("assets/16x9.png");
 		ui.focus_image->setPixmap(image);
 		ui.local_image->setPixmap(image);
 		ui.download_image->setPixmap(image);
