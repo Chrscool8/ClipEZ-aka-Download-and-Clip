@@ -1,11 +1,5 @@
-x64/
-working_directory/
-styles/
-stdout.txt
-stderr.txt
-packages/
-config.txt
-.vs/
 *.tlog
-*.ipch
-encodeout.txt
+.vs
+___
+x64/
+config.txt
