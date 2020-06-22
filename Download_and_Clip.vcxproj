@@ -40,6 +40,10 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+    <SourcePath>G:\Documents\GitHub\Download-and-Clip\src;$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <SourcePath>G:\Documents\GitHub\Download-and-Clip\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
@@ -98,14 +102,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="base64.cpp" />
-    <ClCompile Include="Download_and_Clip.cpp" />
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="Download_and_Clip.h" />
-  </ItemGroup>
-  <ItemGroup>
     <QtUic Include="Download_and_Clip.ui" />
   </ItemGroup>
   <ItemGroup>
@@ -137,12 +133,6 @@
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/assets/</DestinationFolders>
     </CopyFileToFolders>
     <Image Include="icon1.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="resource.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Download_and_Clip.rc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -182,6 +172,20 @@
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)/programs/</DestinationFolders>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)/programs/</DestinationFolders>
     </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\base64.cpp" />
+    <ClCompile Include="src\Download_and_Clip.cpp" />
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="src\Download_and_Clip.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\Download_and_Clip.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

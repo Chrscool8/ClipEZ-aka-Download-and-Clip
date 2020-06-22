@@ -20,19 +20,6 @@
 #include <filesystem>
 namespace fs = std::filesystem;
 
-QString dark_stylesheet;
-
-std::vector<QProcess*> QProcesses;
-
-enum focus_type
-{
-	enum_focus_none,
-	enum_focus_downloaded,
-	enum_focus_local
-};
-
-int focus = enum_focus_none;
-
 // Settings //
 enum setting
 {
@@ -50,6 +37,20 @@ enum setting
 };
 
 std::string settings[settings_num + 1];
+
+QString dark_stylesheet;
+
+std::vector<QProcess*> QProcesses;
+
+enum focus_type
+{
+	enum_focus_none,
+	enum_focus_downloaded,
+	enum_focus_local
+};
+
+int focus = enum_focus_none;
+
 
 std::string Download_and_Clip::get_setting(int setting)
 {
