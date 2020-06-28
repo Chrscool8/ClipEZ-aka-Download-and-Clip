@@ -4,6 +4,7 @@
 #include "ui_Download_and_Clip.h"
 #include <QtCore>
 #include <QtWidgets>
+#include "Task_Man.h"
 
 class Download_and_Clip : public QMainWindow
 {
@@ -11,6 +12,9 @@ class Download_and_Clip : public QMainWindow
 
 public:
 	Download_and_Clip(QWidget* parent = Q_NULLPTR);
+	~Download_and_Clip();
+
+	std::vector<QProcess*> QProcesses;
 
 	std::string get_setting(int setting);
 	void set_setting(int setting, std::string value);
@@ -44,6 +48,8 @@ public:
 	QPropertyAnimation* animation;
 	QMovie* gif_loading;
 	void load_if_valid(int setting, QLineEdit* destination);
+
+	Task_Man window_tm;
 
 private slots:
 	void download_exe_ytdl();
@@ -81,10 +87,13 @@ private slots:
 
 	void toggle_default_expand();
 
+	void launch_task_man();
+
 	void processStateChange(std::string, QProcess::ProcessState newState, std::string tag, QTextEdit* box);
 
 private:
 	Ui::Download_and_ClipClass ui;
+	void closeEvent(QCloseEvent* event);
 
 protected:
 	// —— events ———————————————————————————
@@ -107,9 +116,4 @@ protected:
 	 * this event is called when the drop operation is initiated at the widget
 	 */
 	void dropEvent(QDropEvent* event);
-
-
-
 };
-
-

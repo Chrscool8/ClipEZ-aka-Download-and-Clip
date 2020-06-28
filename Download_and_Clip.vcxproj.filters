@@ -37,6 +37,9 @@
     <QtUic Include="Download_and_Clip.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="Task_Man.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Download_and_Clip.qrc">
@@ -68,9 +71,15 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Task_Man.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="src\Download_and_Clip.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\Task_Man.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

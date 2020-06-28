@@ -40,8 +40,6 @@ std::string settings[settings_num + 1];
 
 QString dark_stylesheet;
 
-std::vector<QProcess*> QProcesses;
-
 enum focus_type
 {
 	enum_focus_none,
@@ -50,7 +48,6 @@ enum focus_type
 };
 
 int focus = enum_focus_none;
-
 
 std::string Download_and_Clip::get_setting(int setting)
 {
@@ -568,6 +565,7 @@ void Download_and_Clip::set_theme_dark()
 	uncheck_themes();
 	ui.menu_actionThemeDark->setChecked(true);
 	this->setStyleSheet(dark_stylesheet);
+	window_tm.setStyleSheet(dark_stylesheet);
 	set_setting(setting_theme, "dark");
 
 }
@@ -577,6 +575,7 @@ void Download_and_Clip::set_theme_light()
 	uncheck_themes();
 	ui.menu_actionThemeLight->setChecked(true);
 	this->setStyleSheet("");
+	window_tm.setStyleSheet("");
 	set_setting(setting_theme, "light");
 }
 
@@ -945,6 +944,25 @@ void Download_and_Clip::toggle_default_expand()
 	}
 }
 
+void Download_and_Clip::launch_task_man()
+{
+	if (window_tm.isVisible())
+	{
+		window_tm.hide();
+	}
+	else
+	{
+		window_tm.show();
+	}
+
+	ui.menu_task_man->setChecked(window_tm.isVisible());
+
+	if (window_tm.QProcesses == NULL)
+		window_tm.QProcesses = &QProcesses;
+
+	window_tm.activate_process_table();
+}
+
 //Init
 Download_and_Clip::Download_and_Clip(QWidget* parent)
 	: QMainWindow(parent)
@@ -994,6 +1012,8 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 
 	connect(ui.menu_exit, SIGNAL(triggered()), this, SLOT(close()));
 
+	connect(ui.menu_task_man, SIGNAL(triggered()), this, SLOT(launch_task_man()));
+
 	connect(ui.download_button_focus, SIGNAL(clicked()), this, SLOT(make_focus_download()));
 	connect(ui.local_button_focus, SIGNAL(clicked()), this, SLOT(make_focus_local()));
 
@@ -1035,6 +1055,15 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 
 	ui.download_table->resizeColumnsToContents();
 	ui.focus_table->resizeColumnsToContents();
+}
 
+Download_and_Clip::~Download_and_Clip()
+{
 
+}
+
+void Download_and_Clip::closeEvent(QCloseEvent* event)
+{
+	window_tm.close();
+	QWidget::closeEvent(event);
 }

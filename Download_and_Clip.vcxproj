@@ -103,6 +103,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <QtUic Include="Download_and_Clip.ui" />
+    <QtUic Include="Task_Man.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Download_and_Clip.qrc" />
@@ -177,12 +178,14 @@
     <ClCompile Include="src\base64.cpp" />
     <ClCompile Include="src\Download_and_Clip.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Task_Man.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="src\Download_and_Clip.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\resource.h" />
+    <QtMoc Include="src\Task_Man.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="src\Download_and_Clip.rc" />

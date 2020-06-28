@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author>Chris</author>
+ <author>Chris Bradel</author>
  <class>Download_and_ClipClass</class>
  <widget class="QMainWindow" name="Download_and_ClipClass">
   <property name="enabled">
@@ -2646,9 +2646,16 @@ QToolBox
     <addaction name="menu_setting_scroll_focus"/>
     <addaction name="menu_setting_expand_default"/>
    </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="menu_task_man"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuTheme"/>
    <addaction name="menuSettings"/>
+   <addaction name="menuHelp"/>
   </widget>
   <action name="actionExit">
    <property name="text">
@@ -2695,6 +2702,19 @@ QToolBox
   <action name="menu_exit">
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="menu_about">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="menu_task_man">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Task Manager</string>
    </property>
   </action>
  </widget>

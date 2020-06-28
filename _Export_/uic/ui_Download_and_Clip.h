@@ -45,6 +45,8 @@ public:
     QAction *menu_setting_scroll_focus;
     QAction *menu_setting_expand_default;
     QAction *menu_exit;
+    QAction *menu_about;
+    QAction *menu_task_man;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout_6;
     QToolBox *import_toolbox;
@@ -153,6 +155,7 @@ public:
     QMenu *menuFile;
     QMenu *menuTheme;
     QMenu *menuSettings;
+    QMenu *menuHelp;
 
     void setupUi(QMainWindow *Download_and_ClipClass)
     {
@@ -1200,6 +1203,11 @@ public:
         menu_setting_expand_default->setCheckable(true);
         menu_exit = new QAction(Download_and_ClipClass);
         menu_exit->setObjectName(QString::fromUtf8("menu_exit"));
+        menu_about = new QAction(Download_and_ClipClass);
+        menu_about->setObjectName(QString::fromUtf8("menu_about"));
+        menu_task_man = new QAction(Download_and_ClipClass);
+        menu_task_man->setObjectName(QString::fromUtf8("menu_task_man"));
+        menu_task_man->setCheckable(true);
         centralWidget = new QWidget(Download_and_ClipClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         centralWidget->setEnabled(true);
@@ -1968,16 +1976,20 @@ public:
         menuTheme->setObjectName(QString::fromUtf8("menuTheme"));
         menuSettings = new QMenu(menuBar);
         menuSettings->setObjectName(QString::fromUtf8("menuSettings"));
+        menuHelp = new QMenu(menuBar);
+        menuHelp->setObjectName(QString::fromUtf8("menuHelp"));
         Download_and_ClipClass->setMenuBar(menuBar);
 
         menuBar->addAction(menuFile->menuAction());
         menuBar->addAction(menuTheme->menuAction());
         menuBar->addAction(menuSettings->menuAction());
+        menuBar->addAction(menuHelp->menuAction());
         menuFile->addAction(menu_exit);
         menuTheme->addAction(menu_actionThemeLight);
         menuTheme->addAction(menu_actionThemeDark);
         menuSettings->addAction(menu_setting_scroll_focus);
         menuSettings->addAction(menu_setting_expand_default);
+        menuHelp->addAction(menu_task_man);
 
         retranslateUi(Download_and_ClipClass);
 
@@ -1999,6 +2011,8 @@ public:
         menu_setting_scroll_focus->setText(QCoreApplication::translate("Download_and_ClipClass", "Auto-Scroll When Focus", nullptr));
         menu_setting_expand_default->setText(QCoreApplication::translate("Download_and_ClipClass", "Expand Both Panels by Default", nullptr));
         menu_exit->setText(QCoreApplication::translate("Download_and_ClipClass", "Exit", nullptr));
+        menu_about->setText(QCoreApplication::translate("Download_and_ClipClass", "About", nullptr));
+        menu_task_man->setText(QCoreApplication::translate("Download_and_ClipClass", "Task Manager", nullptr));
         setup_ytdl_label->setText(QCoreApplication::translate("Download_and_ClipClass", "YouTube-DL: ", nullptr));
         setup_ytdl_button->setText(QCoreApplication::translate("Download_and_ClipClass", "Browse", nullptr));
         setup_ffprobe_label->setText(QCoreApplication::translate("Download_and_ClipClass", "ffprobe: ", nullptr));
@@ -2076,6 +2090,7 @@ public:
         menuFile->setTitle(QCoreApplication::translate("Download_and_ClipClass", "File", nullptr));
         menuTheme->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Theme", nullptr));
         menuSettings->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Settings", nullptr));
+        menuHelp->setTitle(QCoreApplication::translate("Download_and_ClipClass", "Help", nullptr));
     } // retranslateUi
 
 };
