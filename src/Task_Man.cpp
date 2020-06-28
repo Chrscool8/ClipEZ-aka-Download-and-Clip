@@ -55,7 +55,7 @@ void Task_Man::activate_process_table()
 			QProcess* p = QProcesses->at(i);
 			QString name = just_file_name_(p->program().toStdString()).c_str();
 			QString pid = QString::number(p->processId());
-			QString status = QString::number(p->state());
+			QString status = state_string(p->state());
 			QString args = p->arguments().join(" ");
 
 			ui.tableWidget->setItem(i, 0, new QTableWidgetItem(name));
