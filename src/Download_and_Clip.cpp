@@ -829,17 +829,24 @@ void Download_and_Clip::dropEvent(QDropEvent* event)
 
 void Download_and_Clip::make_focus_local()
 {
-	ui.focus_lineedit->setText(ui.local_lineedit->text());
-	ui.focus_image->setPixmap(ui.local_image->pixmap()->copy());
-	focus = enum_focus_local;
+	if (ui.local_check_video->isChecked())
+	{
+		ui.focus_lineedit->setText(ui.local_lineedit->text());
+		ui.focus_image->setPixmap(ui.local_image->pixmap()->copy());
+		focus = enum_focus_local;
 
-	for (int i = 0; i < ui.focus_table->rowCount(); i++)
-		ui.focus_table->setItem(i, 0, ui.local_table->item(i, 0)->clone());
+		for (int i = 0; i < ui.focus_table->rowCount(); i++)
+			ui.focus_table->setItem(i, 0, ui.local_table->item(i, 0)->clone());
 
-	ui.encode_endtime->setText(ui.local_table->item(2, 0)->text());
+		ui.encode_endtime->setText(ui.local_table->item(2, 0)->text());
 
-	if (get_setting(setting_focus_scroll) == "true")
-		expand_right();
+		if (get_setting(setting_focus_scroll) == "true")
+			expand_right();
+	}
+	else
+	{
+		update_status("Load your video before focusing.", ui.local_status);
+	}
 }
 
 void Download_and_Clip::make_focus_download()

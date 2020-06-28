@@ -3,3 +3,6 @@
 ___
 x64/
 config.txt
+working_directory
+*.obj
+*.log
