@@ -168,6 +168,16 @@ void Download_and_Clip::check_full_download()
 		std::string video_name = just_file_name(find_fuzzy(get_setting(setting_working_directory), "downloaded_video"));
 		QStringList args = { (get_setting(setting_working_directory) + video_name).c_str(), "-show_streams", "-show_format", "-print_format", "json", "-pretty" };
 		start_new_process(get_setting(setting_exe_ffprobe), args, "probe download video", ui.download_status, (get_setting(setting_working_directory) + "probe.txt").c_str(), true);
+
+		ui.download_button->setEnabled(true);
+	}
+}
+
+void Download_and_Clip::check_full_local()
+{
+	if (ui.local_check_video->isChecked() && ui.local_check_thumb->isChecked() && ui.local_check_probe->isChecked())
+	{
+		ui.local_load->setEnabled(true);
 	}
 }
 
@@ -252,6 +262,7 @@ void Download_and_Clip::processStateChange(std::string program, QProcess::Proces
 		else if (tag == "local thumb")
 		{
 			load_local_thumbnail();
+			check_full_local();
 		}
 		else if (tag == "probe download video")
 		{
@@ -297,6 +308,9 @@ void Download_and_Clip::processStateChange(std::string program, QProcess::Proces
 			ui.local_table->setItem(0, 2, new QTableWidgetItem(_duration));
 
 			ui.local_check_probe->setChecked(true);
+
+			check_full_local();
+
 		}
 	}
 	break;
@@ -450,6 +464,8 @@ void Download_and_Clip::execute_ytdl_download()
 
 	QStringList args3 = { video_id, "-o", (get_setting(setting_working_directory) + "downloaded_video").c_str(), "-f", "bestvideo+bestaudio/best", "--no-playlist" };
 	start_new_process(get_setting(setting_exe_ytdl), args3, "download video", ui.download_status, "", false);
+
+	ui.download_button->setEnabled(false);
 }
 
 std::string Download_and_Clip::get_ext()
@@ -885,6 +901,8 @@ void Download_and_Clip::load_local()
 	std::string video_name = ui.local_lineedit->text().toStdString();
 	QStringList args2 = { (video_name).c_str(), "-show_streams", "-show_format", "-print_format", "json", "-pretty" };
 	start_new_process(get_setting(setting_exe_ffprobe), args2, "probe local video", ui.local_status, (get_setting(setting_working_directory) + "local_probe.txt").c_str(), true);
+
+	ui.local_load->setEnabled(false);
 }
 
 void Download_and_Clip::toggle_focus_scroll()

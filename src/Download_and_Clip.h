@@ -18,6 +18,7 @@ public:
 	void load_local_thumbnail();
 	std::string find_fuzzy(std::string path, std::string filename);
 	void check_full_download();
+	void check_full_local();
 	void load_video_info();
 	void load_downloaded_video();
 	void encode_done();
