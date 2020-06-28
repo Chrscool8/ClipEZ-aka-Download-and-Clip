@@ -273,9 +273,14 @@ void Download_and_Clip::processStateChange(std::string program, QProcess::Proces
 				nlohmann::json ffprobe;
 				i >> ffprobe;
 
-				std::string duration = ffprobe["format"]["duration"];
-				QString _duration = duration.c_str();
-				ui.download_table->setItem(0, 2, new QTableWidgetItem(_duration));
+				if (ffprobe.contains("format") && ffprobe["format"].contains("duration"))
+				{
+					std::string duration = ffprobe["format"]["duration"];
+					QString _duration = duration.c_str();
+					ui.download_table->setItem(0, 2, new QTableWidgetItem(_duration));
+				}
+				else
+					update_status("Something went wrong with the probe json parse.", ui.encode_status);
 			}
 
 			file = get_setting(setting_working_directory) + "downloaded_info.info.json";
@@ -285,7 +290,10 @@ void Download_and_Clip::processStateChange(std::string program, QProcess::Proces
 				nlohmann::json ytdesc;
 				i2 >> ytdesc;
 
-				ui.download_table->setItem(0, 0, new QTableWidgetItem(ytdesc["title"].get<std::string>().c_str()));
+				if (ytdesc.contains("title"))
+					ui.download_table->setItem(0, 0, new QTableWidgetItem(ytdesc["title"].get<std::string>().c_str()));
+				else
+					update_status("Something went wrong with the info json parse.", ui.encode_status);
 			}
 
 			QString valueText = this->locale().formattedDataSize(fs::file_size(find_fuzzy(get_setting(setting_working_directory), "downloaded_video")));
@@ -1025,5 +1033,6 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 
 	ui.download_table->resizeColumnsToContents();
 	ui.focus_table->resizeColumnsToContents();
+
 
 }
