@@ -992,6 +992,8 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 	connect(ui.menu_setting_scroll_focus, SIGNAL(triggered()), this, SLOT(toggle_focus_scroll()));
 	connect(ui.menu_setting_expand_default, SIGNAL(triggered()), this, SLOT(toggle_default_expand()));
 
+	connect(ui.menu_exit, SIGNAL(triggered()), this, SLOT(close()));
+
 	connect(ui.download_button_focus, SIGNAL(clicked()), this, SLOT(make_focus_download()));
 	connect(ui.local_button_focus, SIGNAL(clicked()), this, SLOT(make_focus_local()));
 

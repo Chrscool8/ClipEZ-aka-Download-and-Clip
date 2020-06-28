@@ -1050,8 +1050,8 @@ QToolBox
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>448</width>
-         <height>606</height>
+         <width>349</width>
+         <height>136</height>
         </rect>
        </property>
        <attribute name="label">
@@ -1197,8 +1197,8 @@ QToolBox
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>448</width>
-         <height>606</height>
+         <width>305</width>
+         <height>436</height>
         </rect>
        </property>
        <attribute name="label">
@@ -2262,8 +2262,8 @@ QToolBox
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>448</width>
-         <height>633</height>
+         <width>176</width>
+         <height>48</height>
         </rect>
        </property>
        <attribute name="label">
@@ -2630,6 +2630,7 @@ QToolBox
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="menu_exit"/>
    </widget>
    <widget class="QMenu" name="menuTheme">
     <property name="title">
@@ -2689,6 +2690,11 @@ QToolBox
    </property>
    <property name="text">
     <string>Expand Both Panels by Default</string>
+   </property>
+  </action>
+  <action name="menu_exit">
+   <property name="text">
+    <string>Exit</string>
    </property>
   </action>
  </widget>

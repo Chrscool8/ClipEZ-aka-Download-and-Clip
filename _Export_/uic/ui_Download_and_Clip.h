@@ -44,6 +44,7 @@ public:
     QAction *menu_actionExit;
     QAction *menu_setting_scroll_focus;
     QAction *menu_setting_expand_default;
+    QAction *menu_exit;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout_6;
     QToolBox *import_toolbox;
@@ -1197,6 +1198,8 @@ public:
         menu_setting_expand_default = new QAction(Download_and_ClipClass);
         menu_setting_expand_default->setObjectName(QString::fromUtf8("menu_setting_expand_default"));
         menu_setting_expand_default->setCheckable(true);
+        menu_exit = new QAction(Download_and_ClipClass);
+        menu_exit->setObjectName(QString::fromUtf8("menu_exit"));
         centralWidget = new QWidget(Download_and_ClipClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         centralWidget->setEnabled(true);
@@ -1214,7 +1217,7 @@ public:
         import_toolbox->setMinimumSize(QSize(450, 500));
         page_5 = new QWidget();
         page_5->setObjectName(QString::fromUtf8("page_5"));
-        page_5->setGeometry(QRect(0, 0, 448, 606));
+        page_5->setGeometry(QRect(0, 0, 349, 136));
         gridLayout_2 = new QGridLayout(page_5);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -1286,7 +1289,7 @@ public:
         import_toolbox->addItem(page_5, QString::fromUtf8("Setup"));
         page_4 = new QWidget();
         page_4->setObjectName(QString::fromUtf8("page_4"));
-        page_4->setGeometry(QRect(0, 0, 448, 606));
+        page_4->setGeometry(QRect(0, 0, 305, 436));
         gridLayout = new QGridLayout(page_4);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
@@ -1774,7 +1777,7 @@ public:
         export_toolbox->setMaximumSize(QSize(16777215, 16777215));
         page_8 = new QWidget();
         page_8->setObjectName(QString::fromUtf8("page_8"));
-        page_8->setGeometry(QRect(0, 0, 448, 633));
+        page_8->setGeometry(QRect(0, 0, 176, 48));
         gridLayout_6 = new QGridLayout(page_8);
         gridLayout_6->setSpacing(6);
         gridLayout_6->setContentsMargins(11, 11, 11, 11);
@@ -1970,6 +1973,7 @@ public:
         menuBar->addAction(menuFile->menuAction());
         menuBar->addAction(menuTheme->menuAction());
         menuBar->addAction(menuSettings->menuAction());
+        menuFile->addAction(menu_exit);
         menuTheme->addAction(menu_actionThemeLight);
         menuTheme->addAction(menu_actionThemeDark);
         menuSettings->addAction(menu_setting_scroll_focus);
@@ -1994,6 +1998,7 @@ public:
         menu_actionExit->setText(QCoreApplication::translate("Download_and_ClipClass", "Exit", nullptr));
         menu_setting_scroll_focus->setText(QCoreApplication::translate("Download_and_ClipClass", "Auto-Scroll When Focus", nullptr));
         menu_setting_expand_default->setText(QCoreApplication::translate("Download_and_ClipClass", "Expand Both Panels by Default", nullptr));
+        menu_exit->setText(QCoreApplication::translate("Download_and_ClipClass", "Exit", nullptr));
         setup_ytdl_label->setText(QCoreApplication::translate("Download_and_ClipClass", "YouTube-DL: ", nullptr));
         setup_ytdl_button->setText(QCoreApplication::translate("Download_and_ClipClass", "Browse", nullptr));
         setup_ffprobe_label->setText(QCoreApplication::translate("Download_and_ClipClass", "ffprobe: ", nullptr));
