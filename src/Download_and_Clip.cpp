@@ -1055,6 +1055,10 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 
 	ui.download_table->resizeColumnsToContents();
 	ui.focus_table->resizeColumnsToContents();
+
+	this->setWindowTitle("ClipEZ");
+
+	setWindowIcon(QIcon(":/Download_and_Clip/icon1.ico"));
 }
 
 Download_and_Clip::~Download_and_Clip()

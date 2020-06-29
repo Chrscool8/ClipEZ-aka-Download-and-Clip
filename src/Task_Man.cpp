@@ -79,6 +79,8 @@ Task_Man::Task_Man(QWidget* parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+
+	this->setWindowTitle("Task Man");
 }
 
 Task_Man::~Task_Man()

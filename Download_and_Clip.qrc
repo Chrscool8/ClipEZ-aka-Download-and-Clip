@@ -1,4 +1,5 @@
 <RCC>
-    <qresource prefix="Download_and_Clip">
+    <qresource prefix="/Download_and_Clip">
+        <file>icon1.ico</file>
     </qresource>
 </RCC>
