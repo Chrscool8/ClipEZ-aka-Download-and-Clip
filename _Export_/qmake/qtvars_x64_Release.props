@@ -1,8 +1,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-<Qt_DEFINES_>UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;NDEBUG;QT_NO_DEBUG;QT_HELP_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_SQL_LIB;QT_NETWORK_LIB;QT_CORE_LIB</Qt_DEFINES_>
-<Qt_INCLUDEPATH_>G:\Software\Qt\5.15.0\msvc2019_64\include;G:\Software\Qt\5.15.0\msvc2019_64\include\QtHelp;G:\Software\Qt\5.15.0\msvc2019_64\include\QtWidgets;G:\Software\Qt\5.15.0\msvc2019_64\include\QtGui;G:\Software\Qt\5.15.0\msvc2019_64\include\QtANGLE;G:\Software\Qt\5.15.0\msvc2019_64\include\QtSql;G:\Software\Qt\5.15.0\msvc2019_64\include\QtNetwork;G:\Software\Qt\5.15.0\msvc2019_64\include\QtCore;/include;G:\Software\Qt\5.15.0\msvc2019_64\mkspecs\win32-msvc</Qt_INCLUDEPATH_>
-<Qt_LIBS_>G:\Software\Qt\5.15.0\msvc2019_64\lib\Qt5Help.lib;G:\Software\Qt\5.15.0\msvc2019_64\lib\Qt5Widgets.lib;G:\Software\Qt\5.15.0\msvc2019_64\lib\Qt5Gui.lib;G:\Software\Qt\5.15.0\msvc2019_64\lib\Qt5Sql.lib;G:\Software\Qt\5.15.0\msvc2019_64\lib\Qt5Network.lib;G:\Software\Qt\5.15.0\msvc2019_64\lib\Qt5Core.lib;G:\Software\Qt\5.15.0\msvc2019_64\lib\qtmain.lib;shell32.lib</Qt_LIBS_>
+<Qt_DEFINES_>UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;NDEBUG;QT_NO_DEBUG;QT_HELP_LIB;QT_MULTIMEDIAWIDGETS_LIB;QT_QUICKWIDGETS_LIB;QT_WIDGETS_LIB;QT_MULTIMEDIA_LIB;QT_QUICK_LIB;QT_GUI_LIB;QT_SQL_LIB;QT_QMLMODELS_LIB;QT_QML_LIB;QT_NETWORK_LIB;QT_CORE_LIB</Qt_DEFINES_>
+<Qt_INCLUDEPATH_>G:\Software\Qt\5.15.0\msvc2019_64\include;G:\Software\Qt\5.15.0\msvc2019_64\include\QtHelp;G:\Software\Qt\5.15.0\msvc2019_64\include\QtMultimediaWidgets;G:\Software\Qt\5.15.0\msvc2019_64\include\QtQuickWidgets;G:\Software\Qt\5.15.0\msvc2019_64\include\QtWidgets;G:\Software\Qt\5.15.0\msvc2019_64\include\QtMultimedia;G:\Software\Qt\5.15.0\msvc2019_64\include\QtQuick;G:\Software\Qt\5.15.0\msvc2019_64\include\QtGui;G:\Software\Qt\5.15.0\msvc2019_64\include\QtANGLE;G:\Software\Qt\5.15.0\msvc2019_64\include\QtSql;G:\Software\Qt\5.15.0\msvc2019_64\include\QtQmlModels;G:\Software\Qt\5.15.0\msvc2019_64\include\QtQml;G:\Software\Qt\5.15.0\msvc2019_64\include\QtNetwork;G:\Software\Qt\5.15.0\msvc2019_64\include\QtCore;/include;G:\Software\Qt\5.15.0\msvc2019_64\mkspecs\win32-msvc</Qt_INCLUDEPATH_>
+<Qt_LIBS_>G:\Software\Qt\5.15.0\msvc2019_64\lib\Qt5Help.lib;G:\Software\Qt\5.15.0\msvc2019_64\lib\Qt5MultimediaWidgets.lib;G:\Software\Qt\5.15.0\msvc2019_64\lib\Qt5QuickWidgets.lib;G:\Software\Qt\5.15.0\msvc2019_64\lib\Qt5Widgets.lib;G:\Software\Qt\5.15.0\msvc2019_64\lib\Qt5Multimedia.lib;G:\Software\Qt\5.15.0\msvc2019_64\lib\Qt5Quick.lib;G:\Software\Qt\5.15.0\msvc2019_64\lib\Qt5Gui.lib;G:\Software\Qt\5.15.0\msvc2019_64\lib\Qt5Sql.lib;G:\Software\Qt\5.15.0\msvc2019_64\lib\Qt5QmlModels.lib;G:\Software\Qt\5.15.0\msvc2019_64\lib\Qt5Qml.lib;G:\Software\Qt\5.15.0\msvc2019_64\lib\Qt5Network.lib;G:\Software\Qt\5.15.0\msvc2019_64\lib\Qt5Core.lib;G:\Software\Qt\5.15.0\msvc2019_64\lib\qtmain.lib;shell32.lib</Qt_LIBS_>
 <Qt_LIBPATH_>C:\openssl\lib;C:\Utils\my_sql\mysql-5.7.25-winx64\lib;C:\Utils\postgresql\pgsql\lib</Qt_LIBPATH_>
 <QMake_QT_SYSROOT_></QMake_QT_SYSROOT_>
 <QMake_QT_INSTALL_PREFIX_>G:/Software/Qt/5.15.0/msvc2019_64</QMake_QT_INSTALL_PREFIX_>
@@ -34,7 +34,7 @@
     <QtBkup_QtInstall
       >msvc2019_64</QtBkup_QtInstall>
     <QtBkup_QtModules
-      >core;gui;help;network</QtBkup_QtModules>
+      >core;gui;help;multimediawidgets;network;qml;quick;quickwidgets;widgets</QtBkup_QtModules>
     <QtBkup_QtPathBinaries
       >bin</QtBkup_QtPathBinaries>
     <QtBkup_QtPathLibraryExecutables

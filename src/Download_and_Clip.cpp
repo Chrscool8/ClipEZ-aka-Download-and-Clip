@@ -27,12 +27,13 @@ enum setting
 	setting_exe_ffmpeg,
 	setting_exe_ffprobe,
 	setting_working_directory,
-	setting_output_directory,
+	setting_output_video_directory,
 	setting_last_download_url,
 	setting_last_local_url,
 	setting_focus_scroll,
 	setting_theme,
 	setting_expand_by_default,
+	setting_output_audio_directory,
 	settings_num
 };
 
@@ -200,21 +201,99 @@ void Download_and_Clip::load_downloaded_video()
 	ui.download_video_gif->clear();
 }
 
-void Download_and_Clip::encode_done()
+void Download_and_Clip::encode_video_done()
 {
-	std::string outed = find_fuzzy(ui.encode_lineedit_directory->text().toStdString(), ui.encode_lineedit_filename->text().toStdString());
+	std::string outed = find_fuzzy(ui.encode_video_lineedit_directory->text().toStdString(), ui.encode_video_lineedit_filename->text().toStdString());
 	if (outed.length() != 0)
 	{
-		update_status("Your clip was saved to: ", ui.encode_status);
-		update_status(outed, ui.encode_status);
+		update_status("Your clip was saved to: ", ui.encode_video_status);
+		update_status(outed, ui.encode_video_status);
 
 		QString valueText = this->locale().formattedDataSize(fs::file_size(outed));
-		update_status(valueText.toStdString(), ui.encode_status);
+		update_status(valueText.toStdString(), ui.encode_video_status);
 	}
 	else
 	{
-		update_status("Uh oh!!! Your clip might not have worked??", ui.encode_status);
+		update_status("Uh oh!!! Your clip might not have worked??", ui.encode_video_status);
 	}
+}
+
+void Download_and_Clip::encode_audio_done()
+{
+	std::string outed = find_fuzzy(ui.encode_audio_lineedit_directory->text().toStdString(), ui.encode_audio_lineedit_filename->text().toStdString());
+	if (outed.length() != 0)
+	{
+		update_status("Your audio was saved to: ", ui.encode_audio_status);
+		update_status(outed, ui.encode_audio_status);
+
+		QString valueText = this->locale().formattedDataSize(fs::file_size(outed));
+		update_status(valueText.toStdString(), ui.encode_audio_status);
+	}
+	else
+	{
+		update_status("Uh oh!!! Your audio might not have worked??", ui.encode_audio_status);
+	}
+}
+
+void Download_and_Clip::probe_download_video()
+{
+	std::string file = get_setting(setting_working_directory) + "probe.txt";
+	if (fs::exists(file))
+	{
+		std::ifstream i(file);
+		nlohmann::json ffprobe;
+		i >> ffprobe;
+
+		if (ffprobe.contains("format") && ffprobe["format"].contains("duration"))
+		{
+			std::string duration = ffprobe["format"]["duration"];
+			QString _duration = duration.c_str();
+			ui.download_table->setItem(0, 2, new QTableWidgetItem(_duration));
+		}
+		else
+			update_status("Something went wrong with the probe json parse.", ui.encode_video_status);
+	}
+
+	file = get_setting(setting_working_directory) + "downloaded_info.info.json";
+	if (fs::exists(file))
+	{
+		std::ifstream i2(file);
+		nlohmann::json ytdesc;
+		i2 >> ytdesc;
+
+		if (ytdesc.contains("title"))
+			ui.download_table->setItem(0, 0, new QTableWidgetItem(ytdesc["title"].get<std::string>().c_str()));
+		else
+			update_status("Something went wrong with the info json parse.", ui.encode_video_status);
+	}
+
+	QString valueText = this->locale().formattedDataSize(fs::file_size(find_fuzzy(get_setting(setting_working_directory), "downloaded_video")));
+	ui.download_table->setItem(0, 1, new QTableWidgetItem(valueText));
+}
+void Download_and_Clip::probe_local_video()
+{
+	std::string file = get_setting(setting_working_directory) + "local_probe.txt";
+	std::ifstream i(file);
+	nlohmann::json ffprobe;
+	i >> ffprobe;
+
+	ui.local_table->setItem(0, 0, new QTableWidgetItem(just_file_name(ui.local_lineedit->text().toStdString()).c_str()));
+
+	QString valueText = this->locale().formattedDataSize(fs::file_size(ui.local_lineedit->text().toStdString()));
+	ui.local_table->setItem(0, 1, new QTableWidgetItem(valueText));
+
+	if (ffprobe.contains("format") && ffprobe["format"].contains("duration"))
+	{
+		std::string duration = ffprobe["format"]["duration"];
+		QString _duration = duration.c_str();
+		ui.local_table->setItem(0, 2, new QTableWidgetItem(_duration));
+	}
+	else
+		update_status("Something went wrong with the info json parse.", ui.local_status);
+
+	ui.local_check_probe->setChecked(true);
+
+	check_full_local();
 }
 
 void Download_and_Clip::processStateChange(std::string program, QProcess::ProcessState newState, std::string tag, QTextEdit* box)
@@ -252,9 +331,13 @@ void Download_and_Clip::processStateChange(std::string program, QProcess::Proces
 			load_video_info();
 			check_full_download();
 		}
-		else if (tag == "encode")
+		else if (tag == "encode video")
 		{
-			encode_done();
+			encode_video_done();
+		}
+		else if (tag == "encode audio")
+		{
+			encode_audio_done();
 		}
 		else if (tag == "local thumb")
 		{
@@ -263,59 +346,11 @@ void Download_and_Clip::processStateChange(std::string program, QProcess::Proces
 		}
 		else if (tag == "probe download video")
 		{
-			std::string file = get_setting(setting_working_directory) + "probe.txt";
-			if (fs::exists(file))
-			{
-				std::ifstream i(file);
-				nlohmann::json ffprobe;
-				i >> ffprobe;
-
-				if (ffprobe.contains("format") && ffprobe["format"].contains("duration"))
-				{
-					std::string duration = ffprobe["format"]["duration"];
-					QString _duration = duration.c_str();
-					ui.download_table->setItem(0, 2, new QTableWidgetItem(_duration));
-				}
-				else
-					update_status("Something went wrong with the probe json parse.", ui.encode_status);
-			}
-
-			file = get_setting(setting_working_directory) + "downloaded_info.info.json";
-			if (fs::exists(file))
-			{
-				std::ifstream i2(file);
-				nlohmann::json ytdesc;
-				i2 >> ytdesc;
-
-				if (ytdesc.contains("title"))
-					ui.download_table->setItem(0, 0, new QTableWidgetItem(ytdesc["title"].get<std::string>().c_str()));
-				else
-					update_status("Something went wrong with the info json parse.", ui.encode_status);
-			}
-
-			QString valueText = this->locale().formattedDataSize(fs::file_size(find_fuzzy(get_setting(setting_working_directory), "downloaded_video")));
-			ui.download_table->setItem(0, 1, new QTableWidgetItem(valueText));
+			probe_download_video();
 		}
 		else if (tag == "probe local video")
 		{
-			std::string file = get_setting(setting_working_directory) + "local_probe.txt";
-			std::ifstream i(file);
-			nlohmann::json ffprobe;
-			i >> ffprobe;
-
-			ui.local_table->setItem(0, 0, new QTableWidgetItem(just_file_name(ui.local_lineedit->text().toStdString()).c_str()));
-
-			QString valueText = this->locale().formattedDataSize(fs::file_size(ui.local_lineedit->text().toStdString()));
-			ui.local_table->setItem(0, 1, new QTableWidgetItem(valueText));
-
-			std::string duration = ffprobe["format"]["duration"];
-			QString _duration = duration.c_str();
-			ui.local_table->setItem(0, 2, new QTableWidgetItem(_duration));
-
-			ui.local_check_probe->setChecked(true);
-
-			check_full_local();
-
+			probe_local_video();
 		}
 	}
 	break;
@@ -473,43 +508,39 @@ void Download_and_Clip::execute_ytdl_download()
 	ui.download_button->setEnabled(false);
 }
 
-std::string Download_and_Clip::get_ext()
+std::string Download_and_Clip::get_ext(std::string type)
 {
-	std::string type = ui.encode_combo->currentText().toStdString();
+	//std::string type = ui.encode_video_combo->currentText().toStdString();
 	std::string extension = "";
 	if (type.compare("x264") == 0 || type.compare("x265") == 0)
 		extension = ".mp4";
-	else if (type.compare("gif") == 0)
-		extension = ".gif";
 	else
-	{
-		extension = ".error";
-		update_status("Unknown format??", ui.encode_status);
-	}
+		extension = "." + type;
+
 	return extension;
 }
 
 void Download_and_Clip::execute_ffmpeg_encode()
 {
-	QString directory_name = ui.encode_lineedit_directory->text();
-	QString output_name = ui.encode_lineedit_filename->text();
+	QString directory_name = ui.encode_video_lineedit_directory->text();
+	QString output_name = ui.encode_video_lineedit_filename->text();
 
 	if (focus == enum_focus_none)
 	{
-		update_status("No focused video", ui.encode_status);
+		update_status("No focused video", ui.encode_video_status);
 	}
 	else
 		if (directory_name.length() == 0)
 		{
-			update_status("Directory Name Too Short", ui.encode_status);
+			update_status("Directory Name Too Short", ui.encode_video_status);
 		}
 		else
 			if (output_name.length() > 0)
 			{
 				std::string outfile = (directory_name + output_name).toStdString();
-				outfile += get_ext();
+				outfile += get_ext(ui.encode_video_combo->currentText().toStdString());
 
-				update_status(outfile, ui.encode_status);
+				update_status(outfile, ui.encode_video_status);
 
 				bool ripcord = false;
 
@@ -531,27 +562,76 @@ void Download_and_Clip::execute_ffmpeg_encode()
 				{
 					std::string source_video = ui.focus_lineedit->text().toStdString();
 
-					std::string type = ui.encode_combo->currentText().toStdString();
+					std::string type = ui.encode_video_combo->currentText().toStdString();
 
 					if (type.compare("x264") == 0 || type.compare("x265") == 0)
 					{
-						QStringList args = { "-i", source_video.c_str(), "-c:v", ("lib" + ui.encode_combo->currentText().toStdString()).c_str(), "-crf", std::to_string(ui.encode_slider->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
-							"-b:a", "192k", "-ss", ui.encode_starttime->text(), "-to", ui.encode_endtime->text(), "-ac", "2", outfile.c_str(), "-y" };
-						start_new_process(get_setting(setting_exe_ffmpeg), args, "encode", ui.encode_status, "", false);
+						QStringList args = { "-i", source_video.c_str(), "-c:v", ("lib" + ui.encode_video_combo->currentText().toStdString()).c_str(), "-crf", std::to_string(ui.encode_video_slider->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
+							"-b:a", "192k", "-ss", ui.encode_video_starttime->text(), "-to", ui.encode_video_endtime->text(), "-ac", "2", outfile.c_str(), "-y" };
+						start_new_process(get_setting(setting_exe_ffmpeg), args, "encode video", ui.encode_video_status, "", false);
 					}
 					else if (type.compare("gif") == 0)
 					{
-						QStringList args = { "-i", source_video.c_str(), "-crf", std::to_string(ui.encode_slider->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
-							"-b:a", "192k", "-ss", ui.encode_starttime->text(), "-to", ui.encode_endtime->text(), "-ac", "2", (outfile).c_str(), "-y" };
-						start_new_process(get_setting(setting_exe_ffmpeg), args, "encode", ui.encode_status, "", false);
+						QStringList args = { "-i", source_video.c_str(), "-crf", std::to_string(ui.encode_video_slider->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
+							"-b:a", "192k", "-ss", ui.encode_video_starttime->text(), "-to", ui.encode_video_endtime->text(), "-ac", "2", (outfile).c_str(), "-y" };
+						start_new_process(get_setting(setting_exe_ffmpeg), args, "encode video", ui.encode_video_status, "", false);
 					}
 					else
-						update_status("Unknown type???", ui.encode_status);
+						update_status("Unknown type???", ui.encode_video_status);
 				}
 			}
 			else
-				update_status("Clip Name Too Short", ui.encode_status);
+				update_status("Clip Name Too Short", ui.encode_video_status);
+}
 
+void Download_and_Clip::execute_audio_encode()
+{
+	QString directory_name = ui.encode_audio_lineedit_directory->text();
+	QString output_name = ui.encode_audio_lineedit_filename->text();
+
+	if (focus == enum_focus_none)
+	{
+		update_status("No focused video", ui.encode_audio_status);
+	}
+	else
+		if (directory_name.length() == 0)
+		{
+			update_status("Directory Name Too Short", ui.encode_audio_status);
+		}
+		else
+			if (output_name.length() > 0)
+			{
+				std::string outfile = (directory_name + output_name).toStdString();
+				outfile += get_ext(ui.encode_audio_combo->currentText().toStdString());
+
+				update_status(outfile, ui.encode_audio_status);
+
+				bool ripcord = false;
+
+				if (fs::exists(outfile))
+				{
+					QMessageBox::StandardButton reply;
+					reply = QMessageBox::question(this, "File Exists!", (outfile + "\nWant to overwrite?").c_str(), QMessageBox::Yes | QMessageBox::No);
+					if (reply == QMessageBox::Yes)
+					{
+
+					}
+					else
+					{
+						ripcord = true;
+					}
+				}
+
+				if (!ripcord)
+				{
+					std::string source_video = ui.focus_lineedit->text().toStdString();
+
+					QStringList args = { "-i", source_video.c_str(), "-ss", ui.encode_audio_starttime->text(), "-to", ui.encode_audio_endtime->text(), outfile.c_str(), "-y" };
+					start_new_process(get_setting(setting_exe_ffmpeg), args, "encode audio", ui.encode_audio_status, "", false);
+				}
+			}
+			else
+				update_status("Clip Name Too Short", ui.encode_audio_status);
 }
 
 void Download_and_Clip::uncheck_themes()
@@ -593,12 +673,12 @@ static char ClearForbidden(char toCheck)
 
 void Download_and_Clip::typing_clip_name()
 {
-	QString qstr = ui.encode_lineedit_filename->text();
+	QString qstr = ui.encode_video_lineedit_filename->text();
 
 	std::string str = qstr.toStdString();
 	std::transform(str.begin(), str.end(), str.begin(), ClearForbidden);
 	qstr = str.c_str();
-	ui.encode_lineedit_filename->setText(qstr);
+	ui.encode_video_lineedit_filename->setText(qstr);
 }
 
 static char fix_slashes(char toCheck)
@@ -621,9 +701,9 @@ void Download_and_Clip::show_folder_working()
 
 void Download_and_Clip::show_folder_output()
 {
-	if (get_setting(setting_output_directory).length() != 0)
+	if (get_setting(setting_output_video_directory).length() != 0)
 	{
-		std::string str = ui.encode_lineedit_directory->text().toStdString();
+		std::string str = ui.encode_video_lineedit_directory->text().toStdString();
 		std::transform(str.begin(), str.end(), str.begin(), fix_slashes);
 		system(("explorer \"" + str + "\"").c_str());
 	}
@@ -634,9 +714,9 @@ QString Download_and_Clip::choose_directory(std::string hint, QString starting_d
 	return QFileDialog::getExistingDirectory(this, tr(hint.c_str()), starting_dir, QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 }
 
-void Download_and_Clip::choose_output_directory()
+void Download_and_Clip::choose_output_video_directory()
 {
-	QString dir = choose_directory("Open Directory", ui.encode_lineedit_directory->text());
+	QString dir = choose_directory("Open Directory", ui.encode_video_lineedit_directory->text());
 
 	if (!dir.isEmpty())
 	{
@@ -647,9 +727,28 @@ void Download_and_Clip::choose_output_directory()
 			str.replace(str.begin(), str.end(), "//", "/");
 		}
 
-		ui.encode_lineedit_directory->setText(str.c_str());
+		ui.encode_video_lineedit_directory->setText(str.c_str());
 
-		set_setting(setting_output_directory, str);
+		set_setting(setting_output_video_directory, str);
+	}
+}
+
+void Download_and_Clip::choose_output_audio_directory()
+{
+	QString dir = choose_directory("Open Directory", ui.encode_video_lineedit_directory->text());
+
+	if (!dir.isEmpty())
+	{
+		std::string str = dir.toStdString() + "/";
+
+		while (str.find("//") != std::string::npos)
+		{
+			str.replace(str.begin(), str.end(), "//", "/");
+		}
+
+		ui.encode_audio_lineedit_directory->setText(str.c_str());
+
+		set_setting(setting_output_audio_directory, str);
 	}
 }
 
@@ -704,7 +803,8 @@ void Download_and_Clip::browse_for_ffprobe()
 }
 
 const int animation_time = 300;
-void Download_and_Clip::collapse_panel(QToolBox* toolbox)
+const int anim_min_height = 797;
+void Download_and_Clip::collapse_panel(QTabWidget* toolbox)
 {
 	animation = new QPropertyAnimation(toolbox, "maximumSize");
 	animation->setDuration(animation_time);
@@ -715,11 +815,11 @@ void Download_and_Clip::collapse_panel(QToolBox* toolbox)
 	animation = new QPropertyAnimation(toolbox, "minimumSize");
 	animation->setDuration(animation_time);
 	animation->setStartValue(toolbox->size());
-	animation->setEndValue(QSize(0, 500));
+	animation->setEndValue(QSize(0, anim_min_height));
 	animation->start();
 }
 
-void Download_and_Clip::expand_panel(QToolBox* toolbox)
+void Download_and_Clip::expand_panel(QTabWidget* toolbox)
 {
 	animation = new QPropertyAnimation(toolbox, "maximumSize");
 	animation->setDuration(animation_time);
@@ -730,7 +830,7 @@ void Download_and_Clip::expand_panel(QToolBox* toolbox)
 	animation = new QPropertyAnimation(toolbox, "minimumSize");
 	animation->setDuration(animation_time);
 	animation->setStartValue(toolbox->size());
-	animation->setEndValue(QSize(450, 500));
+	animation->setEndValue(QSize(450, anim_min_height));
 	animation->start();
 }
 
@@ -786,8 +886,11 @@ void Download_and_Clip::update_ui_from_settings()
 		ui.menu_setting_scroll_focus->setChecked(true);
 	}
 
-	if (get_setting(setting_output_directory).length() != 0)
-		ui.encode_lineedit_directory->setText(get_setting(setting_output_directory).c_str());
+	if (get_setting(setting_output_video_directory).length() != 0)
+		ui.encode_video_lineedit_directory->setText(get_setting(setting_output_video_directory).c_str());
+
+	if (get_setting(setting_output_audio_directory).length() != 0)
+		ui.encode_audio_lineedit_directory->setText(get_setting(setting_output_audio_directory).c_str());
 
 	//
 
@@ -861,9 +964,10 @@ void Download_and_Clip::make_focus_local()
 		for (int i = 0; i < ui.focus_table->rowCount(); i++)
 			ui.focus_table->setItem(i, 0, ui.local_table->item(i, 0)->clone());
 
-		ui.encode_endtime->setText(ui.local_table->item(2, 0)->text());
+		ui.encode_video_endtime->setText(ui.local_table->item(2, 0)->text());
+		ui.encode_audio_endtime->setText(ui.local_table->item(2, 0)->text());
 
-		if (get_setting(setting_focus_scroll) == "true")
+		if (get_setting(setting_focus_scroll) == "true" && !(get_setting(setting_expand_by_default) == "true"))
 			expand_right();
 	}
 	else
@@ -874,17 +978,25 @@ void Download_and_Clip::make_focus_local()
 
 void Download_and_Clip::make_focus_download()
 {
-	ui.focus_lineedit->setText(find_fuzzy(get_setting(setting_working_directory), "downloaded_video").c_str());
-	ui.focus_image->setPixmap(ui.download_image->pixmap()->copy());
-	focus = enum_focus_downloaded;
+	if (ui.download_check_video->isChecked())
+	{
+		ui.focus_lineedit->setText(find_fuzzy(get_setting(setting_working_directory), "downloaded_video").c_str());
+		ui.focus_image->setPixmap(ui.download_image->pixmap()->copy());
+		focus = enum_focus_downloaded;
 
-	for (int i = 0; i < ui.focus_table->rowCount(); i++)
-		ui.focus_table->setItem(i, 0, ui.download_table->item(i, 0)->clone());
+		for (int i = 0; i < ui.focus_table->rowCount(); i++)
+			ui.focus_table->setItem(i, 0, ui.download_table->item(i, 0)->clone());
 
-	ui.encode_endtime->setText(ui.focus_table->item(2, 0)->text());
+		ui.encode_video_endtime->setText(ui.focus_table->item(2, 0)->text());
+		ui.encode_audio_endtime->setText(ui.focus_table->item(2, 0)->text());
 
-	if (get_setting(setting_focus_scroll) == "true")
-		expand_right();
+		if (get_setting(setting_focus_scroll) == "true" && !(get_setting(setting_expand_by_default) == "true"))
+			expand_right();
+	}
+	else
+	{
+		update_status("Load your video before focusing.", ui.download_status);
+	}
 }
 
 void Download_and_Clip::load_local()
@@ -981,13 +1093,16 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 	this->setMaximumSize(QSize(0, 0));
 	this->setMaximumSize(QSize(16777215, 16777215));
 
-	connect(ui.encode_lineedit_filename, SIGNAL(textChanged()), this, SLOT(typing_clip_name()));
+	connect(ui.encode_video_lineedit_filename, SIGNAL(textChanged()), this, SLOT(typing_clip_name()));
 
 	connect(ui.download_button, SIGNAL(clicked()), this, SLOT(execute_ytdl_download()));
 	connect(ui.download_linedit, SIGNAL(returnPressed()), this, SLOT(execute_ytdl_download()));
 
-	connect(ui.encode_go, SIGNAL(clicked()), this, SLOT(execute_ffmpeg_encode()));
-	connect(ui.encode_lineedit_filename, SIGNAL(returnPressed()), this, SLOT(execute_ffmpeg_encode()));
+	connect(ui.encode_audio_go, SIGNAL(clicked()), this, SLOT(execute_audio_encode()));
+	connect(ui.encode_audio_lineedit_filename, SIGNAL(returnPressed()), this, SLOT(execute_audio_encode()));
+
+	connect(ui.encode_video_go, SIGNAL(clicked()), this, SLOT(execute_ffmpeg_encode()));
+	connect(ui.encode_video_lineedit_filename, SIGNAL(returnPressed()), this, SLOT(execute_ffmpeg_encode()));
 
 	connect(ui.expand_left, SIGNAL(clicked()), this, SLOT(expand_left()));
 	connect(ui.expand_right, SIGNAL(clicked()), this, SLOT(expand_right()));
@@ -1002,8 +1117,8 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 	connect(ui.setup_ffmpeg_button, SIGNAL(clicked()), this, SLOT(browse_for_ffmpeg()));
 	connect(ui.setup_ffprobe_button, SIGNAL(clicked()), this, SLOT(browse_for_ffprobe()));
 
-	connect(ui.encode_slider, SIGNAL(valueChanged(int)), ui.encode_spinbox, SLOT(setValue(int)));
-	connect(ui.encode_spinbox, SIGNAL(valueChanged(int)), ui.encode_slider, SLOT(setValue(int)));
+	connect(ui.encode_video_slider, SIGNAL(valueChanged(int)), ui.encode_video_spinbox, SLOT(setValue(int)));
+	connect(ui.encode_video_spinbox, SIGNAL(valueChanged(int)), ui.encode_video_slider, SLOT(setValue(int)));
 
 	connect(ui.menu_actionThemeLight, SIGNAL(triggered()), this, SLOT(set_theme_light()));
 	connect(ui.menu_actionThemeDark, SIGNAL(triggered()), this, SLOT(set_theme_dark()));
@@ -1019,7 +1134,8 @@ Download_and_Clip::Download_and_Clip(QWidget* parent)
 
 	connect(ui.local_load, SIGNAL(clicked()), this, SLOT(load_local()));
 
-	connect(ui.encode_browse, SIGNAL(clicked()), this, SLOT(choose_output_directory()));
+	connect(ui.encode_video_browse, SIGNAL(clicked()), this, SLOT(choose_output_video_directory()));
+	connect(ui.encode_audio_browse, SIGNAL(clicked()), this, SLOT(choose_output_audio_directory()));
 
 	ui.import_toolbox->setCurrentIndex(0);
 	ui.export_toolbox->setCurrentIndex(0);

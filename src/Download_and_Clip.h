@@ -25,7 +25,10 @@ public:
 	void check_full_local();
 	void load_video_info();
 	void load_downloaded_video();
-	void encode_done();
+	void encode_video_done();
+	void encode_audio_done();
+	void probe_download_video();
+	void probe_local_video();
 	void start_new_process(std::string program, QStringList args, std::string tag, QTextEdit* box, QString out, bool to_file);
 	void check_for_downloaded_files();
 	void update_status(std::string str, QTextEdit* box);
@@ -35,10 +38,10 @@ public:
 	void download_exe_ffmpeg();
 	void remove_fuzzy(std::string file);
 	void uncheck_themes();
-	std::string get_ext();
+	std::string get_ext(std::string type);
 	QString Download_and_Clip::choose_directory(std::string hint, QString starting_dir);
-	void collapse_panel(QToolBox* toolbox);
-	void expand_panel(QToolBox* toolbox);
+	void collapse_panel(QTabWidget* toolbox);
+	void expand_panel(QTabWidget* toolbox);
 	void init_settings();
 	void file_load_settings();
 	void file_save_settings();
@@ -65,13 +68,15 @@ private slots:
 	void set_theme_light();
 
 	void execute_ffmpeg_encode();
+	void execute_audio_encode();
 
 	void typing_clip_name();
 
 	void show_folder_working();
 	void show_folder_output();
 
-	void choose_output_directory();
+	void choose_output_video_directory();
+	void choose_output_audio_directory();
 	void choose_local_video();
 
 	void browse_for_ytdl();
