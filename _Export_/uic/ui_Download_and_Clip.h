@@ -1932,6 +1932,7 @@ public:
 
         encode_video_image = new QLabel(groupBox_2);
         encode_video_image->setObjectName(QString::fromUtf8("encode_video_image"));
+        encode_video_image->setEnabled(true);
         encode_video_image->setMinimumSize(QSize(330, 185));
         encode_video_image->setMaximumSize(QSize(330, 185));
         encode_video_image->setScaledContents(true);
@@ -2181,7 +2182,7 @@ public:
 
         import_toolbox->setCurrentIndex(1);
         expand_both->setDefault(false);
-        export_toolbox->setCurrentIndex(2);
+        export_toolbox->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(Download_and_ClipClass);
