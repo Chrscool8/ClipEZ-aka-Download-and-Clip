@@ -43,6 +43,7 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <SourcePath>G:\Documents\GitHub\Download-and-Clip\src;$(SourcePath)</SourcePath>
+    <IncludePath>G:\Software\Qt\5.15.2\msvc2019_64\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>

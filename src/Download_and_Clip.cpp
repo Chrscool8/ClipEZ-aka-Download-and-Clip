@@ -520,10 +520,40 @@ std::string Download_and_Clip::get_ext(std::string type)
 	return extension;
 }
 
+std::vector<std::string> explode(std::string const& s, char delim)
+{
+	std::vector<std::string> result;
+	std::istringstream iss(s);
+
+	for (std::string token; std::getline(iss, token, delim);)
+	{
+		result.push_back(std::move(token));
+	}
+
+	return result;
+}
+
+void create_directories(std::string path)
+{
+	if (!fs::exists(path))
+	{
+		std::vector<std::string> folders = explode(path, '/');
+		std::string subpath = "";
+		for (unsigned int i = 0; i < folders.size(); i++)
+		{
+			subpath += folders.at(i) + "/";
+			if (!fs::exists(subpath))
+				fs::create_directory(subpath);
+		}
+	}
+}
+
 void Download_and_Clip::execute_ffmpeg_encode()
 {
 	QString directory_name = ui.encode_video_lineedit_directory->text();
 	QString output_name = ui.encode_video_lineedit_filename->text();
+
+	create_directories(directory_name.toStdString());
 
 	if (focus == enum_focus_none)
 	{
@@ -566,14 +596,14 @@ void Download_and_Clip::execute_ffmpeg_encode()
 
 					if (type.compare("x264") == 0 || type.compare("x265") == 0)
 					{
-						QStringList args = { "-i", source_video.c_str(), "-c:v", ("lib" + ui.encode_video_combo->currentText().toStdString()).c_str(), "-crf", std::to_string(ui.encode_video_slider->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
-							"-b:a", "192k", "-ss", ui.encode_video_starttime->text(), "-to", ui.encode_video_endtime->text(), "-ac", "2", outfile.c_str(), "-y" };
+						QStringList args = { "-ss", ui.encode_video_starttime->text(), "-i", source_video.c_str(), "-c:v", ("lib" + ui.encode_video_combo->currentText().toStdString()).c_str(), "-crf", std::to_string(ui.encode_video_slider->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
+							"-b:a", "192k", "-to", ui.encode_video_endtime->text(), "-ac", "2", outfile.c_str(), "-y" };
 						start_new_process(get_setting(setting_exe_ffmpeg), args, "encode video", ui.encode_video_status, "", false);
 					}
 					else if (type.compare("gif") == 0)
 					{
-						QStringList args = { "-i", source_video.c_str(), "-crf", std::to_string(ui.encode_video_slider->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
-							"-b:a", "192k", "-ss", ui.encode_video_starttime->text(), "-to", ui.encode_video_endtime->text(), "-ac", "2", (outfile).c_str(), "-y" };
+						QStringList args = { "-ss", ui.encode_video_starttime->text(), "-i", source_video.c_str(), "-crf", std::to_string(ui.encode_video_slider->value()).c_str(), "-preset", "ultrafast", "-c:a", "aac", "-strict", "experimental",
+							"-b:a", "192k","-to", ui.encode_video_endtime->text(), "-ac", "2", (outfile).c_str(), "-y" };
 						start_new_process(get_setting(setting_exe_ffmpeg), args, "encode video", ui.encode_video_status, "", false);
 					}
 					else
